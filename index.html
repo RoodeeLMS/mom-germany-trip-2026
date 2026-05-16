@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ทริปเยอรมนีของแม่ 2026 — 10 วัน เยอรมนีตอนเหนือ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Hero */
+        .hero {
+            background:
+                linear-gradient(135deg, rgba(125,40,40,0.85) 0%, rgba(90,26,26,0.75) 50%, rgba(201,162,39,0.7) 100%),
+                radial-gradient(ellipse at top, #c9a227 0%, transparent 60%);
+            background-color: #5a1a1a;
+            padding: 5rem 1.5rem 4rem;
+            text-align: center;
+            color: white;
+            border-bottom: 8px solid var(--autumn-gold);
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', 'Sarabun', serif;
+            font-size: 3.2rem;
+            margin-bottom: 0.6rem;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+            line-height: 1.15;
+        }
+
+        .hero .tagline {
+            font-size: 1.35rem;
+            opacity: 0.95;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .hero .dates {
+            display: inline-block;
+            background: rgba(255,255,255,0.18);
+            padding: 0.6rem 1.6rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            border: 1px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(8px);
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .countdown-box {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 12px;
+            padding: 1rem 1.4rem;
+            min-width: 90px;
+            backdrop-filter: blur(8px);
+        }
+
+        .countdown-num {
+            font-size: 2rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            line-height: 1;
+        }
+
+        .countdown-label { font-size: 0.85rem; opacity: 0.9; margin-top: 0.3rem; }
+
+        /* Quick links */
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+            margin: 2rem 0;
+        }
+
+        .quick-card {
+            background: white;
+            padding: 1.75rem 1.25rem;
+            border-radius: 16px;
+            text-decoration: none;
+            color: var(--deep-brown);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+            transition: all 0.3s;
+            border-top: 4px solid var(--wine-red);
+            text-align: center;
+        }
+
+        .quick-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(125,40,40,0.18);
+        }
+
+        .quick-card .icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .quick-card h3 {
+            color: var(--wine-red-dark);
+            font-family: 'Playfair Display', 'Sarabun', serif;
+            margin-bottom: 0.4rem;
+            font-size: 1.2rem;
+        }
+        .quick-card p { font-size: 0.92rem; color: var(--soft-brown); }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2.3rem; }
+            .hero .tagline { font-size: 1.1rem; }
+            .countdown-num { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">🏰 ทริปเยอรมนีของแม่ 2026</a>
+            <button class="menu-toggle" onclick="document.querySelector('.navbar-menu').classList.toggle('mobile-open')">☰</button>
+            <div class="navbar-menu">
+                <a href="index.html" class="navbar-item active">หน้าแรก</a>
+                <a href="itinerary.html" class="navbar-item">ตารางทริป</a>
+                <a href="hotels.html" class="navbar-item">ที่พัก</a>
+                <a href="transport.html" class="navbar-item">การเดินทาง</a>
+                <a href="food.html" class="navbar-item">อาหาร</a>
+                <a href="tips.html" class="navbar-item">คำแนะนำ</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>ทริปเยอรมนีของแม่</h1>
+        <p class="tagline">10 วัน ตามรอยเมืองเก่าและปราสาท เยอรมนีตอนเหนือ</p>
+        <div class="dates">📅 15 – 24 พฤศจิกายน 2026 • คณะ 7-8 ท่าน</div>
+        <div class="countdown" id="countdown">
+            <div class="countdown-box"><div class="countdown-num" id="cd-days">—</div><div class="countdown-label">วัน</div></div>
+            <div class="countdown-box"><div class="countdown-num" id="cd-hours">—</div><div class="countdown-label">ชั่วโมง</div></div>
+            <div class="countdown-box"><div class="countdown-num" id="cd-mins">—</div><div class="countdown-label">นาที</div></div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">📅</div>
+                <div class="stat-value">10</div>
+                <div class="stat-label">วันบนแผ่นดินเยอรมัน</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-value">7-8</div>
+                <div class="stat-label">ท่าน</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🏙️</div>
+                <div class="stat-value">12</div>
+                <div class="stat-label">เมือง / สถานที่</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🚐</div>
+                <div class="stat-value">~2,500</div>
+                <div class="stat-label">กิโลเมตร (รถตู้+คนขับ)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🌡️</div>
+                <div class="stat-value">3–8°C</div>
+                <div class="stat-label">อากาศกลางวัน</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🌅</div>
+                <div class="stat-value">~8 ชม.</div>
+                <div class="stat-label">แสงแดดต่อวัน</div>
+            </div>
+        </div>
+
+        <!-- Overview -->
+        <h2 class="section-title">ภาพรวมทริป</h2>
+        <div class="card">
+            <p>
+                ทริป <strong>10 วัน</strong> ที่ออกแบบสำหรับคุณแม่และเพื่อน ๆ รวม <strong>7-8 ท่าน</strong>
+                เดินทางด้วย <strong>รถตู้พร้อมคนขับส่วนตัว</strong> เริ่มและจบที่สนามบินแฟรงก์เฟิร์ต (FRA)
+                ตามรอยเมืองเก่ามรดกโลก ปราสาทเทพนิยาย และตลาดคริสต์มาสที่กำลังจะเปิดในเยอรมนีตอนเหนือ
+            </p>
+            <p style="margin-top: 0.75rem;">
+                เส้นทางครอบคลุมเมืองสวย ๆ จากรายการที่เพื่อนแม่แนะนำ —
+                <strong>กอสลาร์, แวร์นิเกอโรเดอ, เควดลินบวร์ก, มักเดบวร์ก, แบร์ลิน, พ็อทซ์ดัม
+                (วังซองซูซี), เดรสเดน, รอสต็อค, ชเวริน, ลือเบค, ฮัมบวร์ก</strong>
+                — และรวม <strong>ล่องเรือใกล้แบร์ลิน</strong> ที่แม่อยากไป
+            </p>
+            <p style="margin-top: 0.75rem;">
+                <em>* เมือง <strong>เอ็สลิงเงิน</strong> สวยจริงแต่อยู่ทางใต้สุด ใกล้เมืองชตุทท์การ์ท ไกลจากเส้นทางอื่นมาก
+                ทำให้ใน 10 วันไม่พอเที่ยว — เก็บไว้ทริปหน้าได้ค่ะ</em>
+            </p>
+        </div>
+
+        <!-- Route Timeline -->
+        <h2 class="section-title">เส้นทาง 10 วัน</h2>
+        <div class="card">
+            <div class="route-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-day">วันที่ 1 — เสาร์ 14 พ.ย. (บินจาก กทม.)</div>
+                    <div class="timeline-route">BKK → FRA (TG920) ออก 23:45</div>
+                    <div class="timeline-note">บินข้ามคืน นอนบนเครื่อง</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-day">วันที่ 2 — อาทิตย์ 15 พ.ย.</div>
+                    <div class="timeline-route">ถึง FRA 06:15 → กอสลาร์ (Goslar) — 3.5 ชม.</div>
+                    <div class="timeline-note">พักผ่อน เดินเมืองเก่ามรดกโลก เหมืองรัมเมิลส์แบร์ก</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-day">วันที่ 3 — จันทร์ 16 พ.ย.</div>
+                    <div class="timeline-route">กอสลาร์ → แวร์นิเกอโรเดอ → เควดลินบวร์ก</div>
+                    <div class="timeline-note">ปราสาทเทพนิยาย & เมืองบ้านครึ่งไม้ครึ่งปูน</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-day">วันที่ 4 — อังคาร 17 พ.ย.</div>
+                    <div class="timeline-route">เควดลินบวร์ก → มักเดบวร์ก → แบร์ลิน</div>
+                    <div class="timeline-note">ตึก Hundertwasser & มหาวิหารมักเดบวร์ก ก่อนเข้าแบร์ลิน</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-day">วันที่ 5 — พุธ 18 พ.ย.</div>
+                    <div class="timeline-route">แบร์ลิน (เต็มวัน)</div>
+                    <div class="timeline-note">ประตูบรันเดินบวร์ก, เกาะพิพิธภัณฑ์, อนุสรณ์กำแพงเบอร์ลิน</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-day">วันที่ 6 — พฤหัส 19 พ.ย.</div>
+                    <div class="timeline-route">แบร์ลิน → พ็อทซ์ดัม (วังซองซูซี + ล่องเรือ) → แบร์ลิน</div>
+                    <div class="timeline-note">วันที่แม่รอ — วังเทพนิยายของกษัตริย์เฟรเดอริค</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-day">วันที่ 7 — ศุกร์ 20 พ.ย.</div>
+                    <div class="timeline-route">แบร์ลิน → เดรสเดน — 2 ชม.</div>
+                    <div class="timeline-note">"ฟลอเรนซ์แห่งแม่น้ำเอ็ลเบอ" Zwinger, Frauenkirche</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-day">วันที่ 8 — เสาร์ 21 พ.ย.</div>
+                    <div class="timeline-route">เดรสเดน → ขับขึ้นเหนือ → รอสต็อค / วาร์เนอมุนเดอ — 5 ชม.</div>
+                    <div class="timeline-note">เมืองท่าทะเลบอลติก ออกแวะแบร์ลินซื้อของฝากระหว่างทาง</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-day">วันที่ 9 — อาทิตย์ 22 พ.ย.</div>
+                    <div class="timeline-route">รอสต็อค → ชเวริน (วัง) → ลือเบค</div>
+                    <div class="timeline-note">วังบนเกาะ + เมืองมาร์ซิปัน UNESCO</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-day">วันที่ 10 — จันทร์ 23 พ.ย.</div>
+                    <div class="timeline-route">ลือเบค → ฮัมบวร์ก</div>
+                    <div class="timeline-note">Miniatur Wunderland, ท่าเรือ, Speicherstadt</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-day">วันที่ 11 — อังคาร 24 พ.ย.</div>
+                    <div class="timeline-route">ฮัมบวร์ก → FRA — 5 ชม. → BKK (TG921) ออก 21:50</div>
+                    <div class="timeline-note">เผื่อเวลาให้ถึงสนามบินก่อน 4 ชม.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-day">วันที่ 12 — พุธ 25 พ.ย.</div>
+                    <div class="timeline-route">ถึง BKK ~14:00</div>
+                    <div class="timeline-note">กลับบ้าน 🇹🇭</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Highlights -->
+        <h2 class="section-title">ไฮไลต์ที่ไม่ควรพลาด</h2>
+        <div class="quick-links">
+            <a href="itinerary.html#day6" class="quick-card">
+                <div class="icon">🏰</div>
+                <h3>วังซองซูซี</h3>
+                <p>วังสวนสไตล์ฝรั่งเศสที่พ็อทซ์ดัม UNESCO</p>
+            </a>
+            <a href="itinerary.html#day3" class="quick-card">
+                <div class="icon">🌲</div>
+                <h3>แวร์นิเกอโรเดอ</h3>
+                <p>ปราสาทบนเขา + เมืองบ้านครึ่งไม้ในป่าฮาร์ซ</p>
+            </a>
+            <a href="itinerary.html#day7" class="quick-card">
+                <div class="icon">⛪</div>
+                <h3>โบสถ์ Frauenkirche</h3>
+                <p>สัญลักษณ์แห่งเดรสเดน บูรณะจากเถ้าถ่าน</p>
+            </a>
+            <a href="itinerary.html#day10" class="quick-card">
+                <div class="icon">🚂</div>
+                <h3>Miniatur Wunderland</h3>
+                <p>โมเดลรถไฟใหญ่ที่สุดในโลก ฮัมบวร์ก</p>
+            </a>
+            <a href="food.html" class="quick-card">
+                <div class="icon">🥨</div>
+                <h3>อาหารเยอรมัน</h3>
+                <p>ขาหมู ไส้กรอก เพรทเซิล สตอลเลน</p>
+            </a>
+            <a href="tips.html" class="quick-card">
+                <div class="icon">🧥</div>
+                <h3>เตรียมตัวก่อนไป</h3>
+                <p>เสื้อผ้าหนาว ๆ + ของจำเป็น + วลีเยอรมัน</p>
+            </a>
+        </div>
+
+        <!-- Quick callout -->
+        <div class="callout info">
+            <div class="callout-title">💡 จุดเด่นของทริปนี้</div>
+            <ul style="margin-top: 0.5rem; padding-left: 1.4rem;">
+                <li><strong>รถตู้+คนขับส่วนตัว</strong> ไม่ต้องเหนื่อยขับเอง คุณแม่และคุณ ๆ นั่งสบาย</li>
+                <li>เริ่ม-จบที่ <strong>แฟรงก์เฟิร์ต</strong> ตามเส้นทาง Thai Airways บินตรง</li>
+                <li>เน้นเมืองเก่า <strong>UNESCO</strong> 4 เมือง (กอสลาร์ / เควดลินบวร์ก / พ็อทซ์ดัม / ลือเบค)</li>
+                <li>ปลายทริปอาจได้ลุ้น <strong>ตลาดคริสต์มาส</strong> เปิดวันแรก ๆ ในเดรสเดน, แบร์ลิน, ฮัมบวร์ก</li>
+                <li>ที่พักเลือก <strong>โรงแรมระดับ 3-4 ดาว ใจกลางเมือง</strong> เดินเล่นได้ ไม่ต้องเดินทางไกล</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <footer class="site-footer">
+        <p>🏰 ทริปเยอรมนีของแม่ 2026 — สร้างด้วยความรักโดยลูกชาย</p>
+        <p style="margin-top: 0.5rem; opacity: 0.8; font-size: 0.9rem;">อัปเดตล่าสุด: พฤษภาคม 2026</p>
+    </footer>
+
+    <script>
+        // Countdown to Nov 14, 2026 23:45 Bangkok
+        const target = new Date('2026-11-14T23:45:00+07:00').getTime();
+        function updateCountdown() {
+            const now = Date.now();
+            let diff = target - now;
+            if (diff < 0) {
+                document.getElementById('countdown').innerHTML = '<div style="font-size:1.3rem; padding:0.8rem;">✈️ เริ่มทริปแล้ว — สนุกนะคะแม่!</div>';
+                return;
+            }
+            const days = Math.floor(diff / (1000*60*60*24));
+            diff -= days * 1000*60*60*24;
+            const hours = Math.floor(diff / (1000*60*60));
+            diff -= hours * 1000*60*60;
+            const mins = Math.floor(diff / (1000*60));
+            document.getElementById('cd-days').textContent = days;
+            document.getElementById('cd-hours').textContent = hours;
+            document.getElementById('cd-mins').textContent = mins;
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 60000);
+    </script>
+</body>
+</html>

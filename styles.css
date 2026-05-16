@@ -1,0 +1,524 @@
+/* ================================================
+   ทริปเยอรมนีของแม่ 2026 — Shared Styles
+   Autumn / Bavarian palette
+   ================================================ */
+
+:root {
+    --wine-red: #7d2828;
+    --wine-red-dark: #5a1a1a;
+    --autumn-gold: #c9a227;
+    --autumn-gold-light: #e8c455;
+    --forest-green: #3d5a3c;
+    --forest-green-light: #6b8e6a;
+    --cream: #faf6ee;
+    --cream-dark: #f0e8d6;
+    --warm-white: #fffaf0;
+    --deep-brown: #2d2419;
+    --soft-brown: #5a4a35;
+    --sky-blue: #6b8caf;
+    --berlin-grey: #4a4a4a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, var(--cream) 0%, var(--warm-white) 50%, var(--cream) 100%);
+    min-height: 100vh;
+    color: var(--deep-brown);
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+/* ============ Navigation ============ */
+.navbar {
+    background: linear-gradient(135deg, var(--wine-red-dark) 0%, var(--wine-red) 100%);
+    padding: 14px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(125, 40, 40, 0.3);
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.navbar-brand {
+    color: var(--autumn-gold-light);
+    font-family: 'Playfair Display', 'Sarabun', serif;
+    font-size: 1.25em;
+    font-weight: 700;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.navbar-menu {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.navbar-item {
+    color: white;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: 0.3s;
+    font-size: 0.95em;
+    white-space: nowrap;
+}
+
+.navbar-item:hover {
+    background: rgba(201, 162, 39, 0.25);
+    color: var(--autumn-gold-light);
+}
+
+.navbar-item.active {
+    background: var(--autumn-gold);
+    color: var(--wine-red-dark);
+    font-weight: 600;
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.6em;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .navbar-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        gap: 0;
+        background: var(--wine-red-dark);
+        padding: 10px 0;
+    }
+    .navbar-menu.mobile-open { display: flex; }
+    .navbar-item {
+        padding: 14px 22px;
+        border-radius: 0;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        font-size: 1em;
+    }
+    .menu-toggle { display: block; }
+}
+
+/* ============ Page Header ============ */
+.page-header {
+    background: linear-gradient(135deg, var(--wine-red-dark) 0%, var(--wine-red) 50%, var(--autumn-gold) 100%);
+    padding: 3.5rem 2rem 3rem;
+    text-align: center;
+    color: white;
+    border-bottom: 6px solid var(--autumn-gold);
+}
+
+.page-header h1 {
+    font-family: 'Playfair Display', 'Sarabun', serif;
+    font-size: 2.6rem;
+    margin-bottom: 0.6rem;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.35);
+    line-height: 1.2;
+}
+
+.page-header p.subtitle {
+    font-size: 1.15rem;
+    opacity: 0.95;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* ============ Container ============ */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
+}
+
+/* ============ Cards ============ */
+.card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.75rem;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+    border-left: 5px solid var(--wine-red);
+    margin-bottom: 1.25rem;
+}
+
+.card h2, .card h3 {
+    font-family: 'Playfair Display', 'Sarabun', serif;
+    color: var(--wine-red-dark);
+    margin-bottom: 0.75rem;
+}
+
+.card h2 { font-size: 1.6rem; }
+.card h3 { font-size: 1.25rem; }
+
+/* ============ Stats Grid ============ */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.25rem;
+    margin: 2rem 0;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, white 0%, var(--cream) 100%);
+    padding: 1.5rem;
+    border-radius: 14px;
+    text-align: center;
+    border-top: 4px solid var(--autumn-gold);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+}
+
+.stat-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    font-size: 1.85rem;
+    font-weight: 700;
+    color: var(--wine-red-dark);
+    line-height: 1.1;
+    margin-bottom: 0.25rem;
+    font-family: 'Playfair Display', 'Sarabun', serif;
+}
+
+.stat-label {
+    color: var(--soft-brown);
+    font-size: 0.95rem;
+}
+
+/* ============ Section Headers ============ */
+.section-title {
+    font-family: 'Playfair Display', 'Sarabun', serif;
+    color: var(--wine-red-dark);
+    font-size: 1.85rem;
+    margin: 2.5rem 0 1.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid var(--autumn-gold);
+    display: inline-block;
+}
+
+/* ============ Day Cards ============ */
+.day-card {
+    background: white;
+    border-radius: 14px;
+    margin-bottom: 1.1rem;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.07);
+    overflow: hidden;
+    border-left: 5px solid var(--wine-red);
+}
+
+.day-header {
+    padding: 1.15rem 1.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, var(--cream) 0%, white 100%);
+    transition: background 0.2s;
+}
+
+.day-header:hover { background: var(--cream-dark); }
+
+.day-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.day-number {
+    background: var(--wine-red);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    white-space: nowrap;
+}
+
+.day-route {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--deep-brown);
+}
+
+.day-date {
+    color: var(--soft-brown);
+    font-size: 0.92rem;
+}
+
+.day-toggle {
+    background: var(--autumn-gold);
+    color: var(--wine-red-dark);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+}
+
+.day-card.open .day-toggle { transform: rotate(45deg); }
+
+.day-body {
+    padding: 0 1.5rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+}
+
+.day-card.open .day-body {
+    padding: 1.25rem 1.5rem 1.75rem;
+    max-height: 3000px;
+}
+
+.day-section {
+    margin-bottom: 1.1rem;
+}
+
+.day-section h4 {
+    color: var(--wine-red-dark);
+    font-size: 1.05rem;
+    margin-bottom: 0.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.day-section ul { padding-left: 1.5rem; }
+.day-section li { margin-bottom: 0.3rem; }
+
+.driving-info {
+    background: var(--cream);
+    padding: 0.85rem 1.1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    border-left: 4px solid var(--autumn-gold);
+    font-size: 0.95rem;
+}
+
+.hotel-tag {
+    display: inline-block;
+    background: var(--forest-green);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 14px;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+}
+
+/* ============ Buttons & Links ============ */
+.btn {
+    display: inline-block;
+    background: var(--wine-red);
+    color: white;
+    padding: 10px 22px;
+    border-radius: 24px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.btn:hover {
+    background: var(--wine-red-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(125,40,40,0.3);
+}
+
+.btn-secondary {
+    background: var(--autumn-gold);
+    color: var(--wine-red-dark);
+}
+
+.btn-secondary:hover { background: var(--autumn-gold-light); }
+
+.link-inline {
+    color: var(--wine-red);
+    text-decoration: underline;
+    text-decoration-color: var(--autumn-gold);
+}
+
+/* ============ Tables ============ */
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.info-table th {
+    background: var(--wine-red);
+    color: white;
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 600;
+}
+
+.info-table td {
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--cream-dark);
+}
+
+.info-table tr:last-child td { border-bottom: none; }
+.info-table tr:hover { background: var(--cream); }
+
+/* ============ Callouts ============ */
+.callout {
+    background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 100%);
+    border-left: 5px solid var(--autumn-gold);
+    padding: 1.2rem 1.4rem;
+    border-radius: 10px;
+    margin: 1.25rem 0;
+}
+
+.callout.warning {
+    background: linear-gradient(135deg, #fff4e6 0%, #ffe6cc 100%);
+    border-left-color: #d97706;
+}
+
+.callout.info {
+    background: linear-gradient(135deg, #e6f0fa 0%, #d4e5f5 100%);
+    border-left-color: var(--sky-blue);
+}
+
+.callout.success {
+    background: linear-gradient(135deg, #e9f3e9 0%, #d4e8d4 100%);
+    border-left-color: var(--forest-green);
+}
+
+.callout-title {
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    color: var(--wine-red-dark);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.callout.warning .callout-title { color: #92400e; }
+.callout.info .callout-title { color: #1e3a5f; }
+.callout.success .callout-title { color: #1e4a1e; }
+
+/* ============ Lists ============ */
+.check-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.check-list li {
+    padding: 0.4rem 0 0.4rem 1.8rem;
+    position: relative;
+}
+
+.check-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--forest-green);
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+/* ============ Map / Timeline ============ */
+.route-timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin: 1.5rem 0;
+}
+
+.route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--wine-red) 0%, var(--autumn-gold) 50%, var(--forest-green) 100%);
+}
+
+.timeline-item {
+    position: relative;
+    padding-bottom: 1.25rem;
+    padding-left: 1.5rem;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -0.55rem;
+    top: 0.35rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    background: var(--autumn-gold);
+    border: 3px solid var(--wine-red);
+}
+
+.timeline-day { font-weight: 700; color: var(--wine-red-dark); font-size: 1.05rem; }
+.timeline-route { color: var(--deep-brown); font-size: 0.98rem; margin-top: 0.15rem; }
+.timeline-note { color: var(--soft-brown); font-size: 0.88rem; margin-top: 0.15rem; font-style: italic; }
+
+/* ============ Footer ============ */
+.site-footer {
+    background: var(--wine-red-dark);
+    color: var(--cream);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    margin-top: 4rem;
+}
+
+.site-footer a { color: var(--autumn-gold-light); }
+
+/* ============ Print ============ */
+@media print {
+    .navbar, .menu-toggle, .accordion-controls { display: none; }
+    .day-card.open .day-body, .day-body { max-height: none; padding: 1rem 1.5rem; }
+    .day-card, .card { box-shadow: none; border: 1px solid #ccc; }
+    body { background: white; font-size: 12pt; }
+}
+
+/* ============ Mobile Tweaks ============ */
+@media (max-width: 600px) {
+    body { font-size: 16px; }
+    .page-header h1 { font-size: 2rem; }
+    .page-header { padding: 2.5rem 1rem 2rem; }
+    .container { padding: 1.5rem 1rem; }
+    .card { padding: 1.25rem; }
+    .day-header { padding: 1rem 1.1rem; flex-wrap: wrap; }
+    .day-route { font-size: 1rem; }
+    .section-title { font-size: 1.5rem; }
+}

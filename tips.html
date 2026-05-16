@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คำแนะนำ — ทริปเยอรมนีของแม่ 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .phrase-table th, .phrase-table td {
+            text-align: left;
+            padding: 10px 14px;
+        }
+        .phrase-table .pronounce {
+            color: var(--soft-brown);
+            font-style: italic;
+            font-size: 0.92rem;
+        }
+        .section-anchor-nav {
+            background: white;
+            padding: 1.25rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+        .section-anchor-nav a {
+            color: var(--wine-red);
+            text-decoration: none;
+            padding: 6px 14px;
+            border: 1.5px solid var(--autumn-gold);
+            border-radius: 20px;
+            font-size: 0.92rem;
+            transition: all 0.3s;
+        }
+        .section-anchor-nav a:hover {
+            background: var(--autumn-gold);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">🏰 ทริปเยอรมนีของแม่ 2026</a>
+            <button class="menu-toggle" onclick="document.querySelector('.navbar-menu').classList.toggle('mobile-open')">☰</button>
+            <div class="navbar-menu">
+                <a href="index.html" class="navbar-item">หน้าแรก</a>
+                <a href="itinerary.html" class="navbar-item">ตารางทริป</a>
+                <a href="hotels.html" class="navbar-item">ที่พัก</a>
+                <a href="transport.html" class="navbar-item">การเดินทาง</a>
+                <a href="food.html" class="navbar-item">อาหาร</a>
+                <a href="tips.html" class="navbar-item active">คำแนะนำ</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1>คำแนะนำการเดินทาง</h1>
+        <p class="subtitle">อากาศ • เสื้อผ้า • วลีเยอรมัน • เบอร์ฉุกเฉิน</p>
+    </header>
+
+    <div class="container">
+
+        <div class="section-anchor-nav">
+            <a href="#weather">🌡️ อากาศ</a>
+            <a href="#packing">🧳 เสื้อผ้า</a>
+            <a href="#money">💶 เงินตรา</a>
+            <a href="#health">🏥 สุขภาพ</a>
+            <a href="#phone">📱 มือถือ</a>
+            <a href="#phrases">🗣️ ภาษาเยอรมัน</a>
+            <a href="#emergency">🚨 ฉุกเฉิน</a>
+            <a href="#cultural">🇩🇪 มารยาท</a>
+        </div>
+
+        <!-- ============ WEATHER ============ -->
+        <h2 class="section-title" id="weather">🌡️ อากาศกลางเดือนพฤศจิกายน</h2>
+        <div class="card">
+            <p>
+                พฤศจิกายนเป็นช่วง <strong>ปลายฤดูใบไม้ร่วงเข้าสู่ฤดูหนาว</strong> ในเยอรมนี
+                อากาศเย็น ฝนปรอยเป็นช่วง ๆ ฟ้ามักครึ้ม
+                แต่ตามท้องถนนและในเมืองยังสวยมาก ใบไม้แดง-เหลืองยังเหลือบ้าง
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem; margin: 1rem 0;">
+                <div class="hotel-detail-item" style="background: var(--cream); padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.92rem;"><strong style="color: var(--wine-red-dark); display: block;">อุณหภูมิกลางวัน</strong>3°C ถึง 8°C</div>
+                <div class="hotel-detail-item" style="background: var(--cream); padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.92rem;"><strong style="color: var(--wine-red-dark); display: block;">อุณหภูมิกลางคืน</strong>-2°C ถึง 3°C</div>
+                <div class="hotel-detail-item" style="background: var(--cream); padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.92rem;"><strong style="color: var(--wine-red-dark); display: block;">โอกาสฝน</strong>~50%</div>
+                <div class="hotel-detail-item" style="background: var(--cream); padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.92rem;"><strong style="color: var(--wine-red-dark); display: block;">โอกาสหิมะ</strong>~15% (เริ่ม)</div>
+                <div class="hotel-detail-item" style="background: var(--cream); padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.92rem;"><strong style="color: var(--wine-red-dark); display: block;">พระอาทิตย์ขึ้น</strong>~07:30</div>
+                <div class="hotel-detail-item" style="background: var(--cream); padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.92rem;"><strong style="color: var(--wine-red-dark); display: block;">พระอาทิตย์ตก</strong>~16:30</div>
+            </div>
+            <div class="callout info">
+                <div class="callout-title">☀️ แสงแดดสั้น</div>
+                <p>แสงแดดต่อวันแค่ ~8 ชม. — แนะนำให้เริ่มเที่ยวเช้า 9:00 จะได้แสงเต็มที่ก่อนค่ำ</p>
+            </div>
+        </div>
+
+        <!-- ============ PACKING ============ -->
+        <h2 class="section-title" id="packing">🧳 เสื้อผ้าและของที่ต้องเตรียม</h2>
+
+        <div class="card">
+            <h3>เสื้อผ้า — ใส่เป็นชั้น (Layering)</h3>
+            <p>หลักการ <strong>"3 ชั้น"</strong>: ชั้นใน (Base) + ชั้นกลาง (Insulation) + ชั้นนอกกันลมกันฝน (Shell)</p>
+            <ul class="check-list" style="margin-top: 1rem;">
+                <li><strong>เสื้อยืดแขนยาว Thermal/Heattech</strong> — 4-5 ตัว (ชั้นในใส่กับร่างกาย)</li>
+                <li><strong>เสื้อสเวตเตอร์ขนสัตว์/Fleece</strong> — 2-3 ตัว (ชั้นกลาง)</li>
+                <li><strong>แจ๊กเก็ตกันลมกันฝน</strong> — 1 ตัว ใหญ่หน่อย (Down jacket หรือ Hard shell)</li>
+                <li><strong>เสื้อโค้ทตัวยาว</strong> สำหรับเดินเล่นในเมือง — 1 ตัว</li>
+                <li><strong>กางเกงผ้าหนา (ไม่ใช่ยีนส์บาง)</strong> — 3-4 ตัว</li>
+                <li><strong>ถุงเท้าหนา</strong> ผ้าขนสัตว์ — 6-8 คู่</li>
+                <li><strong>หมวก + ผ้าพันคอ + ถุงมือ</strong> สำคัญมาก! หูเย็นมาก</li>
+                <li><strong>รองเท้ากันลื่น</strong> 1 คู่ (หิมะ/น้ำแข็งอาจมี) + รองเท้าผ้าใบกันน้ำ 1 คู่</li>
+                <li><strong>ชุดนอนอุ่น ๆ</strong> — 2-3 ชุด</li>
+                <li><strong>ชุดในห้องน้ำ/ที่พักอุ่น ๆ</strong> เพราะอาจหนาวข้างนอก</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>ของจำเป็นอื่น ๆ</h3>
+            <ul class="check-list">
+                <li><strong>ปลั๊กแปลง Type F</strong> (ปลั๊กกลม 2 ขา) — 2-3 ตัว</li>
+                <li><strong>Power Bank</strong> 10,000+ mAh (อากาศหนาวแบตเตอรี่หมดเร็ว)</li>
+                <li><strong>สาย Charger USB-C/Lightning</strong> 2 เส้น</li>
+                <li><strong>ร่มพับ</strong> 1 อัน (ฝนปรอย ๆ บ่อย)</li>
+                <li><strong>ครีมทาผิว (Cream)</strong> เพราะอากาศแห้ง — ทั้งครีมหน้าและครีมมือ</li>
+                <li><strong>ลิปบาล์ม</strong> ปากแตกแน่นอน</li>
+                <li><strong>ทิชชู่เปียก + แห้ง</strong> ใส่กระเป๋า</li>
+                <li><strong>แมสก์ + แอลกอฮอล์เจล</strong> (สนามบินคนเยอะ)</li>
+                <li><strong>หมอนรองคอ + ผ้าปิดตา</strong> สำหรับเครื่องบิน</li>
+                <li><strong>ขนมจากไทย</strong> — ปลาเส้น มาม่า น้ำพริก (เผื่อคิดถึงรสไทย)</li>
+            </ul>
+        </div>
+
+        <!-- ============ MONEY ============ -->
+        <h2 class="section-title" id="money">💶 เงินตรา</h2>
+        <div class="card">
+            <h3>สกุลเงิน: ยูโร (EUR / €)</h3>
+            <p>1 ยูโร ≈ <strong>~38-40 บาท</strong> (ราคา พ.ค. 2026 — ตรวจอัตราจริงก่อนแลก)</p>
+            <ul class="check-list" style="margin-top: 1rem;">
+                <li>แลกที่ <strong>Super Rich</strong> หรือ <strong>SCB Currency Exchange</strong> ในไทย ดีที่สุด</li>
+                <li>ถือเงินสด <strong>€200-300/คน</strong> เผื่อร้านเล็ก ๆ ที่ไม่รับบัตร</li>
+                <li>ใช้ <strong>บัตรเครดิต Visa/Mastercard</strong> ในร้านใหญ่ ๆ ได้ทุกที่</li>
+                <li>เปิดบัตร <strong>SCB Planet, KBank Travel Card</strong> ใช้ดีและไม่เสีย Markup</li>
+                <li>เยอรมัน <strong>หลายร้านยังนิยมเงินสด</strong> โดยเฉพาะ Bäckerei, ตลาด, ร้านเล็ก</li>
+                <li><strong>ATM</strong> ในธนาคารใหญ่ (Sparkasse, Deutsche Bank) ใช้กดเงินสดได้ ตรวจค่าธรรมเนียมก่อน</li>
+            </ul>
+        </div>
+
+        <div class="callout success">
+            <div class="callout-title">💰 งบประมาณรวม (โดยประมาณ ต่อคน)</div>
+            <table class="info-table" style="margin-top: 0.75rem;">
+                <thead><tr><th>หมวด</th><th>บาท</th></tr></thead>
+                <tbody>
+                    <tr><td>ตั๋วเครื่องบิน (Economy)</td><td>~40,000</td></tr>
+                    <tr><td>ที่พัก (9 คืน)</td><td>~25,000</td></tr>
+                    <tr><td>รถตู้ + คนขับ (10 วัน)</td><td>~25,000</td></tr>
+                    <tr><td>อาหาร (10 วัน × ~€60/วัน)</td><td>~24,000</td></tr>
+                    <tr><td>ค่าเข้าชมสถานที่ + ของฝาก</td><td>~15,000</td></tr>
+                    <tr><td>วีซ่า + ประกัน</td><td>~5,000</td></tr>
+                    <tr><td><strong>รวม/คน</strong></td><td><strong>~134,000</strong></td></tr>
+                </tbody>
+            </table>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem;"><em>* เผื่อเงิน +20-30% สำหรับเหตุไม่คาดคิด</em></p>
+        </div>
+
+        <!-- ============ HEALTH ============ -->
+        <h2 class="section-title" id="health">🏥 สุขภาพ</h2>
+
+        <div class="card">
+            <h3>ยาที่ต้องนำไป</h3>
+            <ul class="check-list">
+                <li><strong>ยาประจำตัว</strong> — ขนาดเพียงพอ + ใบสั่งยา (กรณีตรวจที่ด่าน)</li>
+                <li><strong>ยาแก้หวัด</strong> — Tiffy, Decolgen ที่คุ้นเคย</li>
+                <li><strong>ยาแก้ปวด</strong> — Paracetamol</li>
+                <li><strong>ยาแก้ท้องเสีย</strong> — Loperamide, Smecta</li>
+                <li><strong>ยาลดกรดในกระเพาะ</strong> — เผื่ออาหารหนัก ๆ</li>
+                <li><strong>ผ้าก๊อซ + Betadine</strong> เผื่อมีบาดแผล</li>
+                <li><strong>ยาแก้แพ้</strong> Antihistamine</li>
+                <li><strong>วิตามินซี / สมุนไพรเพิ่มภูมิ</strong></li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>ประกันเดินทาง — บังคับ!</h3>
+            <p>เชงเก้นวีซ่าบังคับให้ทำประกันเดินทาง <strong>วงเงินอย่างน้อย €30,000 (~1.2 ล้านบาท)</strong></p>
+            <ul class="check-list" style="margin-top: 0.5rem;">
+                <li><strong>เลือกแบบ Premium</strong> สำหรับผู้สูงอายุ (>60 ปี) — วงเงิน €50,000+</li>
+                <li>บริษัทแนะนำ: <strong>Allianz, MSIG, Cigna, Bupa</strong></li>
+                <li>ราคาประมาณ <strong>1,500-3,000 บาท/คน</strong> สำหรับ 12 วัน</li>
+                <li>ต้องครอบคลุม <strong>COVID-19 + การกลับประเทศฉุกเฉิน</strong></li>
+                <li>เก็บเบอร์ <strong>Hotline 24 ชม.</strong> ของประกันไว้ในกระเป๋าและในมือถือ</li>
+            </ul>
+        </div>
+
+        <div class="callout warning">
+            <div class="callout-title">⚕️ ถ้าป่วยที่เยอรมัน</div>
+            <ul style="margin-top: 0.5rem; padding-left: 1.4rem;">
+                <li>โทร <strong>112</strong> สำหรับฉุกเฉิน (รถพยาบาล)</li>
+                <li>หาคลินิกใกล้ ๆ ใช้ Google Maps พิมพ์ <em>"Arzt"</em> (หมอ) หรือ <em>"Apotheke"</em> (ร้านขายยา)</li>
+                <li>โรงพยาบาลใหญ่ในเมืองทุกแห่งมีห้อง Notaufnahme (ER)</li>
+                <li>เก็บใบเสร็จ + ใบรับรองแพทย์ทุกครั้ง เพื่อเคลมประกัน</li>
+            </ul>
+        </div>
+
+        <!-- ============ PHONE ============ -->
+        <h2 class="section-title" id="phone">📱 มือถือ + อินเทอร์เน็ต</h2>
+
+        <div class="card">
+            <h3>3 ตัวเลือกใช้เน็ตในเยอรมัน</h3>
+            <ol style="padding-left: 1.5rem; margin-top: 0.5rem;">
+                <li style="margin-bottom: 0.75rem;">
+                    <strong>eSIM (แนะนำ)</strong> — Airalo / Holafly / Saily
+                    <br><span style="color: var(--soft-brown); font-size: 0.92rem;">EU 10 GB ~$15-20 (~600-800 บาท) ใช้ได้ทุกประเทศใน EU</span>
+                </li>
+                <li style="margin-bottom: 0.75rem;">
+                    <strong>ซิมเยอรมัน</strong> — Vodafone, O2, Telekom ซื้อที่ FRA หรือซูเปอร์มาร์เก็ต
+                    <br><span style="color: var(--soft-brown); font-size: 0.92rem;">~€15-25 ใช้ 10 GB</span>
+                </li>
+                <li>
+                    <strong>Roaming AIS/TRUE</strong> — แพง แต่ไม่ต้องเปลี่ยนซิม
+                    <br><span style="color: var(--soft-brown); font-size: 0.92rem;">~399-599 บาท/วัน</span>
+                </li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <h3>แอพที่ควรโหลดล่วงหน้า</h3>
+            <ul class="check-list">
+                <li><strong>Google Maps</strong> + ดาวน์โหลดแผนที่ออฟไลน์ (เยอรมนีทั้งประเทศ ~600 MB)</li>
+                <li><strong>Google Translate</strong> + ดาวน์โหลดภาษาเยอรมันออฟไลน์</li>
+                <li><strong>WhatsApp</strong> — คนเยอรมันใช้เยอะที่สุด (มากกว่า LINE)</li>
+                <li><strong>DB Navigator</strong> — ดูตารางรถไฟ (เผื่อมีเหตุการใช้)</li>
+                <li><strong>Booking.com</strong> — เก็บ Confirm หมายเลขห้อง</li>
+                <li><strong>XE Currency</strong> — แปลงค่าเงิน</li>
+                <li><strong>WeChat / LINE</strong> — ติดต่อครอบครัวที่ไทย</li>
+            </ul>
+        </div>
+
+        <!-- ============ GERMAN PHRASES ============ -->
+        <h2 class="section-title" id="phrases">🗣️ วลีเยอรมันที่จำเป็น</h2>
+
+        <table class="info-table phrase-table">
+            <thead>
+                <tr>
+                    <th style="width: 35%;">ไทย</th>
+                    <th style="width: 35%;">เยอรมัน</th>
+                    <th>ออกเสียง</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td colspan="3" style="background: var(--cream); font-weight: 700;">ทักทาย</td></tr>
+                <tr><td>สวัสดี</td><td>Hallo</td><td class="pronounce">ฮัลโล</td></tr>
+                <tr><td>อรุณสวัสดิ์</td><td>Guten Morgen</td><td class="pronounce">กู๊เทน มอร์เกน</td></tr>
+                <tr><td>สวัสดีตอนกลางวัน</td><td>Guten Tag</td><td class="pronounce">กู๊เทน ทาก</td></tr>
+                <tr><td>สวัสดีตอนเย็น</td><td>Guten Abend</td><td class="pronounce">กู๊เทน อาเบ็นด์</td></tr>
+                <tr><td>ขอบคุณ</td><td>Danke</td><td class="pronounce">ดังเก้อ</td></tr>
+                <tr><td>ขอบคุณมาก</td><td>Vielen Dank</td><td class="pronounce">ฟีเลน ดังก์</td></tr>
+                <tr><td>ขอโทษ / ขออภัย</td><td>Entschuldigung</td><td class="pronounce">เอ็นท์ชูลดิกุง</td></tr>
+                <tr><td>ใช่ / ไม่</td><td>Ja / Nein</td><td class="pronounce">ย่า / ไนน์</td></tr>
+                <tr><td>ลาก่อน</td><td>Auf Wiedersehen / Tschüss</td><td class="pronounce">เอาฟ์วีเดอร์เซเฮน / ชึส</td></tr>
+
+                <tr><td colspan="3" style="background: var(--cream); font-weight: 700;">ทั่วไป</td></tr>
+                <tr><td>คุณพูดอังกฤษได้ไหม?</td><td>Sprechen Sie Englisch?</td><td class="pronounce">ชเปรเชน ซี เอ็งลิช?</td></tr>
+                <tr><td>ฉันไม่เข้าใจ</td><td>Ich verstehe nicht</td><td class="pronounce">อิช แฟร์ชเตเฮอ นิชท์</td></tr>
+                <tr><td>เท่าไหร่ครับ/ค่ะ?</td><td>Wie viel kostet das?</td><td class="pronounce">วี ฟีล คอสเตท ดาส?</td></tr>
+                <tr><td>ห้องน้ำอยู่ไหน?</td><td>Wo ist die Toilette?</td><td class="pronounce">โว อิสท์ ดี ทอยเล็ทเทอ?</td></tr>
+                <tr><td>ช่วยด้วย!</td><td>Hilfe!</td><td class="pronounce">ฮิลฟ์!</td></tr>
+
+                <tr><td colspan="3" style="background: var(--cream); font-weight: 700;">ในร้านอาหาร</td></tr>
+                <tr><td>ขอเมนูค่ะ</td><td>Die Speisekarte, bitte</td><td class="pronounce">ดี ชไปเซอคาร์ทเทอ บิทเทอ</td></tr>
+                <tr><td>ขอเช็คบิล</td><td>Die Rechnung, bitte</td><td class="pronounce">ดี เร็คนุง บิทเทอ</td></tr>
+                <tr><td>อร่อยมาก!</td><td>Sehr lecker!</td><td class="pronounce">เซ่อร์ เล็คเคอร์!</td></tr>
+                <tr><td>น้ำเปล่า (ไม่มีก๊าซ)</td><td>Stilles Wasser</td><td class="pronounce">ชทิลเลส วาสเซอร์</td></tr>
+                <tr><td>กาแฟ / ชา</td><td>Kaffee / Tee</td><td class="pronounce">คาฟเฟ / เท</td></tr>
+                <tr><td>ไม่เผ็ด / น้อยเกลือ</td><td>Nicht scharf / Weniger Salz</td><td class="pronounce">นิชท์ ชาร์ฟ / เวนิเกอร์ ซัลซ์</td></tr>
+
+                <tr><td colspan="3" style="background: var(--cream); font-weight: 700;">ตัวเลข</td></tr>
+                <tr><td>1, 2, 3</td><td>eins, zwei, drei</td><td class="pronounce">ไอน์ส, ทไว, ดราย</td></tr>
+                <tr><td>4, 5, 6</td><td>vier, fünf, sechs</td><td class="pronounce">เฟียร์, ฟึนฟ์, เซ็คส์</td></tr>
+                <tr><td>7, 8, 9, 10</td><td>sieben, acht, neun, zehn</td><td class="pronounce">ซีเบ็น, อัคท์, นอยน์, เทห์น</td></tr>
+            </tbody>
+        </table>
+
+        <div class="callout info">
+            <div class="callout-title">💬 เคล็ดลับ</div>
+            <p>คนเยอรมันส่วนใหญ่พูดอังกฤษได้ดี (โดยเฉพาะคนรุ่น &lt; 50 ปี ในเมืองใหญ่)
+            แต่ทักทายเป็นภาษาเยอรมันทำให้คนพื้นเมืองยิ้มและให้บริการดีขึ้นมากค่ะ</p>
+        </div>
+
+        <!-- ============ EMERGENCY ============ -->
+        <h2 class="section-title" id="emergency">🚨 เบอร์ฉุกเฉิน</h2>
+
+        <table class="info-table">
+            <thead><tr><th>เบอร์</th><th>บริการ</th></tr></thead>
+            <tbody>
+                <tr><td style="font-size: 1.3rem; font-weight: 700; color: var(--wine-red);">112</td><td>ฉุกเฉินทั่วไป (รถพยาบาล + ดับเพลิง) — ใช้ได้ทั้ง EU</td></tr>
+                <tr><td style="font-size: 1.3rem; font-weight: 700; color: var(--wine-red);">110</td><td>ตำรวจ</td></tr>
+                <tr><td style="font-size: 1.3rem; font-weight: 700; color: var(--wine-red);">116 117</td><td>หมอนอกเวลา (Bereitschaftsarzt)</td></tr>
+            </tbody>
+        </table>
+
+        <div class="card">
+            <h3>สถานทูตไทย ณ กรุงเบอร์ลิน</h3>
+            <ul>
+                <li><strong>ที่อยู่:</strong> Lepsiusstraße 64-66, 12163 Berlin</li>
+                <li><strong>โทร:</strong> +49 30 79 481 0</li>
+                <li><strong>ฉุกเฉิน 24 ชม.:</strong> +49 162 213 7330</li>
+                <li><strong>เว็บไซต์:</strong> thaiembassy.de</li>
+                <li><strong>เวลาทำการ:</strong> จันทร์-ศุกร์ 09:30-12:30</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>กงสุลไทย ณ ฮัมบวร์ก</h3>
+            <ul>
+                <li><strong>ที่อยู่:</strong> Bleichenbrücke 10, 20354 Hamburg</li>
+                <li><strong>โทร:</strong> +49 40 35 891 1700</li>
+                <li><strong>เวลาทำการ:</strong> จันทร์-ศุกร์ 10:00-12:00</li>
+            </ul>
+        </div>
+
+        <div class="callout warning">
+            <div class="callout-title">⚠️ ของหายต้องทำยังไง</div>
+            <ul style="margin-top: 0.5rem; padding-left: 1.4rem;">
+                <li><strong>พาสปอร์ตหาย:</strong> แจ้งตำรวจ → ขอใบ Police Report → ติดต่อสถานทูต ทำ Emergency Travel Document</li>
+                <li><strong>บัตรเครดิตหาย:</strong> โทร call center ของธนาคารทันที (เบอร์โทรไว้เก็บในมือถือ)</li>
+                <li><strong>กระเป๋าเดินทางหาย/ของในกระเป๋าหาย:</strong> แจ้งโรงแรม + ตำรวจ + เคลมประกัน</li>
+                <li><strong>ป่วย:</strong> โทรประกันก่อน เพื่อให้ส่งไปคลินิก/รพ. ที่อยู่ในเครือ (ไม่ต้องสำรองจ่ายเอง)</li>
+            </ul>
+        </div>
+
+        <!-- ============ CULTURAL TIPS ============ -->
+        <h2 class="section-title" id="cultural">🇩🇪 มารยาทและวัฒนธรรม</h2>
+
+        <div class="card">
+            <h3>สิ่งที่ควรทำ ✅</h3>
+            <ul class="check-list">
+                <li>ตรงเวลา — คนเยอรมันถือเวลามาก ไปก่อน 5 นาทีดีกว่ามาสาย</li>
+                <li>จับมือเมื่อพบ — กระชับ ไม่เบาเกินไป สบตา</li>
+                <li>เรียก <strong>"Herr/Frau + นามสกุล"</strong> สำหรับคนไม่คุ้นเคย</li>
+                <li>รอไฟเขียวเสมอ — แม้ไม่มีรถ คนเยอรมันยังรอ (ผิดถูกปรับ)</li>
+                <li>แยกขยะตามถังสี (น้ำเงิน=กระดาษ, เหลือง=พลาสติก, น้ำตาล=อินทรีย์, ดำ=ทั่วไป)</li>
+                <li>ปิดมือเวลาจาม/ไอ</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>สิ่งที่ไม่ควรทำ ❌</h3>
+            <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                <li>ส่งเสียงดังในรถไฟ ในโรงแรม ในร้านอาหาร</li>
+                <li>ขับช้าใช้ช่องด้านซ้ายของออโตบาห์น (ช่องซ้ายไว้แซง)</li>
+                <li>ถ่ายรูปผู้คนโดยไม่ขออนุญาต</li>
+                <li>เล่น/ทำลายของในพิพิธภัณฑ์ — คนเยอรมันเคร่งมาก</li>
+                <li>ทำเสียงดังในช่วง <strong>Ruhezeit</strong> (เวลาสงัด 22:00-07:00 ในที่พัก)</li>
+                <li>ทำท่ามือชู Hitler salute — <strong>ผิดกฎหมาย</strong> ติดคุก/ปรับหนัก</li>
+            </ul>
+        </div>
+
+        <div class="callout success">
+            <div class="callout-title">😊 คนเยอรมันใจดี</div>
+            <p>อาจดูเข้มข้นจริงจัง แต่ถ้าทักทายและสุภาพ คนเยอรมันจะช่วยเหลือเต็มที่
+            ในเมืองเล็ก ๆ คนยิ่งใจดีและพร้อมช่วยนักท่องเที่ยวเสมอ</p>
+        </div>
+
+        <!-- ============ TIME ============ -->
+        <h2 class="section-title">⏰ เวลา</h2>
+        <div class="card">
+            <p>เยอรมนีในเดือนพฤศจิกายนใช้ <strong>CET (UTC+1)</strong> หลังการเปลี่ยนเวลา</p>
+            <ul class="check-list">
+                <li><strong>เยอรมัน 12:00 = ไทย 18:00</strong> (ไทยล่วงหน้า 6 ชม.)</li>
+                <li>เวลาที่ดีที่สุดในการโทรหาที่บ้าน: <strong>เยอรมัน 14:00-20:00</strong> (= ไทย 20:00-02:00)</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <footer class="site-footer">
+        <p>🏰 ทริปเยอรมนีของแม่ 2026 — สร้างด้วยความรักโดยลูกชาย</p>
+        <p style="margin-top: 0.5rem; opacity: 0.8; font-size: 0.9rem;">อัปเดตล่าสุด: พฤษภาคม 2026</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>อาหาร — ทริปเยอรมนีของแม่ 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .dish-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+            margin: 1.5rem 0;
+        }
+        .dish-card {
+            background: white;
+            border-radius: 14px;
+            padding: 1.4rem;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.07);
+            border-top: 4px solid var(--autumn-gold);
+        }
+        .dish-icon { font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .dish-name {
+            font-family: 'Playfair Display', 'Sarabun', serif;
+            color: var(--wine-red-dark);
+            font-size: 1.25rem;
+            margin-bottom: 0.4rem;
+        }
+        .dish-german {
+            display: inline-block;
+            background: var(--cream);
+            color: var(--soft-brown);
+            padding: 2px 10px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+            font-style: italic;
+        }
+        .dish-where {
+            margin-top: 0.5rem;
+            font-size: 0.88rem;
+            color: var(--forest-green);
+            font-weight: 600;
+        }
+        .restaurant-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.25rem 1.4rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+            border-left: 4px solid var(--forest-green);
+        }
+        .restaurant-city {
+            font-weight: 700;
+            color: var(--forest-green);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .restaurant-name {
+            font-family: 'Playfair Display', 'Sarabun', serif;
+            color: var(--wine-red-dark);
+            font-size: 1.2rem;
+            margin: 0.2rem 0 0.4rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">🏰 ทริปเยอรมนีของแม่ 2026</a>
+            <button class="menu-toggle" onclick="document.querySelector('.navbar-menu').classList.toggle('mobile-open')">☰</button>
+            <div class="navbar-menu">
+                <a href="index.html" class="navbar-item">หน้าแรก</a>
+                <a href="itinerary.html" class="navbar-item">ตารางทริป</a>
+                <a href="hotels.html" class="navbar-item">ที่พัก</a>
+                <a href="transport.html" class="navbar-item">การเดินทาง</a>
+                <a href="food.html" class="navbar-item active">อาหาร</a>
+                <a href="tips.html" class="navbar-item">คำแนะนำ</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1>อาหารเยอรมัน</h1>
+        <p class="subtitle">เมนูพื้นเมืองที่ต้องลอง + ร้านอร่อยตามเมือง</p>
+    </header>
+
+    <div class="container">
+
+        <div class="callout info">
+            <div class="callout-title">🍽️ ภาพรวมอาหารเยอรมัน</div>
+            <p>อาหารเยอรมันเน้น <strong>เนื้อ มันฝรั่ง ขนมปัง</strong> รสจัด เค็ม ๆ มัน ๆ
+            พอร์ชั่นใหญ่ ทานเย็น ๆ อิ่ม ๆ เหมาะอากาศหนาว — เดือน พ.ย. เป็นช่วงที่ทานได้สบายที่สุดของปี
+            อย่ากลัวอ้วน เพราะแคลอรี่จะถูกเผาไปกับการเดินเมือง</p>
+        </div>
+
+        <!-- ============ MUST-TRY DISHES ============ -->
+        <h2 class="section-title">🥨 เมนูที่ต้องลอง</h2>
+
+        <div class="dish-grid">
+            <div class="dish-card">
+                <div class="dish-icon">🍖</div>
+                <div class="dish-name">ขาหมูเยอรมัน</div>
+                <div class="dish-german">Schweinshaxe / Eisbein</div>
+                <p>ขาหมูอบกรอบนอกนุ่มใน เสิร์ฟกับ Sauerkraut (กะหล่ำดอง) และมันบด รสจัดอร่อย</p>
+                <div class="dish-where">📍 ลองที่: Berlin, Hamburg</div>
+            </div>
+
+            <div class="dish-card">
+                <div class="dish-icon">🌭</div>
+                <div class="dish-name">ไส้กรอกย่าง</div>
+                <div class="dish-german">Bratwurst / Currywurst</div>
+                <p>Bratwurst = ไส้กรอกย่างทานคู่ขนมปัง / Currywurst = หั่นเป็นชิ้น ราดซอสมะเขือเทศปนผงกะหรี่ — Berlin style!</p>
+                <div class="dish-where">📍 ลองที่: Berlin (Curry 36), ตลาดทุกเมือง</div>
+            </div>
+
+            <div class="dish-card">
+                <div class="dish-icon">🥨</div>
+                <div class="dish-name">เพรทเซิล</div>
+                <div class="dish-german">Brezel</div>
+                <p>ขนมปังรูปคล้ายปม โรยเกลือเม็ดใหญ่ ทานคู่เนยหรือมัสตาร์ดหวาน อร่อยและถูก</p>
+                <div class="dish-where">📍 ทุกเมือง — ตามร้านเบเกอรี่ (Bäckerei)</div>
+            </div>
+
+            <div class="dish-card">
+                <div class="dish-icon">🥖</div>
+                <div class="dish-name">ขนมปังเยอรมัน</div>
+                <div class="dish-german">Brot / Brötchen</div>
+                <p>เยอรมันมีขนมปังกว่า 3,000 ชนิด! ลองขนมปังดำ (Pumpernickel) และขนมปังเบรเซิล Brötchen สด ๆ ตอนเช้า</p>
+                <div class="dish-where">📍 อาหารเช้าที่โรงแรมทุกแห่ง</div>
+            </div>
+
+            <div class="dish-card">
+                <div class="dish-icon">🐟</div>
+                <div class="dish-name">ปลาเฮอร์ริงในขนมปัง</div>
+                <div class="dish-german">Fischbrötchen / Bratheringsbrötchen</div>
+                <p>ขนมปังก้อนเล็กสอดไส้ปลาเฮอร์ริงดอง/ทอด + หอม + แตงกวา — อาหารพื้นเมืองชายฝั่ง</p>
+                <div class="dish-where">📍 ต้องลอง: Hamburg, Lübeck, Rostock</div>
+            </div>
+
+            <div class="dish-card">
+                <div class="dish-icon">🥩</div>
+                <div class="dish-name">เนื้อหมูอบเปรี้ยว</div>
+                <div class="dish-german">Sauerbraten</div>
+                <p>เนื้อหมัก 3 วันแล้วอบ เสิร์ฟกับ Knödel (ก้อนข้าวฟ่าง) และกะหล่ำดำ — เมนูคลาสสิก</p>
+                <div class="dish-where">📍 ลองที่: ร้านพื้นเมืองทุกเมือง</div>
+            </div>
+
+            <div class="dish-card">
+                <div class="dish-icon">🥔</div>
+                <div class="dish-name">เกี๊ยวมันฝรั่ง</div>
+                <div class="dish-german">Kartoffelknödel</div>
+                <p>ก้อนมันฝรั่งบดต้ม นุ่ม ๆ ทานคู่เนื้ออบ และเกรวี่</p>
+                <div class="dish-where">📍 ลองที่: เดรสเดน, แบร์ลิน</div>
+            </div>
+
+            <div class="dish-card">
+                <div class="dish-icon">🍰</div>
+                <div class="dish-name">เค้กผลไม้คริสต์มาส</div>
+                <div class="dish-german">Stollen</div>
+                <p>เค้กผลไม้แข็ง โรยน้ำตาลไอซิ่ง — สเปเชียลคริสต์มาส โดยเฉพาะ <strong>Dresdner Stollen</strong> ขึ้นชื่อที่สุด</p>
+                <div class="dish-where">📍 ลองที่: Dresden (มี Stollen Festival)</div>
+            </div>
+
+            <div class="dish-card">
+                <div class="dish-icon">🍫</div>
+                <div class="dish-name">มาร์ซิปัน</div>
+                <div class="dish-german">Marzipan</div>
+                <p>ขนมจากอัลมอนด์บด รสหวานปานกลาง <strong>Niederegger ของลือเบค</strong> เป็นแบรนด์ที่ดีที่สุดในโลก ห้ามพลาด</p>
+                <div class="dish-where">📍 ต้องลอง: Lübeck (ร้าน Café Niederegger)</div>
+            </div>
+
+            <div class="dish-card">
+                <div class="dish-icon">🥧</div>
+                <div class="dish-name">เค้กแครอท</div>
+                <div class="dish-german">Apfelstrudel</div>
+                <p>พายไส้แอปเปิ้ลห่อแป้งบาง ๆ ราดวานิลลาซอส ทานร้อน ๆ คู่กาแฟยามบ่าย</p>
+                <div class="dish-where">📍 ทุกเมือง — ร้าน Café</div>
+            </div>
+
+            <div class="dish-card">
+                <div class="dish-icon">🍵</div>
+                <div class="dish-name">ไวน์ร้อนคริสต์มาส</div>
+                <div class="dish-german">Glühwein</div>
+                <p>ไวน์แดงต้มร้อนใส่อบเชย ส้ม กระวาน — กลิ่นหอมไปทั่วตลาดคริสต์มาส</p>
+                <div class="dish-where">📍 ตลาดคริสต์มาส (เปิด 24 พ.ย.+)</div>
+            </div>
+
+            <div class="dish-card">
+                <div class="dish-icon">☕</div>
+                <div class="dish-name">กาแฟและเค้ก</div>
+                <div class="dish-german">Kaffee und Kuchen</div>
+                <p>วัฒนธรรมกาแฟยามบ่าย 3-4 โมง — ลองในร้าน Café ใจกลางเมืองเก่า</p>
+                <div class="dish-where">📍 ทุกเมือง (Konditorei เป็นร้านเค้กคลาสสิก)</div>
+            </div>
+        </div>
+
+        <!-- ============ RESTAURANT RECOMMENDATIONS ============ -->
+        <h2 class="section-title">🍴 ร้านที่แนะนำตามเมือง</h2>
+
+        <div class="restaurant-card">
+            <div class="restaurant-city">📍 Goslar</div>
+            <div class="restaurant-name">Brauhaus Goslar</div>
+            <p>โรงเบียร์ + ร้านอาหารพื้นเมืองในเมืองเก่า เมนูเด่น: ขาหมู, ไส้กรอก, เพรทเซิลใหญ่</p>
+        </div>
+
+        <div class="restaurant-card">
+            <div class="restaurant-city">📍 Quedlinburg</div>
+            <div class="restaurant-name">Brauhaus Lüdde</div>
+            <p>ร้านเบียร์เก่าแก่บนชั้นบนของบ้านครึ่งไม้ บรรยากาศ medieval อาหารพื้นเมือง Harz</p>
+        </div>
+
+        <div class="restaurant-card">
+            <div class="restaurant-city">📍 Berlin</div>
+            <div class="restaurant-name">Hofbräu Berlin / Lutter & Wegner</div>
+            <p>Hofbräu = ร้านเบียร์บาวาเรียใหญ่ บรรยากาศเฮฮา / Lutter & Wegner = ร้านพื้นเมืองหรู Sauerbraten ขึ้นชื่อ</p>
+        </div>
+
+        <div class="restaurant-card">
+            <div class="restaurant-city">📍 Berlin (Currywurst)</div>
+            <div class="restaurant-name">Curry 36 หรือ Konnopke's Imbiss</div>
+            <p>ร้านไส้กรอก currywurst legendary ของแบร์ลิน — ราคาถูก คิวยาว แต่คุ้ม</p>
+        </div>
+
+        <div class="restaurant-card">
+            <div class="restaurant-city">📍 Potsdam</div>
+            <div class="restaurant-name">Maison Charlotte</div>
+            <p>ในย่านดัตช์ บรรยากาศโรแมนติก เมนูเยอรมัน-ฝรั่งเศสผสม</p>
+        </div>
+
+        <div class="restaurant-card">
+            <div class="restaurant-city">📍 Dresden</div>
+            <div class="restaurant-name">Sophienkeller im Taschenbergpalais</div>
+            <p>ร้านใต้วัง Taschenbergpalais บรรยากาศย้อนยุค Saxony สาวเสิร์ฟแต่งชุดพื้นเมือง อาหารคลาสสิกเดรสเดน</p>
+        </div>
+
+        <div class="restaurant-card">
+            <div class="restaurant-city">📍 Rostock / Warnemünde</div>
+            <div class="restaurant-name">Fischküche Warnemünde</div>
+            <p>ร้านปลา-อาหารทะเลริมท่าเรือ Alter Strom — ลอง Fischbrötchen สด ๆ จากทะเล</p>
+        </div>
+
+        <div class="restaurant-card">
+            <div class="restaurant-city">📍 Schwerin</div>
+            <div class="restaurant-name">Weinhaus Uhle</div>
+            <p>ร้านอาหารบ้านเก่า อยู่ใจกลางเมือง บรรยากาศคลาสสิก เน้นเมนูปลาทะเลและเนื้อ</p>
+        </div>
+
+        <div class="restaurant-card">
+            <div class="restaurant-city">📍 Lübeck</div>
+            <div class="restaurant-name">Café Niederegger (มาร์ซิปัน) + Schiffergesellschaft</div>
+            <p>Niederegger = บ้านมาร์ซิปันที่ก่อตั้งปี 1806 ห้ามพลาด / Schiffergesellschaft = ร้านอาหารในตึกสมาคมพ่อค้าเรือ ปี 1535</p>
+        </div>
+
+        <div class="restaurant-card">
+            <div class="restaurant-city">📍 Hamburg</div>
+            <div class="restaurant-name">Old Commercial Room / Brücke 10 (Fischbrötchen)</div>
+            <p>Old Commercial Room = ร้านดั้งเดิม 200 ปี เมนู Labskaus (ปลาเค็มฮัมบวร์ก) / Brücke 10 = แซนด์วิชปลาริมท่าเรือ</p>
+        </div>
+
+        <!-- ============ SPECIAL TIPS ============ -->
+        <h2 class="section-title">💡 เคล็ดลับการทานในเยอรมัน</h2>
+
+        <div class="card">
+            <h3>มารยาทพื้นฐาน</h3>
+            <ul>
+                <li>กล่าว <strong>"Guten Appetit"</strong> (กู๊เทน อัพเพอทีท) ก่อนทาน = "ขอให้ทานอร่อย"</li>
+                <li>ในร้านส่วนใหญ่ <strong>หาที่นั่งเอง</strong> ได้เลย ไม่ต้องรอพนักงาน</li>
+                <li>โต๊ะอาจมีคนอื่นมานั่งร่วม ("Stammtisch") ปกติของเยอรมัน — ไม่ต้องตกใจ</li>
+                <li>เรียกพนักงาน: ยกมือเบา ๆ หรือ <strong>"Entschuldigung"</strong> (เอ็นท์ชูลดิกุง = ขอโทษ)</li>
+                <li>ทิป: ปัดยอดขึ้น 10% หรือเพิ่ม €2-5 — บอกพนักงานยอดรวมที่จะจ่ายเลย</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>การจองโต๊ะ</h3>
+            <ul>
+                <li>ร้านดัง ๆ ตอนเย็นในแบร์ลิน, เดรสเดน, ฮัมบวร์ก <strong>ควรจองล่วงหน้า</strong></li>
+                <li>ใช้ <strong>OpenTable.de</strong> หรือ <strong>TheFork.com</strong></li>
+                <li>โทรจองด้วย: บอกชื่อ จำนวนคน เวลา</li>
+                <li>เผื่อเวลา <strong>1.5-2 ชม.</strong> สำหรับมื้อเย็นเต็มมื้อ</li>
+            </ul>
+        </div>
+
+        <div class="callout warning">
+            <div class="callout-title">⚠️ ข้อระวังสำหรับคุณแม่</div>
+            <ul style="margin-top: 0.5rem; padding-left: 1.4rem;">
+                <li>อาหารเยอรมันรสจัด เค็ม มัน — ถ้ามีความดัน/โรคเบาหวาน บอกพนักงาน <strong>"weniger Salz"</strong> (น้อยเกลือ)</li>
+                <li>มาน้ำเปล่า — เยอรมันเสิร์ฟน้ำมีก๊าซ (sparkling) เป็นพื้นฐาน อยากน้ำเปล่าธรรมดาขอ <strong>"stilles Wasser"</strong></li>
+                <li>ร้านปิดเวลา — ส่วนใหญ่ครัวปิด 21:00-22:00 ทานเย็นก่อน 20:00 ดีกว่า</li>
+                <li>วันอาทิตย์ ซูเปอร์มาร์เก็ตและร้านค้าหลายแห่งปิด — ร้านอาหารส่วนใหญ่เปิด</li>
+            </ul>
+        </div>
+
+        <div class="callout success">
+            <div class="callout-title">🌶️ คิดถึงรสไทย?</div>
+            <p>ในเมืองใหญ่ ๆ มีร้านไทย / เอเชียอยู่ทุกที่ — โดยเฉพาะแบร์ลินและฮัมบวร์ก
+            ถ้าทานเยอรมัน 5-6 วันแล้วเบื่อ สามารถสลับไปทานเอเชียได้ค่ะ</p>
+            <ul style="margin-top: 0.5rem; padding-left: 1.4rem;">
+                <li><strong>Berlin:</strong> Lon-Men's Noodle House, Mama Thai</li>
+                <li><strong>Hamburg:</strong> Thai Imbiss Kanchanee, Bahn Thai</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <footer class="site-footer">
+        <p>🏰 ทริปเยอรมนีของแม่ 2026 — สร้างด้วยความรักโดยลูกชาย</p>
+    </footer>
+</body>
+</html>

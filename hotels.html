@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ที่พัก — ทริปเยอรมนีของแม่ 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .hotel-card {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+            background: white;
+            border-radius: 14px;
+            padding: 1.5rem;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.07);
+            border-left: 5px solid var(--wine-red);
+        }
+        .hotel-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+        .hotel-name {
+            font-family: 'Playfair Display', 'Sarabun', serif;
+            color: var(--wine-red-dark);
+            font-size: 1.45rem;
+            font-weight: 600;
+        }
+        .hotel-city {
+            background: var(--autumn-gold);
+            color: var(--wine-red-dark);
+            padding: 4px 12px;
+            border-radius: 14px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .hotel-nights {
+            display: inline-block;
+            background: var(--forest-green);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 14px;
+            font-size: 0.85rem;
+        }
+        .hotel-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.75rem;
+            margin-top: 0.75rem;
+        }
+        .hotel-detail-item {
+            background: var(--cream);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.92rem;
+        }
+        .hotel-detail-item strong { color: var(--wine-red-dark); display: block; }
+        .hotel-tip {
+            margin-top: 0.75rem;
+            font-size: 0.92rem;
+            color: var(--soft-brown);
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">🏰 ทริปเยอรมนีของแม่ 2026</a>
+            <button class="menu-toggle" onclick="document.querySelector('.navbar-menu').classList.toggle('mobile-open')">☰</button>
+            <div class="navbar-menu">
+                <a href="index.html" class="navbar-item">หน้าแรก</a>
+                <a href="itinerary.html" class="navbar-item">ตารางทริป</a>
+                <a href="hotels.html" class="navbar-item active">ที่พัก</a>
+                <a href="transport.html" class="navbar-item">การเดินทาง</a>
+                <a href="food.html" class="navbar-item">อาหาร</a>
+                <a href="tips.html" class="navbar-item">คำแนะนำ</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1>ที่พัก 9 คืน</h1>
+        <p class="subtitle">โรงแรมระดับ 3-4 ดาว ใจกลางเมืองทุกแห่ง • เดินถึงจุดเที่ยวได้</p>
+    </header>
+
+    <div class="container">
+
+        <div class="callout info">
+            <div class="callout-title">💡 หลักการเลือก</div>
+            <ul style="margin-top: 0.5rem; padding-left: 1.4rem;">
+                <li><strong>ระดับ 3-4 ดาว</strong> — สะดวกสบายแต่ไม่หรูเกินไป เหมาะกับคุณแม่และเพื่อน ๆ</li>
+                <li><strong>ใจกลางเมืองเก่า</strong> — เดินไปจุดเที่ยวสำคัญได้</li>
+                <li><strong>มีลิฟต์</strong> — เพราะมีกระเป๋าใหญ่และผู้สูงอายุ</li>
+                <li><strong>มีอาหารเช้า</strong> — เพื่อความสะดวก</li>
+                <li><strong>ห้องคู่ + ห้องเดี่ยว ผสม</strong> — 3-4 ห้อง สำหรับ 7-8 คน</li>
+            </ul>
+        </div>
+
+        <h2 class="section-title">รายการที่พัก</h2>
+
+        <!-- Hotel 1 -->
+        <div class="hotel-card">
+            <div class="hotel-meta">
+                <div>
+                    <div class="hotel-name">Hotel Kaiserworth (หรือ Hotel der Achtermann)</div>
+                    <div style="margin-top: 0.3rem;">
+                        <span class="hotel-city">📍 Goslar</span>
+                        <span class="hotel-nights">🌙 1 คืน • 15 พ.ย.</span>
+                    </div>
+                </div>
+            </div>
+            <p>โรงแรมเก่าแก่ใน Marktplatz ของกอสลาร์ ตึกอายุ 500+ ปี เดินถึงจุดเที่ยวทุกที่</p>
+            <div class="hotel-details">
+                <div class="hotel-detail-item"><strong>⭐ ระดับ</strong>4 ดาว</div>
+                <div class="hotel-detail-item"><strong>📍 ที่ตั้ง</strong>Marktplatz / Old Town</div>
+                <div class="hotel-detail-item"><strong>🛏️ ราคาประมาณ</strong>~€120-160/ห้อง/คืน</div>
+                <div class="hotel-detail-item"><strong>🥐 อาหารเช้า</strong>รวม</div>
+            </div>
+            <div class="hotel-tip">เคล็ดลับ: ทานอาหารเย็นในร้านอาหารใต้โรงแรม Kaiserworth ที่บรรยากาศ medieval</div>
+        </div>
+
+        <!-- Hotel 2 -->
+        <div class="hotel-card">
+            <div class="hotel-meta">
+                <div>
+                    <div class="hotel-name">Hotel Zum Bär (หรือ Romantik Hotel Theophano)</div>
+                    <div style="margin-top: 0.3rem;">
+                        <span class="hotel-city">📍 Quedlinburg</span>
+                        <span class="hotel-nights">🌙 1 คืน • 16 พ.ย.</span>
+                    </div>
+                </div>
+            </div>
+            <p>โรงแรมในตึกครึ่งไม้อายุ 400 ปี ใน Marktplatz ใจกลางเมือง UNESCO</p>
+            <div class="hotel-details">
+                <div class="hotel-detail-item"><strong>⭐ ระดับ</strong>3-4 ดาว</div>
+                <div class="hotel-detail-item"><strong>📍 ที่ตั้ง</strong>Marktplatz</div>
+                <div class="hotel-detail-item"><strong>🛏️ ราคาประมาณ</strong>~€100-140/ห้อง/คืน</div>
+                <div class="hotel-detail-item"><strong>🥐 อาหารเช้า</strong>รวม</div>
+            </div>
+            <div class="hotel-tip">เคล็ดลับ: อย่าลืมเดินขึ้น Schlossberg ตอนพระอาทิตย์ตก วิวสวยมาก</div>
+        </div>
+
+        <!-- Hotel 3 - Berlin -->
+        <div class="hotel-card">
+            <div class="hotel-meta">
+                <div>
+                    <div class="hotel-name">Hotel Adlon Kempinski (อัพเกรด) / Park Inn Alexanderplatz (มาตรฐาน)</div>
+                    <div style="margin-top: 0.3rem;">
+                        <span class="hotel-city">📍 Berlin</span>
+                        <span class="hotel-nights">🌙 3 คืน • 17, 18, 19 พ.ย.</span>
+                    </div>
+                </div>
+            </div>
+            <p>เลือกใจกลางแบร์ลิน ใกล้ Brandenburg Gate หรือ Alexanderplatz — เดินถึงจุดเที่ยวสำคัญ</p>
+            <div class="hotel-details">
+                <div class="hotel-detail-item"><strong>⭐ ระดับ</strong>4 ดาว</div>
+                <div class="hotel-detail-item"><strong>📍 ที่ตั้ง</strong>Mitte (กลางเมือง)</div>
+                <div class="hotel-detail-item"><strong>🛏️ ราคาประมาณ</strong>~€140-200/ห้อง/คืน</div>
+                <div class="hotel-detail-item"><strong>🥐 อาหารเช้า</strong>รวม</div>
+            </div>
+            <div class="hotel-tip">เคล็ดลับ: จองห้องที่มีวิว — แบร์ลินตอนค่ำสวยมาก โดยเฉพาะถ้าเห็น TV Tower</div>
+        </div>
+
+        <!-- Hotel 4 - Dresden -->
+        <div class="hotel-card">
+            <div class="hotel-meta">
+                <div>
+                    <div class="hotel-name">Hotel Suitess am Frauenkirche (พรีเมียม) / Steigenberger de Saxe (มาตรฐาน)</div>
+                    <div style="margin-top: 0.3rem;">
+                        <span class="hotel-city">📍 Dresden</span>
+                        <span class="hotel-nights">🌙 1 คืน • 20 พ.ย.</span>
+                    </div>
+                </div>
+            </div>
+            <p>โรงแรมข้างโบสถ์ Frauenkirche ใน Altstadt — เดินไปไหนได้ทุกจุด</p>
+            <div class="hotel-details">
+                <div class="hotel-detail-item"><strong>⭐ ระดับ</strong>4-5 ดาว</div>
+                <div class="hotel-detail-item"><strong>📍 ที่ตั้ง</strong>Neumarkt / Altstadt</div>
+                <div class="hotel-detail-item"><strong>🛏️ ราคาประมาณ</strong>~€140-180/ห้อง/คืน</div>
+                <div class="hotel-detail-item"><strong>🥐 อาหารเช้า</strong>รวม</div>
+            </div>
+            <div class="hotel-tip">เคล็ดลับ: ขอห้องที่เห็นโดม Frauenkirche — สวยมากตอนเปิดไฟกลางคืน</div>
+        </div>
+
+        <!-- Hotel 5 - Rostock -->
+        <div class="hotel-card">
+            <div class="hotel-meta">
+                <div>
+                    <div class="hotel-name">Radisson Blu Hotel Rostock (หรือ Hotel Hübner Warnemünde)</div>
+                    <div style="margin-top: 0.3rem;">
+                        <span class="hotel-city">📍 Rostock</span>
+                        <span class="hotel-nights">🌙 1 คืน • 21 พ.ย.</span>
+                    </div>
+                </div>
+            </div>
+            <p>เลือก Hübner ถ้าอยากตื่นมาเดินชายหาด Warnemünde เลย / Radisson ถ้าอยู่ใจกลางเมือง</p>
+            <div class="hotel-details">
+                <div class="hotel-detail-item"><strong>⭐ ระดับ</strong>4 ดาว</div>
+                <div class="hotel-detail-item"><strong>📍 ที่ตั้ง</strong>City Centre หรือ Warnemünde</div>
+                <div class="hotel-detail-item"><strong>🛏️ ราคาประมาณ</strong>~€100-140/ห้อง/คืน</div>
+                <div class="hotel-detail-item"><strong>🥐 อาหารเช้า</strong>รวม</div>
+            </div>
+            <div class="hotel-tip">เคล็ดลับ: นอน Warnemünde จะได้ฟังเสียงคลื่นและเห็นพระอาทิตย์ขึ้นเหนือทะเล</div>
+        </div>
+
+        <!-- Hotel 6 - Lübeck -->
+        <div class="hotel-card">
+            <div class="hotel-meta">
+                <div>
+                    <div class="hotel-name">Hotel Anno 1216 (boutique) / Radisson Blu Senator Hotel</div>
+                    <div style="margin-top: 0.3rem;">
+                        <span class="hotel-city">📍 Lübeck</span>
+                        <span class="hotel-nights">🌙 1 คืน • 22 พ.ย.</span>
+                    </div>
+                </div>
+            </div>
+            <p>Hotel Anno 1216 เป็นบ้านเก่าอายุ 800 ปีในเมืองเก่า boutique น่ารัก / Radisson ใหญ่กว่า สะดวกกว่า</p>
+            <div class="hotel-details">
+                <div class="hotel-detail-item"><strong>⭐ ระดับ</strong>4 ดาว</div>
+                <div class="hotel-detail-item"><strong>📍 ที่ตั้ง</strong>Old Town (บนเกาะ)</div>
+                <div class="hotel-detail-item"><strong>🛏️ ราคาประมาณ</strong>~€120-160/ห้อง/คืน</div>
+                <div class="hotel-detail-item"><strong>🥐 อาหารเช้า</strong>รวม</div>
+            </div>
+            <div class="hotel-tip">เคล็ดลับ: ก่อนออกเช้า ซื้อมาร์ซิปัน Niederegger ใส่กระเป๋าเป็นของฝาก</div>
+        </div>
+
+        <!-- Hotel 7 - Hamburg -->
+        <div class="hotel-card">
+            <div class="hotel-meta">
+                <div>
+                    <div class="hotel-name">Hotel Vier Jahreszeiten (อัพเกรด) / Reichshof Hamburg (มาตรฐาน)</div>
+                    <div style="margin-top: 0.3rem;">
+                        <span class="hotel-city">📍 Hamburg</span>
+                        <span class="hotel-nights">🌙 1 คืน • 23 พ.ย.</span>
+                    </div>
+                </div>
+            </div>
+            <p>Vier Jahreszeiten ริมทะเลสาบ Alster หรู / Reichshof ใจกลางเมือง เดินสะดวก</p>
+            <div class="hotel-details">
+                <div class="hotel-detail-item"><strong>⭐ ระดับ</strong>4-5 ดาว</div>
+                <div class="hotel-detail-item"><strong>📍 ที่ตั้ง</strong>City Centre / Alster Lake</div>
+                <div class="hotel-detail-item"><strong>🛏️ ราคาประมาณ</strong>~€150-250/ห้อง/คืน</div>
+                <div class="hotel-detail-item"><strong>🥐 อาหารเช้า</strong>รวม</div>
+            </div>
+            <div class="hotel-tip">เคล็ดลับ: คืนสุดท้าย ลองทาน Fischbrötchen ที่ Landungsbrücken ก่อนกลับ</div>
+        </div>
+
+        <!-- Summary table -->
+        <h2 class="section-title">สรุปการจองทั้งหมด</h2>
+        <table class="info-table">
+            <thead>
+                <tr>
+                    <th>คืน</th>
+                    <th>วันที่</th>
+                    <th>เมือง</th>
+                    <th>ราคา/ห้อง (โดยประมาณ)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>15 พ.ย.</td><td>Goslar</td><td>€120-160</td></tr>
+                <tr><td>2</td><td>16 พ.ย.</td><td>Quedlinburg</td><td>€100-140</td></tr>
+                <tr><td>3-5</td><td>17-19 พ.ย.</td><td>Berlin (3 คืน)</td><td>€140-200</td></tr>
+                <tr><td>6</td><td>20 พ.ย.</td><td>Dresden</td><td>€140-180</td></tr>
+                <tr><td>7</td><td>21 พ.ย.</td><td>Rostock / Warnemünde</td><td>€100-140</td></tr>
+                <tr><td>8</td><td>22 พ.ย.</td><td>Lübeck</td><td>€120-160</td></tr>
+                <tr><td>9</td><td>23 พ.ย.</td><td>Hamburg</td><td>€150-250</td></tr>
+            </tbody>
+        </table>
+
+        <div class="callout warning">
+            <div class="callout-title">📝 หมายเหตุ</div>
+            <ul style="margin-top: 0.5rem; padding-left: 1.4rem;">
+                <li>ราคาเป็นช่วงประมาณการเดือน พ.ย. — ราคาจริงอาจสูงขึ้น 10-20% เมื่อใกล้วันเดินทาง</li>
+                <li>สำหรับ 7-8 ท่าน ใช้ <strong>3-4 ห้อง</strong> (Double + Single ผสม)</li>
+                <li>ทุกโรงแรมจองผ่าน <strong>Booking.com / Agoda</strong> เลือกแบบ <em>"Free cancellation until..."</em></li>
+                <li>จองล่วงหน้า <strong>4-5 เดือน</strong> (ก่อน ก.ค. 2026) เพื่อราคาดีและเลือกห้องวิวสวย ๆ ได้</li>
+                <li>ลองจอง <strong>Hotel Direct</strong> หากจะให้ราคาดีกว่า + อัพเกรด</li>
+            </ul>
+        </div>
+
+        <div class="callout success">
+            <div class="callout-title">💰 งบประมาณรวมที่พัก</div>
+            <p>4 ห้อง × 9 คืน × ~€140 = <strong>~€5,000</strong> รวม (~190,000 บาท / ทั้งทริป)</p>
+            <p style="margin-top: 0.3rem;">เฉลี่ยต่อคน 7-8 ท่าน = <strong>~25,000 บาท</strong> สำหรับที่พัก</p>
+        </div>
+
+    </div>
+
+    <footer class="site-footer">
+        <p>🏰 ทริปเยอรมนีของแม่ 2026 — สร้างด้วยความรักโดยลูกชาย</p>
+    </footer>
+</body>
+</html>

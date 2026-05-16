@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>การเดินทาง — ทริปเยอรมนีของแม่ 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .flight-card {
+            background: white;
+            border-radius: 14px;
+            padding: 1.5rem;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.07);
+            border-left: 5px solid var(--sky-blue);
+        }
+        .flight-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .flight-direction {
+            font-family: 'Playfair Display', 'Sarabun', serif;
+            color: var(--wine-red-dark);
+            font-size: 1.35rem;
+        }
+        .flight-route {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 1rem;
+            align-items: center;
+            background: var(--cream);
+            padding: 1.25rem;
+            border-radius: 10px;
+        }
+        .airport-block { text-align: center; }
+        .airport-code {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--wine-red-dark);
+            line-height: 1;
+        }
+        .airport-name { font-size: 0.9rem; color: var(--soft-brown); margin-top: 0.3rem; }
+        .airport-time { font-size: 1.1rem; font-weight: 600; margin-top: 0.5rem; color: var(--deep-brown); }
+        .flight-arrow {
+            font-size: 1.5rem;
+            color: var(--autumn-gold);
+            position: relative;
+        }
+        .flight-arrow::after {
+            content: attr(data-duration);
+            display: block;
+            font-size: 0.78rem;
+            color: var(--soft-brown);
+            margin-top: 0.2rem;
+        }
+        @media (max-width: 600px) {
+            .flight-route {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            .airport-code { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">🏰 ทริปเยอรมนีของแม่ 2026</a>
+            <button class="menu-toggle" onclick="document.querySelector('.navbar-menu').classList.toggle('mobile-open')">☰</button>
+            <div class="navbar-menu">
+                <a href="index.html" class="navbar-item">หน้าแรก</a>
+                <a href="itinerary.html" class="navbar-item">ตารางทริป</a>
+                <a href="hotels.html" class="navbar-item">ที่พัก</a>
+                <a href="transport.html" class="navbar-item active">การเดินทาง</a>
+                <a href="food.html" class="navbar-item">อาหาร</a>
+                <a href="tips.html" class="navbar-item">คำแนะนำ</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1>การเดินทาง</h1>
+        <p class="subtitle">เที่ยวบินตรง Thai Airways + รถตู้พร้อมคนขับส่วนตัวตลอด 10 วัน</p>
+    </header>
+
+    <div class="container">
+
+        <!-- ============ FLIGHTS ============ -->
+        <h2 class="section-title">✈️ เที่ยวบิน</h2>
+
+        <!-- Outbound -->
+        <div class="flight-card">
+            <div class="flight-header">
+                <div class="flight-direction">🛫 ขาไป — TG920</div>
+                <div style="color: var(--soft-brown); font-size: 0.95rem;">เสาร์ 14 พ.ย. → อาทิตย์ 15 พ.ย. 2026</div>
+            </div>
+            <div class="flight-route">
+                <div class="airport-block">
+                    <div class="airport-code">BKK</div>
+                    <div class="airport-name">กรุงเทพ — สุวรรณภูมิ</div>
+                    <div class="airport-time">23:45</div>
+                </div>
+                <div class="flight-arrow" data-duration="~12 ชม. 30 นาที">✈️ →</div>
+                <div class="airport-block">
+                    <div class="airport-code">FRA</div>
+                    <div class="airport-name">แฟรงก์เฟิร์ต</div>
+                    <div class="airport-time">06:15+1</div>
+                </div>
+            </div>
+            <div class="hotel-details" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem; margin-top: 1rem;">
+                <div class="hotel-detail-item" style="background: var(--cream); padding: 0.7rem 1rem; border-radius: 8px; font-size: 0.92rem;"><strong style="color: var(--wine-red-dark); display: block;">เครื่องบิน</strong>Boeing 777-300ER</div>
+                <div class="hotel-detail-item" style="background: var(--cream); padding: 0.7rem 1rem; border-radius: 8px; font-size: 0.92rem;"><strong style="color: var(--wine-red-dark); display: block;">เที่ยวบินตรง</strong>ไม่ต้องต่อเครื่อง ✓</div>
+                <div class="hotel-detail-item" style="background: var(--cream); padding: 0.7rem 1rem; border-radius: 8px; font-size: 0.92rem;"><strong style="color: var(--wine-red-dark); display: block;">น้ำหนักกระเป๋า</strong>30 กก. (Economy)</div>
+                <div class="hotel-detail-item" style="background: var(--cream); padding: 0.7rem 1rem; border-radius: 8px; font-size: 0.92rem;"><strong style="color: var(--wine-red-dark); display: block;">กระเป๋าถือขึ้น</strong>7 กก.</div>
+            </div>
+        </div>
+
+        <!-- Return -->
+        <div class="flight-card">
+            <div class="flight-header">
+                <div class="flight-direction">🛬 ขากลับ — TG921</div>
+                <div style="color: var(--soft-brown); font-size: 0.95rem;">อังคาร 24 พ.ย. → พุธ 25 พ.ย. 2026</div>
+            </div>
+            <div class="flight-route">
+                <div class="airport-block">
+                    <div class="airport-code">FRA</div>
+                    <div class="airport-name">แฟรงก์เฟิร์ต</div>
+                    <div class="airport-time">21:50</div>
+                </div>
+                <div class="flight-arrow" data-duration="~10 ชม. 30 นาที">✈️ →</div>
+                <div class="airport-block">
+                    <div class="airport-code">BKK</div>
+                    <div class="airport-name">กรุงเทพ — สุวรรณภูมิ</div>
+                    <div class="airport-time">14:00+1</div>
+                </div>
+            </div>
+            <div class="hotel-details" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem; margin-top: 1rem;">
+                <div class="hotel-detail-item" style="background: var(--cream); padding: 0.7rem 1rem; border-radius: 8px; font-size: 0.92rem;"><strong style="color: var(--wine-red-dark); display: block;">เครื่องบิน</strong>Boeing 777-300ER</div>
+                <div class="hotel-detail-item" style="background: var(--cream); padding: 0.7rem 1rem; border-radius: 8px; font-size: 0.92rem;"><strong style="color: var(--wine-red-dark); display: block;">เที่ยวบินตรง</strong>ไม่ต้องต่อเครื่อง ✓</div>
+                <div class="hotel-detail-item" style="background: var(--cream); padding: 0.7rem 1rem; border-radius: 8px; font-size: 0.92rem;"><strong style="color: var(--wine-red-dark); display: block;">น้ำหนักกระเป๋า</strong>30 กก. (Economy)</div>
+                <div class="hotel-detail-item" style="background: var(--cream); padding: 0.7rem 1rem; border-radius: 8px; font-size: 0.92rem;"><strong style="color: var(--wine-red-dark); display: block;">เวลาที่ FRA ก่อนบิน</strong>เผื่อ 4 ชม.</div>
+            </div>
+        </div>
+
+        <div class="callout info">
+            <div class="callout-title">💰 ราคาตั๋วประมาณ</div>
+            <p>Economy ไป-กลับ <strong>~35,000-45,000 บาท/คน</strong> (จองล่วงหน้า 4-6 เดือน)</p>
+            <p style="margin-top: 0.3rem;">Premium Economy <strong>~60,000-75,000 บาท/คน</strong> (นั่งสบายขึ้น เหมาะกับผู้สูงอายุ)</p>
+            <p style="margin-top: 0.3rem;">Business <strong>~150,000+ บาท/คน</strong></p>
+        </div>
+
+        <div class="callout warning">
+            <div class="callout-title">⚠️ เคล็ดลับการจองตั๋ว</div>
+            <ul style="margin-top: 0.5rem; padding-left: 1.4rem;">
+                <li>จองผ่าน <strong>Thai Airways โดยตรง</strong> เพื่อเลือกที่นั่งและบริการพิเศษ</li>
+                <li>เลือก <strong>ที่นั่งทางเดิน (Aisle)</strong> สำหรับคุณแม่ — ลุกไปห้องน้ำสะดวก</li>
+                <li>แจ้ง <strong>Special Meal</strong> ล่วงหน้า (เช่น Thai meal, low-salt, vegetarian) เมื่อจอง</li>
+                <li>ถ้ามีปัญหาเข่า/หลัง ขอ <strong>Wheelchair Service</strong> ที่สนามบินได้ฟรี</li>
+                <li>เผื่อเวลาเช็คอินที่ BKK <strong>3 ชม.</strong> ก่อนบิน</li>
+            </ul>
+        </div>
+
+        <!-- ============ VAN + DRIVER ============ -->
+        <h2 class="section-title">🚐 รถตู้ + คนขับส่วนตัว</h2>
+
+        <div class="card">
+            <h3>รถที่แนะนำ — Mercedes-Benz Sprinter 8-seater</h3>
+            <p>
+                สำหรับ 7-8 ท่าน รถตู้ Mercedes Sprinter หรือ VW Crafter เป็นตัวเลือกที่ดีที่สุด —
+                นั่งสบาย ที่เก็บกระเป๋าใหญ่ มีหน้าต่างใหญ่ดูวิว ทุกที่นั่งมีเข็มขัดนิรภัย
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem; margin-top: 1rem;">
+                <div class="hotel-detail-item" style="background: var(--cream); padding: 0.7rem 1rem; border-radius: 8px; font-size: 0.92rem;"><strong style="color: var(--wine-red-dark); display: block;">ความจุ</strong>8 ที่นั่ง + 1 คนขับ</div>
+                <div class="hotel-detail-item" style="background: var(--cream); padding: 0.7rem 1rem; border-radius: 8px; font-size: 0.92rem;"><strong style="color: var(--wine-red-dark); display: block;">กระเป๋า</strong>รับได้ 7-8 ใบใหญ่</div>
+                <div class="hotel-detail-item" style="background: var(--cream); padding: 0.7rem 1rem; border-radius: 8px; font-size: 0.92rem;"><strong style="color: var(--wine-red-dark); display: block;">แอร์ / Heater</strong>มี ทั้งร้อนและเย็น</div>
+                <div class="hotel-detail-item" style="background: var(--cream); padding: 0.7rem 1rem; border-radius: 8px; font-size: 0.92rem;"><strong style="color: var(--wine-red-dark); display: block;">WiFi</strong>มี (บางบริษัท)</div>
+            </div>
+        </div>
+
+        <h3 class="section-title" style="font-size: 1.5rem;">บริษัทที่แนะนำให้ติดต่อ</h3>
+        <table class="info-table">
+            <thead>
+                <tr>
+                    <th>บริษัท</th>
+                    <th>เว็บไซต์</th>
+                    <th>ราคาประมาณ</th>
+                    <th>หมายเหตุ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Sixt Limousine Service</strong></td>
+                    <td>sixt.com/limousine</td>
+                    <td>€500-650/วัน</td>
+                    <td>ใหญ่ น่าเชื่อถือ เครือข่ายทั่วเยอรมนี</td>
+                </tr>
+                <tr>
+                    <td><strong>Blacklane</strong></td>
+                    <td>blacklane.com</td>
+                    <td>€550-700/วัน</td>
+                    <td>หรู คนขับพูดอังกฤษได้</td>
+                </tr>
+                <tr>
+                    <td><strong>Locomote Germany</strong></td>
+                    <td>locomote.de</td>
+                    <td>€450-550/วัน</td>
+                    <td>เหมาะกับทริปยาว มี Multi-day package</td>
+                </tr>
+                <tr>
+                    <td><strong>Thai Tour Operator</strong></td>
+                    <td>(ผ่านบริษัททัวร์ไทย)</td>
+                    <td>~40,000-50,000 บาท/วัน</td>
+                    <td>คนขับพูดไทยได้ ติดต่อง่าย แต่ราคาแพงกว่า</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="callout info">
+            <div class="callout-title">💰 งบประมาณรวมรถ+คนขับ</div>
+            <p>~€500/วัน × 10 วัน = <strong>~€5,000</strong> (~190,000 บาท)</p>
+            <p style="margin-top: 0.3rem;">เฉลี่ยต่อคน 7-8 ท่าน = <strong>~25,000 บาท</strong> สำหรับรถ+คนขับ</p>
+            <p style="margin-top: 0.3rem; font-size: 0.92rem; color: var(--soft-brown);">
+                <em>ราคาส่วนใหญ่รวม: ค่ารถ + คนขับ + น้ำมัน + ค่าทางด่วน + ค่าจอด — แต่ไม่รวมที่พักคนขับและทิป</em>
+            </p>
+        </div>
+
+        <h3 class="section-title" style="font-size: 1.5rem;">สิ่งที่ต้องคุยกับคนขับล่วงหน้า</h3>
+        <ul class="check-list">
+            <li><strong>ภาษา</strong> — คนขับพูดอังกฤษได้? ถ้าได้ทั้งอังกฤษ+เยอรมัน จะดีมาก</li>
+            <li><strong>ที่พักคนขับ</strong> — โดยปกติคนเช่ารถจัดเอง / เราจัดให้ก็ได้แต่จะแพงขึ้น</li>
+            <li><strong>เวลาขับขั้นต่ำ/สูงสุด</strong> — กฎหมายเยอรมันจำกัด 9 ชม./วัน คนขับต้องพัก 11 ชม.</li>
+            <li><strong>ค่าจอด + ค่าทางด่วน</strong> — รวมในราคาหรือต้องจ่ายเพิ่ม?</li>
+            <li><strong>วันแรก-วันสุดท้าย</strong> — เจอที่ FRA Terminal 1 / 2 Meet & Greet</li>
+            <li><strong>ทิป</strong> — มาตรฐาน €30-50/วัน หรือ €300-500 ตอนจบทริป</li>
+            <li><strong>ประกัน</strong> — ตรวจให้แน่ใจว่ารถมีประกันครอบคลุมผู้โดยสาร 8 คน</li>
+        </ul>
+
+        <div class="callout warning">
+            <div class="callout-title">⚠️ ข้อระวัง</div>
+            <p>กฎหมายเยอรมันบังคับคนขับพักหลังขับ 4.5 ชม. และห้ามขับเกิน 9 ชม./วัน
+            ถ้าวันไหนต้องขับ &gt;9 ชม. (เช่น Dresden → Rostock) อาจต้องมีคนขับ 2 คน หรือแบ่งวันค่ะ</p>
+        </div>
+
+        <!-- ============ FRA AIRPORT ============ -->
+        <h2 class="section-title">🛬 ที่สนามบิน FRA</h2>
+
+        <div class="card">
+            <h3>การพบกับคนขับ (Meet & Greet)</h3>
+            <ul>
+                <li>คนขับจะรอที่ <strong>Terminal 1 Arrivals Hall B</strong> ถือป้ายชื่อคุณแม่</li>
+                <li>ใช้เวลาผ่านตม. + รับกระเป๋า ~1 ชม. — คนขับมาก่อนเวลาบินถึง 30-45 นาที</li>
+                <li>มีร้าน <strong>Edeka supermarket</strong> ใน FRA ซื้อน้ำ + ขนมก่อนออกเดินทาง</li>
+                <li>ห้องน้ำสะอาด มีลิฟต์ทุกที่</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>ของซื้อใน FRA Duty-Free (ขากลับ)</h3>
+            <ul>
+                <li><strong>ช็อกโกแลต</strong> Milka, Ritter Sport, Lindt (ในซูเปอร์มาร์เก็ตเยอรมันถูกกว่า)</li>
+                <li><strong>เครื่องหอม</strong> 4711, Tosca (น้ำหอมคลาสสิกเยอรมัน)</li>
+                <li><strong>ของเล่นไม้</strong> Käthe Wohlfahrt ของฝากเด็ก</li>
+                <li><strong>นาฬิกาผูกขาว (Cuckoo Clock)</strong> — แม้จะจากป่าดำใต้ก็มีขายที่สนามบิน</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <footer class="site-footer">
+        <p>🏰 ทริปเยอรมนีของแม่ 2026 — สร้างด้วยความรักโดยลูกชาย</p>
+    </footer>
+</body>
+</html>

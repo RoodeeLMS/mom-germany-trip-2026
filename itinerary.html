@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ตารางทริป 10 วัน — ทริปเยอรมนีของแม่ 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .accordion-controls {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">🏰 ทริปเยอรมนีของแม่ 2026</a>
+            <button class="menu-toggle" onclick="document.querySelector('.navbar-menu').classList.toggle('mobile-open')">☰</button>
+            <div class="navbar-menu">
+                <a href="index.html" class="navbar-item">หน้าแรก</a>
+                <a href="itinerary.html" class="navbar-item active">ตารางทริป</a>
+                <a href="hotels.html" class="navbar-item">ที่พัก</a>
+                <a href="transport.html" class="navbar-item">การเดินทาง</a>
+                <a href="food.html" class="navbar-item">อาหาร</a>
+                <a href="tips.html" class="navbar-item">คำแนะนำ</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1>ตารางทริป 10 วัน</h1>
+        <p class="subtitle">15 – 24 พฤศจิกายน 2026 • แตะที่หัวข้อแต่ละวันเพื่อดูรายละเอียด</p>
+    </header>
+
+    <div class="container">
+
+        <div class="accordion-controls">
+            <button class="btn btn-secondary" onclick="toggleAll(true)">📖 เปิดดูทุกวัน</button>
+            <button class="btn btn-secondary" onclick="toggleAll(false)">📕 ปิดทั้งหมด</button>
+        </div>
+
+        <!-- DAY 1 — FLIGHT -->
+        <div class="day-card" id="day1">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-title">
+                    <span class="day-number">วันที่ 1</span>
+                    <div>
+                        <div class="day-route">บินจากกรุงเทพ → แฟรงก์เฟิร์ต</div>
+                        <div class="day-date">เสาร์ 14 พฤศจิกายน 2026 • บินกลางคืน</div>
+                    </div>
+                </div>
+                <div class="day-toggle">+</div>
+            </div>
+            <div class="day-body">
+                <div class="driving-info">
+                    ✈️ <strong>TG920</strong> BKK 23:45 → FRA 06:15+1 • ระยะเวลาบิน ~12 ชม. 30 นาที
+                </div>
+                <div class="day-section">
+                    <h4>📋 ก่อนออกจากบ้าน</h4>
+                    <ul class="check-list">
+                        <li>ตรวจพาสปอร์ต (ต้องมีอายุเหลือ &gt; 6 เดือน)</li>
+                        <li>วีซ่าเชงเก้น + ประกันเดินทาง</li>
+                        <li>ปริ้นต์ Boarding Pass / Hotel Voucher</li>
+                        <li>เงินยูโรสด ~200 EUR ต่อคน (เผื่อค่าใช้จ่ายเล็ก ๆ น้อย ๆ)</li>
+                        <li>ปลั๊กยุโรป Type F + Power Bank</li>
+                    </ul>
+                </div>
+                <div class="day-section">
+                    <h4>🛫 เคล็ดลับบนเครื่อง</h4>
+                    <ul>
+                        <li>ดื่มน้ำเปล่าเยอะ ๆ ลดอาการขาบวม</li>
+                        <li>ลุกเดินทุก 2-3 ชม. เพื่อลดความเสี่ยงลิ่มเลือด</li>
+                        <li>ปรับนาฬิกาเป็นเวลาเยอรมัน (กทม. -6 ชม.) ทันที</li>
+                        <li>ใส่เสื้อสว่ม ๆ ขึ้นเครื่อง (สบายและพร้อมลงสนามบินที่ ~5°C)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- DAY 2 — Arrive Frankfurt → Goslar -->
+        <div class="day-card" id="day2">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-title">
+                    <span class="day-number">วันที่ 2</span>
+                    <div>
+                        <div class="day-route">ถึงแฟรงก์เฟิร์ต → กอสลาร์</div>
+                        <div class="day-date">อาทิตย์ 15 พฤศจิกายน 2026</div>
+                    </div>
+                </div>
+                <div class="day-toggle">+</div>
+            </div>
+            <div class="day-body">
+                <div class="driving-info">
+                    🚐 ระยะทาง: ~330 กม. • เวลาขับ: ~3 ชม. 30 นาที (แวะพักทาน&อาหารกลางวันได้)
+                </div>
+                <div class="day-section">
+                    <h4>📍 กำหนดการ</h4>
+                    <ul>
+                        <li><strong>06:15</strong> — ลงเครื่องที่ FRA</li>
+                        <li><strong>08:00</strong> — เจอคนขับรถตู้ที่ FRA Terminal 1 (Meet & Greet)</li>
+                        <li><strong>09:00</strong> — ออกเดินทางสู่กอสลาร์</li>
+                        <li><strong>12:00</strong> — แวะพักทานอาหารกลางวันแถว Kassel</li>
+                        <li><strong>14:30</strong> — เช็คอินโรงแรมที่กอสลาร์</li>
+                        <li><strong>15:30</strong> — เดินเล่น Marktplatz + Kaiserpfalz</li>
+                        <li><strong>18:30</strong> — ทานอาหารเย็นพื้นเมือง</li>
+                    </ul>
+                </div>
+                <div class="day-section">
+                    <h4>🎯 จุดที่ไม่ควรพลาด</h4>
+                    <ul>
+                        <li><strong>Kaiserpfalz Goslar</strong> — วังจักรพรรดิยุคกลาง 1000 ปี</li>
+                        <li><strong>Marktplatz</strong> — จัตุรัสกลางเมืองกับศาลากลางและบ้านโบราณ</li>
+                        <li><strong>Rammelsberg Mine</strong> — เหมืองแร่ UNESCO (เปิดทุกวัน 9:00-17:00)</li>
+                        <li><strong>Old Town</strong> — UNESCO บ้านครึ่งไม้กว่า 1,500 หลัง</li>
+                    </ul>
+                </div>
+                <div class="callout warning">
+                    <div class="callout-title">⚠️ ระวังเรื่อง Jetlag</div>
+                    วันแรกอาจเหนื่อย ไม่ต้องเดินไกล โปรแกรมเบา ๆ ค่ะ
+                </div>
+                <span class="hotel-tag">🏨 พักที่ Goslar (1 คืน)</span>
+            </div>
+        </div>
+
+        <!-- DAY 3 — Goslar → Wernigerode → Quedlinburg -->
+        <div class="day-card" id="day3">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-title">
+                    <span class="day-number">วันที่ 3</span>
+                    <div>
+                        <div class="day-route">กอสลาร์ → แวร์นิเกอโรเดอ → เควดลินบวร์ก</div>
+                        <div class="day-date">จันทร์ 16 พฤศจิกายน 2026</div>
+                    </div>
+                </div>
+                <div class="day-toggle">+</div>
+            </div>
+            <div class="day-body">
+                <div class="driving-info">
+                    🚐 ระยะทาง: กอสลาร์ → แวร์นิเกอโรเดอ 30 กม. (~40 นาที) → เควดลินบวร์ก 30 กม. (~40 นาที)
+                </div>
+                <div class="day-section">
+                    <h4>📍 ช่วงเช้า — แวร์นิเกอโรเดอ (Wernigerode)</h4>
+                    <ul>
+                        <li><strong>ปราสาทแวร์นิเกอโรเดอ</strong> บนเขา — "ปราสาทเทพนิยาย" ของเยอรมนีตอนเหนือ</li>
+                        <li>ขึ้นรถ Bimmelbahn (รถไฟเล็ก) จากเมืองขึ้นปราสาท</li>
+                        <li><strong>Marktplatz</strong> — ศาลากลาง (Rathaus) บ้านครึ่งไม้สวยที่สุดในเยอรมนี</li>
+                        <li>ทานอาหารกลางวันในเขตเมืองเก่า</li>
+                    </ul>
+                </div>
+                <div class="day-section">
+                    <h4>📍 ช่วงบ่าย — เควดลินบวร์ก (Quedlinburg)</h4>
+                    <ul>
+                        <li>เดินขึ้นเนิน <strong>Schlossberg</strong> — ปราสาทและโบสถ์ St. Servatius</li>
+                        <li><strong>เมืองเก่า UNESCO</strong> — บ้านครึ่งไม้กว่า 1,300 หลัง อายุ 600+ ปี</li>
+                        <li><strong>Marktplatz</strong> — จัตุรัสกลางเมือง</li>
+                        <li>ทานอาหารเย็นในเมือง</li>
+                    </ul>
+                </div>
+                <div class="callout info">
+                    <div class="callout-title">💡 รู้ไว้นะคะ</div>
+                    เควดลินบวร์กเป็นเมืองหลวงแห่งแรกของจักรวรรดิเยอรมัน ปี ค.ศ. 919 — เก่ากว่าที่คิด!
+                </div>
+                <span class="hotel-tag">🏨 พักที่ Quedlinburg (1 คืน)</span>
+            </div>
+        </div>
+
+        <!-- DAY 4 — Quedlinburg → Magdeburg → Berlin -->
+        <div class="day-card" id="day4">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-title">
+                    <span class="day-number">วันที่ 4</span>
+                    <div>
+                        <div class="day-route">เควดลินบวร์ก → มักเดบวร์ก → แบร์ลิน</div>
+                        <div class="day-date">อังคาร 17 พฤศจิกายน 2026</div>
+                    </div>
+                </div>
+                <div class="day-toggle">+</div>
+            </div>
+            <div class="day-body">
+                <div class="driving-info">
+                    🚐 ระยะทาง: เควดลินบวร์ก → มักเดบวร์ก 80 กม. (~1 ชม.) → แบร์ลิน 150 กม. (~2 ชม.)
+                </div>
+                <div class="day-section">
+                    <h4>📍 ช่วงเช้า — มักเดบวร์ก (Magdeburg)</h4>
+                    <ul>
+                        <li><strong>Grüne Zitadelle</strong> — ตึก Hundertwasser สีเขียวสุดแปลกตา</li>
+                        <li><strong>มหาวิหารมักเดบวร์ก</strong> (Magdeburger Dom) — มหาวิหารโกธิคที่เก่าแก่ที่สุดในเยอรมนี</li>
+                        <li>ทานอาหารกลางวันริมแม่น้ำเอ็ลเบอ</li>
+                    </ul>
+                </div>
+                <div class="day-section">
+                    <h4>📍 ช่วงบ่าย — เดินทางเข้าแบร์ลิน</h4>
+                    <ul>
+                        <li>ออก ~14:00 ถึงแบร์ลิน ~16:00</li>
+                        <li>เช็คอินโรงแรม พักผ่อน</li>
+                        <li>เดินเล่นรอบ ๆ <strong>Brandenburg Gate</strong> ตอนค่ำ (สวยมากตอนเปิดไฟ)</li>
+                        <li>ทานอาหารเย็นแถว Unter den Linden</li>
+                    </ul>
+                </div>
+                <span class="hotel-tag">🏨 พักที่ Berlin (3 คืน)</span>
+            </div>
+        </div>
+
+        <!-- DAY 5 — Berlin Full Day -->
+        <div class="day-card" id="day5">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-title">
+                    <span class="day-number">วันที่ 5</span>
+                    <div>
+                        <div class="day-route">แบร์ลิน — เต็มวัน</div>
+                        <div class="day-date">พุธ 18 พฤศจิกายน 2026</div>
+                    </div>
+                </div>
+                <div class="day-toggle">+</div>
+            </div>
+            <div class="day-body">
+                <div class="driving-info">
+                    🚐 ในเมืองส่วนใหญ่ • รถตู้พาไป-รับตามจุด ลดการเดินไกล
+                </div>
+                <div class="day-section">
+                    <h4>🌅 ช่วงเช้า — สัญลักษณ์แห่งแบร์ลิน</h4>
+                    <ul>
+                        <li><strong>Brandenburg Gate</strong> + จัตุรัสปารีส</li>
+                        <li><strong>Reichstag</strong> — อาคารรัฐสภา (จองล่วงหน้าฟรีถ้าจะขึ้นโดมแก้ว)</li>
+                        <li><strong>Holocaust Memorial</strong> — อนุสรณ์เหยื่อชาวยิว</li>
+                        <li><strong>Checkpoint Charlie</strong> — จุดตรวจสมัยแบ่งตะวันออก-ตก</li>
+                    </ul>
+                </div>
+                <div class="day-section">
+                    <h4>🏛️ ช่วงบ่าย — เกาะพิพิธภัณฑ์ (Museum Island)</h4>
+                    <ul>
+                        <li><strong>Pergamon Museum</strong> — โบราณวัตถุยุคบาบิโลน</li>
+                        <li><strong>Berlin Cathedral</strong> — มหาวิหารโดมทอง</li>
+                        <li><strong>มหาวิหารอนุสรณ์ Kaiser Wilhelm</strong> — โบสถ์ที่เก็บซากระเบิดสงคราม</li>
+                    </ul>
+                </div>
+                <div class="day-section">
+                    <h4>🌃 ช่วงเย็น</h4>
+                    <ul>
+                        <li><strong>East Side Gallery</strong> — กำแพงเบอร์ลินส่วนที่เหลือ ยาว 1.3 กม. พร้อม graffiti</li>
+                        <li>ขึ้น <strong>Berliner Fernsehturm</strong> (TV Tower) ดูวิวเมือง</li>
+                        <li>ทานอาหารเย็นแถว Alexanderplatz หรือ Hackescher Markt</li>
+                    </ul>
+                </div>
+                <div class="callout info">
+                    <div class="callout-title">🎄 โบนัส</div>
+                    หากตลาดคริสต์มาส (Weihnachtsmarkt) ที่ <strong>Gendarmenmarkt</strong> หรือ
+                    <strong>Charlottenburg Palace</strong> เปิดแล้ว (มักเริ่ม 24 พ.ย.) ก็แวะได้ค่ะ
+                </div>
+            </div>
+        </div>
+
+        <!-- DAY 6 — Potsdam day trip + boat cruise -->
+        <div class="day-card" id="day6">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-title">
+                    <span class="day-number">วันที่ 6</span>
+                    <div>
+                        <div class="day-route">แบร์ลิน → พ็อทซ์ดัม (วังซองซูซี + ล่องเรือ) → แบร์ลิน</div>
+                        <div class="day-date">พฤหัส 19 พฤศจิกายน 2026 • วันที่แม่รอคอย ✨</div>
+                    </div>
+                </div>
+                <div class="day-toggle">+</div>
+            </div>
+            <div class="day-body">
+                <div class="driving-info">
+                    🚐 แบร์ลิน → พ็อทซ์ดัม ~35 กม. (~45 นาที) ไป-กลับ
+                </div>
+                <div class="day-section">
+                    <h4>🏰 ช่วงเช้า — วังซองซูซี (Schloss Sanssouci)</h4>
+                    <ul>
+                        <li><strong>วังซองซูซี</strong> — วังฤดูร้อนของพระเจ้าเฟรเดอริคมหาราช สไตล์ Rococo</li>
+                        <li>เดินสวนซองซูซี (Sanssouci Park) — สวนวังที่ใหญ่ที่สุดในเยอรมนี</li>
+                        <li><strong>Neues Palais</strong> — วังใหม่ ใหญ่กว่า อลังการกว่า</li>
+                        <li><strong>Chinese House</strong> — ศาลาทรงจีนทองสุก</li>
+                    </ul>
+                </div>
+                <div class="day-section">
+                    <h4>🌷 ช่วงบ่าย — เมืองเก่าพ็อทซ์ดัม</h4>
+                    <ul>
+                        <li><strong>Holländisches Viertel</strong> — ย่านดัตช์ บ้านอิฐแดงสวย ๆ</li>
+                        <li><strong>Cecilienhof</strong> — วังที่จัด Potsdam Conference ปี 1945</li>
+                        <li>ทานอาหารกลางวันในย่านเก่า</li>
+                    </ul>
+                </div>
+                <div class="day-section">
+                    <h4>🚢 ล่องเรือใกล้แบร์ลิน</h4>
+                    <ul>
+                        <li>ล่องเรือ <strong>Wannsee / Havel</strong> จากท่าเรือพ็อทซ์ดัม (~1.5 ชม.)</li>
+                        <li>ผ่านวังต่าง ๆ ริมน้ำ + เกาะนกยูง (Pfaueninsel)</li>
+                    </ul>
+                </div>
+                <div class="callout warning">
+                    <div class="callout-title">⚠️ ตารางเรือล่องช่วงหนาว</div>
+                    เรือล่องริมแม่น้ำในเยอรมนีมักลดเที่ยวหรือหยุดในเดือน พ.ย. ค่ะ —
+                    <strong>ลูกชายจะตรวจตารางเรือกับคนขับล่วงหน้า</strong> ถ้าหยุด จะหา
+                    ล่องเรือ <strong>Spree</strong> ในแบร์ลินแทน (มีเที่ยวตลอดปี)
+                </div>
+            </div>
+        </div>
+
+        <!-- DAY 7 — Berlin → Dresden -->
+        <div class="day-card" id="day7">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-title">
+                    <span class="day-number">วันที่ 7</span>
+                    <div>
+                        <div class="day-route">แบร์ลิน → เดรสเดน</div>
+                        <div class="day-date">ศุกร์ 20 พฤศจิกายน 2026</div>
+                    </div>
+                </div>
+                <div class="day-toggle">+</div>
+            </div>
+            <div class="day-body">
+                <div class="driving-info">
+                    🚐 ระยะทาง: ~200 กม. • เวลาขับ: ~2 ชม. (ออกเช้า เช็คอินก่อนเที่ยง)
+                </div>
+                <div class="day-section">
+                    <h4>📍 ช่วงเช้า — เดินทางสู่เดรสเดน</h4>
+                    <ul>
+                        <li>ออก 09:00 ถึง 11:30</li>
+                        <li>เช็คอินที่เดรสเดน พักทานอาหารกลางวัน</li>
+                    </ul>
+                </div>
+                <div class="day-section">
+                    <h4>🏛️ ช่วงบ่าย — Altstadt (เมืองเก่า)</h4>
+                    <ul>
+                        <li><strong>Frauenkirche</strong> — โบสถ์ที่บูรณะจากซากปรักหักพังหลัง WW2</li>
+                        <li><strong>Zwinger Palace</strong> — วัง Baroque + พิพิธภัณฑ์ Old Masters Gallery</li>
+                        <li><strong>Semperoper</strong> — โรงอุปรากร</li>
+                        <li><strong>Brühl's Terrace</strong> — "ระเบียงของยุโรป" ริมแม่น้ำเอ็ลเบอ</li>
+                        <li><strong>Fürstenzug</strong> — ภาพกระเบื้องเครื่องเคลือบขนาดยักษ์ 102 เมตร</li>
+                    </ul>
+                </div>
+                <div class="day-section">
+                    <h4>🌃 ช่วงเย็น</h4>
+                    <ul>
+                        <li>ทานอาหารเย็นแถว Münzgasse (ถนนร้านอาหารในเมืองเก่า)</li>
+                        <li>เดินดูตลาด <strong>Striezelmarkt</strong> — ตลาดคริสต์มาสที่เก่าแก่ที่สุดในเยอรมนี (เปิดประมาณ 26 พ.ย.)</li>
+                    </ul>
+                </div>
+                <span class="hotel-tag">🏨 พักที่ Dresden (1 คืน)</span>
+            </div>
+        </div>
+
+        <!-- DAY 8 — Dresden → North to Rostock -->
+        <div class="day-card" id="day8">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-title">
+                    <span class="day-number">วันที่ 8</span>
+                    <div>
+                        <div class="day-route">เดรสเดน → ขับขึ้นเหนือ → รอสต็อค / วาร์เนอมุนเดอ</div>
+                        <div class="day-date">เสาร์ 21 พฤศจิกายน 2026</div>
+                    </div>
+                </div>
+                <div class="day-toggle">+</div>
+            </div>
+            <div class="day-body">
+                <div class="driving-info">
+                    🚐 ระยะทาง: ~500 กม. • เวลาขับ: ~5 ชม. (วันขับยาวสุดของทริป)
+                </div>
+                <div class="callout warning">
+                    <div class="callout-title">⚠️ วันขับยาว</div>
+                    วันนี้ขับเยอะ ออกเช้า แวะพักทุก 2 ชม. (Autobahn rest stops มีของกินอร่อย ๆ)
+                </div>
+                <div class="day-section">
+                    <h4>📍 ช่วงเช้า-บ่าย</h4>
+                    <ul>
+                        <li>ออก 08:00 พักทานอาหารกลางวันแถวแบร์ลิน</li>
+                        <li>ถึงรอสต็อค ~15:00 เช็คอิน</li>
+                    </ul>
+                </div>
+                <div class="day-section">
+                    <h4>🌊 ช่วงเย็น — วาร์เนอมุนเดอ (Warnemünde)</h4>
+                    <ul>
+                        <li>เที่ยวชายหาด <strong>Warnemünde</strong> — รีสอร์ตทะเลบอลติก</li>
+                        <li><strong>Alter Strom</strong> — ท่าเรือเก่าบรรยากาศโรแมนติก</li>
+                        <li><strong>ประภาคาร Warnemünde</strong> ที่อายุ 125 ปี</li>
+                        <li>ทานอาหารเย็น <strong>ปลาเฮอร์ริงทอด</strong> (Bratheringsbrötchen) — เมนูพื้นบ้านชายฝั่ง</li>
+                    </ul>
+                </div>
+                <span class="hotel-tag">🏨 พักที่ Rostock (1 คืน)</span>
+            </div>
+        </div>
+
+        <!-- DAY 9 — Rostock → Schwerin → Lübeck -->
+        <div class="day-card" id="day9">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-title">
+                    <span class="day-number">วันที่ 9</span>
+                    <div>
+                        <div class="day-route">รอสต็อค → ชเวริน → ลือเบค</div>
+                        <div class="day-date">อาทิตย์ 22 พฤศจิกายน 2026</div>
+                    </div>
+                </div>
+                <div class="day-toggle">+</div>
+            </div>
+            <div class="day-body">
+                <div class="driving-info">
+                    🚐 รอสต็อค → ชเวริน 100 กม. (~1.5 ชม.) → ลือเบค 110 กม. (~1.5 ชม.)
+                </div>
+                <div class="day-section">
+                    <h4>📍 ช่วงเช้า — รอสต็อค + ออกเดินทาง</h4>
+                    <ul>
+                        <li>เดินเมืองเก่า <strong>Rostock</strong> — Marienkirche, มหาวิทยาลัย, Hanseatic gates</li>
+                        <li>ออก ~10:00 มุ่งหน้าไปชเวริน</li>
+                    </ul>
+                </div>
+                <div class="day-section">
+                    <h4>🏰 ช่วงเที่ยง — ชเวริน (Schwerin)</h4>
+                    <ul>
+                        <li><strong>วังชเวริน (Schweriner Schloss)</strong> — "Neuschwanstein แห่งเหนือ" บนเกาะกลางทะเลสาบ</li>
+                        <li>สวนวัง (Burggarten)</li>
+                        <li>ทานอาหารกลางวันรอบทะเลสาบ Schweriner See</li>
+                    </ul>
+                </div>
+                <div class="day-section">
+                    <h4>🍬 ช่วงบ่าย-เย็น — ลือเบค (Lübeck)</h4>
+                    <ul>
+                        <li>ผ่าน <strong>Holstentor</strong> — ประตูเมืองโบราณ สัญลักษณ์ของลือเบค (อยู่บนเงิน 50 ยูโรเก่า)</li>
+                        <li><strong>เมืองเก่า UNESCO</strong> — บนเกาะกลางแม่น้ำ Trave</li>
+                        <li><strong>Café Niederegger</strong> — มาร์ซิปันที่อร่อยที่สุดในโลก! ห้ามพลาด</li>
+                        <li>โบสถ์ Marienkirche สูงตระหง่าน</li>
+                    </ul>
+                </div>
+                <span class="hotel-tag">🏨 พักที่ Lübeck (1 คืน)</span>
+            </div>
+        </div>
+
+        <!-- DAY 10 — Lübeck → Hamburg -->
+        <div class="day-card" id="day10">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-title">
+                    <span class="day-number">วันที่ 10</span>
+                    <div>
+                        <div class="day-route">ลือเบค → ฮัมบวร์ก</div>
+                        <div class="day-date">จันทร์ 23 พฤศจิกายน 2026</div>
+                    </div>
+                </div>
+                <div class="day-toggle">+</div>
+            </div>
+            <div class="day-body">
+                <div class="driving-info">
+                    🚐 ระยะทาง: ~65 กม. • เวลาขับ: ~1 ชม.
+                </div>
+                <div class="day-section">
+                    <h4>📍 ช่วงเช้า</h4>
+                    <ul>
+                        <li>เก็บของ ออกจากลือเบค ~09:00 ถึงฮัมบวร์ก ~10:30</li>
+                        <li>เช็คอิน เก็บกระเป๋า</li>
+                        <li><strong>Miniatur Wunderland</strong> — โมเดลรถไฟใหญ่ที่สุดในโลก (ห้ามพลาด! ใช้เวลา 3-4 ชม.)</li>
+                    </ul>
+                </div>
+                <div class="day-section">
+                    <h4>🏭 ช่วงบ่าย — Speicherstadt & HafenCity</h4>
+                    <ul>
+                        <li><strong>Speicherstadt</strong> — ย่านโกดังอิฐแดง UNESCO ริมคลอง</li>
+                        <li><strong>Elbphilharmonie</strong> — โรงคอนเสิร์ตหินกระจกบนหลังคาโกดังเก่า (ขึ้น Plaza ฟรี วิว 360°)</li>
+                        <li>ทานอาหารเย็นที่ท่าเรือ <strong>Landungsbrücken</strong></li>
+                    </ul>
+                </div>
+                <div class="day-section">
+                    <h4>🌃 ช่วงค่ำ</h4>
+                    <ul>
+                        <li>เดินเล่นรอบ Rathausmarkt — ศาลากลางสไตล์ Neo-Renaissance สวยมาก</li>
+                        <li>(ถ้าตลาดคริสต์มาสเปิดแล้ว 24 พ.ย. — แม่อาจได้แวะวันรุ่งขึ้น)</li>
+                    </ul>
+                </div>
+                <span class="hotel-tag">🏨 พักที่ Hamburg (1 คืน)</span>
+            </div>
+        </div>
+
+        <!-- DAY 11 — Hamburg → Frankfurt → BKK -->
+        <div class="day-card" id="day11">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-title">
+                    <span class="day-number">วันที่ 11</span>
+                    <div>
+                        <div class="day-route">ฮัมบวร์ก → แฟรงก์เฟิร์ต → บินกลับ กทม.</div>
+                        <div class="day-date">อังคาร 24 พฤศจิกายน 2026</div>
+                    </div>
+                </div>
+                <div class="day-toggle">+</div>
+            </div>
+            <div class="day-body">
+                <div class="driving-info">
+                    🚐 ฮัมบวร์ก → FRA ~500 กม. (~5 ชม.) • ✈️ TG921 FRA 21:50 → BKK 14:00+1
+                </div>
+                <div class="day-section">
+                    <h4>📍 กำหนดการ</h4>
+                    <ul>
+                        <li><strong>08:00</strong> — เช็คเอาท์โรงแรม</li>
+                        <li><strong>09:00</strong> — ขึ้นรถตู้ ออกเดินทาง</li>
+                        <li><strong>11:30</strong> — แวะพักทานอาหารกลางวันแถว Hannover</li>
+                        <li><strong>15:00</strong> — แวะพักช่วงบ่าย</li>
+                        <li><strong>17:00</strong> — ถึงสนามบิน FRA (เผื่อ ~4 ชม. ก่อนบิน)</li>
+                        <li><strong>18:00</strong> — เช็คอิน TG921</li>
+                        <li><strong>21:50</strong> — บินกลับ กทม.</li>
+                    </ul>
+                </div>
+                <div class="callout success">
+                    <div class="callout-title">🛍️ ก่อนเช็คอิน</div>
+                    เวลาแวะร้าน Duty-Free ใน FRA ซื้อช็อกโกแลต Milka, Ritter Sport เป็นของฝาก
+                    หรือซื้อในเมืองล่วงหน้าก็ได้ (ในซูเปอร์มาร์เก็ตถูกกว่า)
+                </div>
+            </div>
+        </div>
+
+        <!-- DAY 12 — Arrive BKK -->
+        <div class="day-card" id="day12">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-title">
+                    <span class="day-number">วันที่ 12</span>
+                    <div>
+                        <div class="day-route">ถึงกรุงเทพ</div>
+                        <div class="day-date">พุธ 25 พฤศจิกายน 2026 • ~14:00</div>
+                    </div>
+                </div>
+                <div class="day-toggle">+</div>
+            </div>
+            <div class="day-body">
+                <div class="day-section">
+                    <p>ถึงสนามบินสุวรรณภูมิ ~14:00 ขอให้เดินทางปลอดภัยและถึงบ้านอย่างสบายใจค่ะ 🇹🇭❤️</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="site-footer">
+        <p>🏰 ทริปเยอรมนีของแม่ 2026 — สร้างด้วยความรักโดยลูกชาย</p>
+    </footer>
+
+    <script>
+        function toggleDay(header) {
+            const card = header.parentElement;
+            card.classList.toggle('open');
+        }
+        function toggleAll(open) {
+            document.querySelectorAll('.day-card').forEach(c => {
+                if (open) c.classList.add('open');
+                else c.classList.remove('open');
+            });
+        }
+        // Open the day from hash on load
+        window.addEventListener('load', () => {
+            if (location.hash) {
+                const target = document.querySelector(location.hash);
+                if (target && target.classList.contains('day-card')) {
+                    target.classList.add('open');
+                    target.scrollIntoView({behavior: 'smooth', block: 'start'});
+                }
+            }
+        });
+    </script>
+</body>
+</html>
