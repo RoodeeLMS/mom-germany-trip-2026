@@ -1,102 +1,98 @@
 # ทริปเยอรมนีของแม่ 2026 — Website Overview
 
-**Trip Dates:** 14 พ.ย. – 25 พ.ย. 2026 (12 วันรวมเครื่องบิน, 10 วันบนแผ่นดินเยอรมัน)
-**Travelers:** 7-8 ท่าน (คุณแม่ + เพื่อน ๆ)
-**Route:** เยอรมนีตอนเหนือ + ตะวันออก (Frankfurt → Goslar → Harz → Berlin → Dresden → Rostock → Lübeck → Hamburg → Frankfurt)
-**Transport:** Mercedes Sprinter van + คนขับส่วนตัว (เริ่ม-จบที่ FRA)
+**Main Plan (10 days):** 14 พ.ย. – 25 พ.ย. 2026, 7-8 ท่าน, FRA in/out, hired van+driver
+**Alternative Plans:** 20-day (เยอรมนีครบ) + 30-day (เยอรมนี + 6 ประเทศเพื่อนบ้าน)
+**Excluded:** France, Switzerland, Italy (per user request)
 
-## โครงสร้างเว็บไซต์ (6 หน้า)
+## เส้นทาง (3 routes)
 
-### 1. `index.html` — หน้าแรก
-- Hero พร้อมนับถอยหลังถึงวันเดินทาง (live countdown)
-- Stats cards: 10 วัน, 7-8 คน, 12 เมือง, ~2,500 km, 3-8°C
-- Route timeline 12 วัน (รวมเที่ยวบิน)
-- Highlights 6 จุด + Quick links ไปหน้าอื่น
-- Callout: จุดเด่นของทริป
+| Route | Duration | Countries | Cities | UNESCO | Budget/pp |
+|-------|----------|-----------|--------|--------|-----------|
+| **Main** | 10 days | 1 (DE) | 11 | 4 | ~135,000 ฿ |
+| Grand Germany | 20 days | 1 (DE) | 17-18 | 8-10 | ~225,000 ฿ |
+| Grand Tour | 30 days | 7 (DE/AT/CZ/NL/BE/LU/DK) | 28-30 | 15+ | ~340,000 ฿ |
 
-### 2. `itinerary.html` — ตารางทริป 10 วัน
-- Accordion 12 วัน (รวมวันบิน)
-- Expand all / Collapse all
-- แต่ละวันมี: ระยะทาง+เวลาขับ, ช่วงเช้า/บ่าย/เย็น, จุดเที่ยว, callouts, hotel tag
-- รองรับ deep-link (เช่น `#day6` เปิดวันที่ 6 อัตโนมัติ)
+## โครงสร้างเว็บไซต์
 
-### 3. `hotels.html` — ที่พัก
-- 7 hotel cards (Goslar, Quedlinburg, Berlin x3 คืน, Dresden, Rostock, Lübeck, Hamburg)
-- เกณฑ์เลือก: 3-4 ดาว ใจกลางเมืองเก่า มีลิฟต์ มีอาหารเช้า
-- ตารางสรุปการจองทั้งหมด + งบประมาณรวม
+### Hub pages (9)
+1. `index.html` — Home with countdown, route promo, destination gallery
+2. `routes.html` — Compare 10/20/30 day routes
+3. `itinerary.html` — 10-day day-by-day (main plan)
+4. `itinerary-20day.html` — 20-day day-by-day
+5. `itinerary-30day.html` — 30-day day-by-day (5 stages)
+6. `towns.html` — Index of all 34 towns (filter by route/country/UNESCO)
+7. `sights.html` — Index of 27 iconic landmarks (filter by country/UNESCO)
+8. `hotels.html` / `transport.html` / `food.html` / `tips.html` — original 10-day reference pages
 
-### 4. `transport.html` — การเดินทาง
-- Flight cards (TG920 BKK→FRA และ TG921 FRA→BKK ขาตรง)
-- รถตู้ + คนขับ: Sixt Limousine, Blacklane, Locomote, Thai Tour
-- สิ่งที่ต้องคุยกับคนขับ + ทิป
-- ข้อมูล FRA Meet & Greet + Duty-Free
+### Town pages (34 total)
+- **Germany (24)**: Frankfurt, Goslar, Wernigerode, Quedlinburg, Magdeburg, Berlin, Potsdam, Dresden, Rostock, Schwerin, Lübeck, Hamburg, Hannover, Esslingen, Heidelberg, Würzburg, Rothenburg, Nuremberg, Bamberg, Munich, Cologne, Aachen, Trier, Bremen
+- **Austria (3)**: Vienna, Salzburg, Hallstatt
+- **Czech Republic (2)**: Prague, Český Krumlov
+- **Benelux (4)**: Amsterdam, Bruges, Brussels, Luxembourg
+- **Denmark (1)**: Copenhagen
 
-### 5. `food.html` — อาหาร
-- 12 dishes-to-try cards (ขาหมู, Currywurst, เพรทเซิล, Stollen, Marzipan ฯลฯ)
-- ร้านที่แนะนำ 10 ร้าน ตามเมือง
-- มารยาทการทาน + ข้อระวังสำหรับผู้สูงอายุ
-- ตัวเลือกอาหารไทยในเมืองใหญ่
+Each town page: hero with badges, Wikipedia hero image, quick facts grid, OpenStreetMap iframe, 5-7 must-see sights, half-day walking route, restaurants, photo spots, gallery (4-6 Wikipedia images), practical info, fun facts, useful links
 
-### 6. `tips.html` — คำแนะนำ
-- Anchor nav (อากาศ / เสื้อผ้า / เงิน / สุขภาพ / มือถือ / ภาษา / ฉุกเฉิน / มารยาท)
-- ตาราง 30+ วลีเยอรมัน พร้อมออกเสียงไทย
-- เบอร์ฉุกเฉิน + สถานทูตไทย Berlin & Hamburg
-- งบประมาณรวม/คน ~134,000 บาท
+### Sight pages (27 total)
+1. Brandenburg Gate, Reichstag, Museum Island, East Side Gallery (Berlin)
+2. Sanssouci (Potsdam)
+3. Frauenkirche, Zwinger (Dresden)
+4. Holstentor, Niederegger (Lübeck)
+5. Speicherstadt, Miniatur Wunderland, Elbphilharmonie (Hamburg)
+6. Schwerin Palace, Wernigerode Castle
+7. Cologne Cathedral, Aachen Cathedral, Porta Nigra (Trier)
+8. Heidelberg Castle, Würzburg Residence, Marienplatz (Munich)
+9. Hohensalzburg (Salzburg), Schönbrunn (Vienna)
+10. Prague Castle, Charles Bridge, Český Krumlov Castle
+11. Nyhavn (Copenhagen), Grand-Place (Brussels)
+
+Each sight page: hero with parent-town badge, Wikipedia hero image, overview, quick facts (location/hours/price/time), map, 5-6 things-to-see details, 3-4 image gallery, photo tips, practical info, link to parent town, fun facts, useful links
 
 ## ดีไซน์
 
-**Color palette (German autumn):**
-- Wine red `#7d2828` — primary
-- Autumn gold `#c9a227` — accent
-- Forest green `#3d5a3c` — secondary
-- Cream `#faf6ee` — background
-- Deep brown `#2d2419` — text
+**Palette (German autumn):**
+- Wine red `#7d2828`, Autumn gold `#c9a227`, Forest green `#3d5a3c`, Cream `#faf6ee`
 
-**Typography:**
-- Sarabun (Google Fonts) — Thai content
-- Playfair Display — decorative headings
+**Typography:** Sarabun (Thai) + Playfair Display (decorative)
+
+**Image system:**
+- All landmark photos fetched live from Wikipedia REST API at page load
+- `assets/wiki-images.js` reads `data-wiki="Page Title"` attributes
+- Sets `upload.wikimedia.org/...` URL as background-image
+- Graceful fallback: cream-color tint if fetch fails
 
 **Interactive:**
 - Live countdown timer (home)
-- Accordion days with expand/collapse all
-- Sticky responsive navigation with hamburger menu
-- Deep-linking via URL hash
-- Print-friendly CSS
+- Accordion days with expand/collapse all on itinerary pages
+- Filterable card grids (towns by country/route, sights by country)
+- Sticky responsive nav with hamburger menu
+- Deep-linking via URL hash (e.g., `#day6`)
 
 ## File Structure
 
 ```
 Mom Germany trip/
-├── index.html         # หน้าแรก
-├── itinerary.html     # ตารางทริป 10 วัน
-├── hotels.html        # ที่พัก 9 คืน
-├── transport.html     # เครื่องบิน + รถตู้+คนขับ
-├── food.html          # อาหารและร้าน
-├── tips.html          # อากาศ/เสื้อผ้า/ภาษา/ฉุกเฉิน
-├── styles.css         # Shared design system
-├── assets/            # (พร้อมไว้ใส่ภาพ/ไอคอนเพิ่ม)
-└── WEBSITE_OVERVIEW.md
+├── index.html              # Home
+├── routes.html             # Route comparison hub
+├── itinerary.html          # 10-day
+├── itinerary-20day.html    # 20-day
+├── itinerary-30day.html    # 30-day Grand Tour
+├── towns.html              # Towns index (34)
+├── sights.html             # Sights index (27)
+├── hotels.html / transport.html / food.html / tips.html
+├── styles.css              # Shared design system
+├── assets/wiki-images.js   # Wikipedia image loader
+├── towns/                  # 34 town pages
+└── sights/                 # 27 sight pages
 ```
 
-## To-Do ก่อนเดินทาง
+## Deployment
 
-- [ ] จองตั๋วเครื่องบิน TG920/TG921 (ก่อน ก.ค. 2026)
-- [ ] ขอวีซ่าเชงเก้น (ใช้เวลา ~15 วันทำการ)
-- [ ] ทำประกันเดินทาง (วงเงิน €30,000+)
-- [ ] จองรถตู้+คนขับ (Sixt/Blacklane) อย่างน้อย 3 เดือนล่วงหน้า
-- [ ] จองโรงแรม 9 คืน (ก่อน ก.ค. 2026 เพื่อราคาดี)
-- [ ] จองตั๋ว Sanssouci, Reichstag dome (ฟรีแต่ต้องจอง)
-- [ ] อัพเดทตารางเรือล่อง Wannsee เดือน พ.ย. ก่อนทริป
-- [ ] ตรวจตารางตลาดคริสต์มาส (มักเปิด 24-27 พ.ย.)
-
-## การ Deploy
-
-เป็น static HTML site ล้วน ๆ — สามารถ:
-- เปิดในเบราว์เซอร์ตรง ๆ ได้
-- อัปโหลด GitHub Pages, Netlify, Vercel
-- ใส่ใน Dropbox/Google Drive แชร์ลิงก์ให้คุณแม่และเพื่อน ๆ
-- พิมพ์เป็น PDF ติดตัวไป (Ctrl+P ใน Chrome → Save as PDF)
+- Repo: https://github.com/RoodeeLMS/mom-germany-trip-2026
+- Live: https://roodeelms.github.io/mom-germany-trip-2026/
+- Static HTML — GitHub Pages auto-builds on push to `main`
+- No backend, no JS framework, no build step
 
 ---
 
-*Created with love by Nick | พฤษภาคม 2026*
+*Latest update: May 2026*
