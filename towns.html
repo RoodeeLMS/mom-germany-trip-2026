@@ -33,9 +33,9 @@
         }
         .town-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.25rem;
-            margin: 2rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.1rem;
+            margin: 1.5rem 0 2.5rem;
         }
         .town-card {
             background: white;
@@ -49,11 +49,9 @@
             display: flex;
             flex-direction: column;
         }
-        .town-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(125,40,40,0.15);
-        }
-        .town-card.bonus { border-top-color: var(--soft-brown); opacity: 0.85; }
+        .town-card:hover { transform: translateY(-5px); box-shadow: 0 12px 25px rgba(125,40,40,0.15); }
+        .town-card.bonus { border-top-color: var(--soft-brown); opacity: 0.92; }
+        .town-card.new-city { border-top-color: var(--forest-green); }
         .town-card-image {
             height: 160px;
             background-size: cover;
@@ -61,48 +59,29 @@
             background-color: var(--cream-dark);
             background-image: linear-gradient(135deg, var(--cream-dark) 0%, var(--cream) 100%);
         }
-        .town-card-body {
-            padding: 1.4rem;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        .town-emoji { font-size: 2.5rem; margin-bottom: 0.5rem; }
-        .town-name {
-            font-family: 'Playfair Display', 'Sarabun', serif;
-            color: var(--wine-red-dark);
-            font-size: 1.4rem;
-            margin-bottom: 0.15rem;
-        }
-        .town-name-de {
-            color: var(--soft-brown);
-            font-size: 0.92rem;
-            font-style: italic;
-            margin-bottom: 0.6rem;
-        }
-        .town-summary {
-            color: var(--deep-brown);
-            font-size: 0.94rem;
-            margin-bottom: 0.85rem;
-            flex: 1;
-        }
-        .town-badges {
-            display: flex;
-            gap: 0.4rem;
-            flex-wrap: wrap;
-            margin-top: auto;
-        }
-        .town-badge {
-            background: var(--cream);
-            color: var(--wine-red-dark);
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 0.78rem;
-            font-weight: 600;
-        }
+        .town-card-body { padding: 1.2rem; flex: 1; display: flex; flex-direction: column; }
+        .town-emoji { font-size: 2.2rem; margin-bottom: 0.4rem; }
+        .town-name { font-family: 'Playfair Display', 'Sarabun', serif; color: var(--wine-red-dark); font-size: 1.3rem; margin-bottom: 0.1rem; }
+        .town-name-de { color: var(--soft-brown); font-size: 0.88rem; font-style: italic; margin-bottom: 0.5rem; }
+        .town-summary { color: var(--deep-brown); font-size: 0.92rem; margin-bottom: 0.75rem; flex: 1; }
+        .town-badges { display: flex; gap: 0.35rem; flex-wrap: wrap; margin-top: auto; }
+        .town-badge { background: var(--cream); color: var(--wine-red-dark); padding: 3px 9px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
         .town-badge.unesco { background: var(--forest-green); color: white; }
         .town-badge.day { background: var(--autumn-gold); color: var(--wine-red-dark); }
         .town-badge.bonus { background: var(--soft-brown); color: white; }
+        .town-badge.country { background: white; border: 1px solid var(--soft-brown); color: var(--wine-red-dark); }
+        .country-section h2 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Playfair Display', 'Sarabun', serif;
+            color: var(--wine-red-dark);
+            font-size: 1.65rem;
+            margin: 2rem 0 0.5rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 3px solid var(--autumn-gold);
+        }
+        .country-section p { color: var(--soft-brown); margin-bottom: 0.5rem; }
     </style>
 </head>
 <body>
@@ -112,8 +91,10 @@
             <button class="menu-toggle" onclick="document.querySelector('.navbar-menu').classList.toggle('mobile-open')">☰</button>
             <div class="navbar-menu">
                 <a href="index.html" class="navbar-item">หน้าแรก</a>
+                <a href="routes.html" class="navbar-item">เส้นทาง</a>
                 <a href="itinerary.html" class="navbar-item">ตารางทริป</a>
                 <a href="towns.html" class="navbar-item active">เมือง</a>
+                <a href="sights.html" class="navbar-item">สถานที่</a>
                 <a href="hotels.html" class="navbar-item">ที่พัก</a>
                 <a href="transport.html" class="navbar-item">การเดินทาง</a>
                 <a href="food.html" class="navbar-item">อาหาร</a>
@@ -123,8 +104,8 @@
     </nav>
 
     <header class="page-header">
-        <h1>คู่มือเมือง 13 แห่ง</h1>
-        <p class="subtitle">เมืองทั้งหมดที่อยู่ในเส้นทางและที่เพื่อนแม่แนะนำ — คลิกเพื่อดูรายละเอียด</p>
+        <h1>คู่มือเมือง 34 แห่ง</h1>
+        <p class="subtitle">เมืองในเส้นทาง 10/20/30 วัน + ทางเลือก — เยอรมนีและเพื่อนบ้าน</p>
     </header>
 
     <div class="container">
@@ -132,200 +113,442 @@
         <div class="callout info">
             <div class="callout-title">📖 วิธีใช้</div>
             <p>แต่ละเมืองมีหน้าของตัวเอง พร้อมประวัติ จุดต้องดู เส้นทางเดินครึ่งวัน
-            ร้านอาหารแนะนำ จุดถ่ายรูป และเกร็ดความรู้
-            แตะ <span class="town-badge unesco">UNESCO</span> แสดงว่าเป็นเมืองมรดกโลก</p>
+            ร้านอาหารแนะนำ จุดถ่ายรูป และเกร็ดความรู้ — กดที่การ์ดเพื่อดูรายละเอียด
+            <br>กดดู <a href="routes.html" class="link-inline">เส้นทาง 10/20/30 วัน</a> เพื่อเห็นภาพรวม</p>
         </div>
 
         <div class="filter-bar">
-            <button class="filter-btn active" onclick="filterTowns('all', this)">ทั้งหมด (13)</button>
-            <button class="filter-btn" onclick="filterTowns('route', this)">ในเส้นทาง (11)</button>
-            <button class="filter-btn" onclick="filterTowns('bonus', this)">ทางเลือก (2)</button>
+            <button class="filter-btn active" onclick="filterTowns('all', this)">ทั้งหมด (34)</button>
+            <button class="filter-btn" onclick="filterTowns('route10', this)">เส้นทาง 10 วัน (11)</button>
+            <button class="filter-btn" onclick="filterTowns('route20', this)">เพิ่มใน 20 วัน (6)</button>
+            <button class="filter-btn" onclick="filterTowns('route30', this)">เพิ่มใน 30 วัน (15)</button>
+            <button class="filter-btn" onclick="filterTowns('de', this)">🇩🇪 เยอรมนี (24)</button>
+            <button class="filter-btn" onclick="filterTowns('at', this)">🇦🇹 ออสเตรีย (3)</button>
+            <button class="filter-btn" onclick="filterTowns('cz', this)">🇨🇿 เช็ก (2)</button>
+            <button class="filter-btn" onclick="filterTowns('benelux', this)">🇳🇱🇧🇪🇱🇺 Benelux (4)</button>
+            <button class="filter-btn" onclick="filterTowns('dk', this)">🇩🇰 เดนมาร์ก (1)</button>
             <button class="filter-btn" onclick="filterTowns('unesco', this)">UNESCO</button>
         </div>
 
-        <h2 class="section-title">เมืองในเส้นทาง</h2>
-        <div class="town-grid">
+        <!-- GERMANY -->
+        <div class="country-section">
+            <h2>🇩🇪 เยอรมนี (Germany) — 24 เมือง</h2>
+            <p>เมืองในเส้นทางหลัก + เมืองสำคัญที่อยู่ในแผน 20/30 วัน</p>
+            <div class="town-grid">
 
-            <a href="towns/goslar.html" class="town-card" data-category="route unesco">
-                <div class="town-card-image" data-wiki="Goslar"></div>
-                <div class="town-card-body">
-                    <div class="town-emoji">⛪</div>
-                    <div class="town-name">กอสลาร์</div>
-                    <div class="town-name-de">Goslar</div>
-                    <p class="town-summary">เมืองมรดกโลก เหมืองโบราณ บ้านครึ่งไม้กว่า 1,500 หลัง ที่เชิงเขาฮาร์ซ</p>
-                    <div class="town-badges">
-                        <span class="town-badge day">วันที่ 2</span>
-                        <span class="town-badge unesco">UNESCO</span>
+                <a href="towns/frankfurt.html" class="town-card" data-category="de route20 route30">
+                    <div class="town-card-image" data-wiki="Römerberg (Frankfurt)"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">🏙️</div>
+                        <div class="town-name">แฟรงก์เฟิร์ต</div>
+                        <div class="town-name-de">Frankfurt am Main</div>
+                        <p class="town-summary">จุดเริ่ม-จบทุกทริป (FRA) + Skyline + Apfelwein</p>
+                        <div class="town-badges"><span class="town-badge country">🇩🇪</span><span class="town-badge">✈️ FRA</span></div>
                     </div>
-                </div>
-            </a>
+                </a>
 
-            <a href="towns/wernigerode.html" class="town-card" data-category="route">
-                <div class="town-card-image" data-wiki="Wernigerode Castle"></div>
-                <div class="town-card-body">
-                    <div class="town-emoji">🏰</div>
-                    <div class="town-name">แวร์นิเกอโรเดอ</div>
-                    <div class="town-name-de">Wernigerode</div>
-                    <p class="town-summary">ปราสาทเทพนิยายบนเขา + เมืองบ้านครึ่งไม้ + รถไฟเล็กบรอคเค่น</p>
-                    <div class="town-badges">
-                        <span class="town-badge day">วันที่ 3</span>
+                <a href="towns/goslar.html" class="town-card" data-category="de route10 route20 route30 unesco">
+                    <div class="town-card-image" data-wiki="Goslar"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">⛪</div>
+                        <div class="town-name">กอสลาร์</div>
+                        <div class="town-name-de">Goslar</div>
+                        <p class="town-summary">เมืองมรดกโลก เหมืองโบราณ บ้านครึ่งไม้กว่า 1,500 หลัง</p>
+                        <div class="town-badges"><span class="town-badge country">🇩🇪</span><span class="town-badge day">วันที่ 2</span><span class="town-badge unesco">UNESCO</span></div>
                     </div>
-                </div>
-            </a>
+                </a>
 
-            <a href="towns/quedlinburg.html" class="town-card" data-category="route unesco">
-                <div class="town-card-image" data-wiki="Quedlinburg"></div>
-                <div class="town-card-body">
-                    <div class="town-emoji">🏘️</div>
-                    <div class="town-name">เควดลินบวร์ก</div>
-                    <div class="town-name-de">Quedlinburg</div>
-                    <p class="town-summary">เมืองมรดกโลกขนาดใหญ่ที่สุด บ้านครึ่งไม้ 1,300+ หลัง อายุ 600+ ปี</p>
-                    <div class="town-badges">
-                        <span class="town-badge day">วันที่ 3</span>
-                        <span class="town-badge unesco">UNESCO</span>
+                <a href="towns/wernigerode.html" class="town-card" data-category="de route10 route20 route30">
+                    <div class="town-card-image" data-wiki="Wernigerode Castle"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">🏰</div>
+                        <div class="town-name">แวร์นิเกอโรเดอ</div>
+                        <div class="town-name-de">Wernigerode</div>
+                        <p class="town-summary">ปราสาทเทพนิยายบนเขา + เมืองบ้านครึ่งไม้</p>
+                        <div class="town-badges"><span class="town-badge country">🇩🇪</span><span class="town-badge day">วันที่ 3</span></div>
                     </div>
-                </div>
-            </a>
+                </a>
 
-            <a href="towns/magdeburg.html" class="town-card" data-category="route">
-                <div class="town-card-image" data-wiki="Magdeburg Cathedral"></div>
-                <div class="town-card-body">
-                    <div class="town-emoji">🏛️</div>
-                    <div class="town-name">มักเดบวร์ก</div>
-                    <div class="town-name-de">Magdeburg</div>
-                    <p class="town-summary">มหาวิหารโกธิคที่เก่าแก่ที่สุดในเยอรมนี + ตึก Hundertwasser สีเขียวสุดแปลก</p>
-                    <div class="town-badges">
-                        <span class="town-badge day">วันที่ 4</span>
+                <a href="towns/quedlinburg.html" class="town-card" data-category="de route10 route20 route30 unesco">
+                    <div class="town-card-image" data-wiki="Quedlinburg"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">🏘️</div>
+                        <div class="town-name">เควดลินบวร์ก</div>
+                        <div class="town-name-de">Quedlinburg</div>
+                        <p class="town-summary">เมืองมรดกโลกใหญ่ที่สุด บ้านครึ่งไม้ 1,300+ หลัง</p>
+                        <div class="town-badges"><span class="town-badge country">🇩🇪</span><span class="town-badge day">วันที่ 3</span><span class="town-badge unesco">UNESCO</span></div>
                     </div>
-                </div>
-            </a>
+                </a>
 
-            <a href="towns/berlin.html" class="town-card" data-category="route">
-                <div class="town-card-image" data-wiki="Brandenburg Gate"></div>
-                <div class="town-card-body">
-                    <div class="town-emoji">🐻</div>
-                    <div class="town-name">แบร์ลิน</div>
-                    <div class="town-name-de">Berlin</div>
-                    <p class="town-summary">เมืองหลวงเก่า-ใหม่ ประตูบรันเดินบวร์ก กำแพงเบอร์ลิน เกาะพิพิธภัณฑ์</p>
-                    <div class="town-badges">
-                        <span class="town-badge day">วันที่ 4-6 (3 คืน)</span>
+                <a href="towns/magdeburg.html" class="town-card" data-category="de route10 route20 route30">
+                    <div class="town-card-image" data-wiki="Magdeburg Cathedral"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">🏛️</div>
+                        <div class="town-name">มักเดบวร์ก</div>
+                        <div class="town-name-de">Magdeburg</div>
+                        <p class="town-summary">มหาวิหารโกธิคแรก + Grüne Zitadelle</p>
+                        <div class="town-badges"><span class="town-badge country">🇩🇪</span><span class="town-badge day">วันที่ 4</span></div>
                     </div>
-                </div>
-            </a>
+                </a>
 
-            <a href="towns/potsdam.html" class="town-card" data-category="route unesco">
-                <div class="town-card-image" data-wiki="Sanssouci"></div>
-                <div class="town-card-body">
-                    <div class="town-emoji">👑</div>
-                    <div class="town-name">พ็อทซ์ดัม</div>
-                    <div class="town-name-de">Potsdam</div>
-                    <p class="town-summary">วังซองซูซี วังฤดูร้อนของกษัตริย์เฟรเดอริค + ย่านดัตช์ + ล่องเรือ Havel</p>
-                    <div class="town-badges">
-                        <span class="town-badge day">วันที่ 6</span>
-                        <span class="town-badge unesco">UNESCO</span>
+                <a href="towns/berlin.html" class="town-card" data-category="de route10 route20 route30">
+                    <div class="town-card-image" data-wiki="Brandenburg Gate"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">🐻</div>
+                        <div class="town-name">แบร์ลิน</div>
+                        <div class="town-name-de">Berlin</div>
+                        <p class="town-summary">เมืองหลวง — ประตูบรันเดินบวร์ก กำแพงเบอร์ลิน</p>
+                        <div class="town-badges"><span class="town-badge country">🇩🇪</span><span class="town-badge day">วัน 4-6</span></div>
                     </div>
-                </div>
-            </a>
+                </a>
 
-            <a href="towns/dresden.html" class="town-card" data-category="route">
-                <div class="town-card-image" data-wiki="Dresden Frauenkirche"></div>
-                <div class="town-card-body">
-                    <div class="town-emoji">⛪</div>
-                    <div class="town-name">เดรสเดน</div>
-                    <div class="town-name-de">Dresden</div>
-                    <p class="town-summary">"ฟลอเรนซ์แห่งแม่น้ำเอ็ลเบอ" Frauenkirche, Zwinger, ตลาดคริสต์มาส Striezelmarkt</p>
-                    <div class="town-badges">
-                        <span class="town-badge day">วันที่ 7</span>
+                <a href="towns/potsdam.html" class="town-card" data-category="de route10 route20 route30 unesco">
+                    <div class="town-card-image" data-wiki="Sanssouci"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">👑</div>
+                        <div class="town-name">พ็อทซ์ดัม</div>
+                        <div class="town-name-de">Potsdam</div>
+                        <p class="town-summary">วังซองซูซี + ย่านดัตช์</p>
+                        <div class="town-badges"><span class="town-badge country">🇩🇪</span><span class="town-badge day">วันที่ 6</span><span class="town-badge unesco">UNESCO</span></div>
                     </div>
-                </div>
-            </a>
+                </a>
 
-            <a href="towns/rostock.html" class="town-card" data-category="route">
-                <div class="town-card-image" data-wiki="Warnemünde"></div>
-                <div class="town-card-body">
-                    <div class="town-emoji">🌊</div>
-                    <div class="town-name">รอสต็อค</div>
-                    <div class="town-name-de">Rostock / Warnemünde</div>
-                    <p class="town-summary">เมืองท่าฮันเซียติคบนทะเลบอลติก + รีสอร์ตชายหาด Warnemünde</p>
-                    <div class="town-badges">
-                        <span class="town-badge day">วันที่ 8</span>
+                <a href="towns/dresden.html" class="town-card" data-category="de route10 route20 route30">
+                    <div class="town-card-image" data-wiki="Dresden Frauenkirche"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">⛪</div>
+                        <div class="town-name">เดรสเดน</div>
+                        <div class="town-name-de">Dresden</div>
+                        <p class="town-summary">"ฟลอเรนซ์แห่งเอ็ลเบอ" Frauenkirche + Zwinger</p>
+                        <div class="town-badges"><span class="town-badge country">🇩🇪</span><span class="town-badge day">วันที่ 7</span></div>
                     </div>
-                </div>
-            </a>
+                </a>
 
-            <a href="towns/schwerin.html" class="town-card" data-category="route">
-                <div class="town-card-image" data-wiki="Schwerin Palace"></div>
-                <div class="town-card-body">
-                    <div class="town-emoji">🏰</div>
-                    <div class="town-name">ชเวริน</div>
-                    <div class="town-name-de">Schwerin</div>
-                    <p class="town-summary">"Neuschwanstein แห่งเหนือ" วังบนเกาะกลางทะเลสาบ</p>
-                    <div class="town-badges">
-                        <span class="town-badge day">วันที่ 9</span>
+                <a href="towns/rostock.html" class="town-card" data-category="de route10 route20 route30">
+                    <div class="town-card-image" data-wiki="Warnemünde"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">🌊</div>
+                        <div class="town-name">รอสต็อค</div>
+                        <div class="town-name-de">Rostock / Warnemünde</div>
+                        <p class="town-summary">เมืองท่าบอลติก + ชายหาด</p>
+                        <div class="town-badges"><span class="town-badge country">🇩🇪</span><span class="town-badge day">วันที่ 8</span></div>
                     </div>
-                </div>
-            </a>
+                </a>
 
-            <a href="towns/luebeck.html" class="town-card" data-category="route unesco">
-                <div class="town-card-image" data-wiki="Holstentor"></div>
-                <div class="town-card-body">
-                    <div class="town-emoji">🍬</div>
-                    <div class="town-name">ลือเบค</div>
-                    <div class="town-name-de">Lübeck</div>
-                    <p class="town-summary">"ราชินีฮันเซียติค" ประตู Holstentor + เมืองมาร์ซิปัน Niederegger</p>
-                    <div class="town-badges">
-                        <span class="town-badge day">วันที่ 9</span>
-                        <span class="town-badge unesco">UNESCO</span>
+                <a href="towns/schwerin.html" class="town-card" data-category="de route10 route20 route30">
+                    <div class="town-card-image" data-wiki="Schwerin Palace"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">🏰</div>
+                        <div class="town-name">ชเวริน</div>
+                        <div class="town-name-de">Schwerin</div>
+                        <p class="town-summary">"Neuschwanstein แห่งเหนือ" บนเกาะกลางทะเลสาบ</p>
+                        <div class="town-badges"><span class="town-badge country">🇩🇪</span><span class="town-badge day">วันที่ 9</span></div>
                     </div>
-                </div>
-            </a>
+                </a>
 
-            <a href="towns/hamburg.html" class="town-card" data-category="route">
-                <div class="town-card-image" data-wiki="Speicherstadt"></div>
-                <div class="town-card-body">
-                    <div class="town-emoji">⚓</div>
-                    <div class="town-name">ฮัมบวร์ก</div>
-                    <div class="town-name-de">Hamburg</div>
-                    <p class="town-summary">เมืองท่าสำคัญที่สุดของเยอรมนี Miniatur Wunderland, Speicherstadt, Elbphilharmonie</p>
-                    <div class="town-badges">
-                        <span class="town-badge day">วันที่ 10</span>
-                        <span class="town-badge unesco">UNESCO Speicherstadt</span>
+                <a href="towns/luebeck.html" class="town-card" data-category="de route10 route20 route30 unesco">
+                    <div class="town-card-image" data-wiki="Holstentor"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">🍬</div>
+                        <div class="town-name">ลือเบค</div>
+                        <div class="town-name-de">Lübeck</div>
+                        <p class="town-summary">"ราชินีฮันเซียติค" Holstentor + Niederegger</p>
+                        <div class="town-badges"><span class="town-badge country">🇩🇪</span><span class="town-badge day">วันที่ 9</span><span class="town-badge unesco">UNESCO</span></div>
                     </div>
-                </div>
-            </a>
+                </a>
 
+                <a href="towns/hamburg.html" class="town-card" data-category="de route10 route20 route30 unesco">
+                    <div class="town-card-image" data-wiki="Speicherstadt"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">⚓</div>
+                        <div class="town-name">ฮัมบวร์ก</div>
+                        <div class="town-name-de">Hamburg</div>
+                        <p class="town-summary">เมืองท่า + Speicherstadt + Miniatur Wunderland</p>
+                        <div class="town-badges"><span class="town-badge country">🇩🇪</span><span class="town-badge day">วันที่ 10</span><span class="town-badge unesco">UNESCO</span></div>
+                    </div>
+                </a>
+
+                <!-- New cities in 20-day -->
+                <a href="towns/heidelberg.html" class="town-card new-city" data-category="de route20 route30">
+                    <div class="town-card-image" data-wiki="Heidelberg Castle"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">🏰</div>
+                        <div class="town-name">ไฮเดลแบร์ก</div>
+                        <div class="town-name-de">Heidelberg</div>
+                        <p class="town-summary">ปราสาทซากริมแม่น้ำ Neckar + มหาวิทยาลัยเก่าแก่</p>
+                        <div class="town-badges"><span class="town-badge country">🇩🇪</span><span class="town-badge">20 วัน</span></div>
+                    </div>
+                </a>
+
+                <a href="towns/wuerzburg.html" class="town-card new-city" data-category="de route20 route30 unesco">
+                    <div class="town-card-image" data-wiki="Würzburg Residence"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">🍷</div>
+                        <div class="town-name">เวือร์ซบวร์ก</div>
+                        <div class="town-name-de">Würzburg</div>
+                        <p class="town-summary">เริ่ม Romantic Road + Residenz UNESCO + ไวน์</p>
+                        <div class="town-badges"><span class="town-badge country">🇩🇪</span><span class="town-badge">20 วัน</span><span class="town-badge unesco">UNESCO</span></div>
+                    </div>
+                </a>
+
+                <a href="towns/rothenburg.html" class="town-card new-city" data-category="de route20 route30">
+                    <div class="town-card-image" data-wiki="Rothenburg ob der Tauber"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">🏘️</div>
+                        <div class="town-name">โรเทินบวร์ก</div>
+                        <div class="town-name-de">Rothenburg ob der Tauber</div>
+                        <p class="town-summary">เมืองยุคกลางสมบูรณ์ที่สุด + Plönlein</p>
+                        <div class="town-badges"><span class="town-badge country">🇩🇪</span><span class="town-badge">20 วัน</span></div>
+                    </div>
+                </a>
+
+                <a href="towns/nuremberg.html" class="town-card new-city" data-category="de route20 route30">
+                    <div class="town-card-image" data-wiki="Nuremberg"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">🎄</div>
+                        <div class="town-name">นูเรมแบร์ก</div>
+                        <div class="town-name-de">Nürnberg</div>
+                        <p class="town-summary">Christkindlesmarkt + Kaiserburg + ประวัติศาสตร์ WW2</p>
+                        <div class="town-badges"><span class="town-badge country">🇩🇪</span><span class="town-badge">20 วัน</span></div>
+                    </div>
+                </a>
+
+                <a href="towns/bamberg.html" class="town-card new-city" data-category="de route20 route30 unesco">
+                    <div class="town-card-image" data-wiki="Bamberg"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">🍺</div>
+                        <div class="town-name">บัมแบร์ก</div>
+                        <div class="town-name-de">Bamberg</div>
+                        <p class="town-summary">UNESCO + เบียร์ Rauchbier รสรมควัน</p>
+                        <div class="town-badges"><span class="town-badge country">🇩🇪</span><span class="town-badge">20 วัน</span><span class="town-badge unesco">UNESCO</span></div>
+                    </div>
+                </a>
+
+                <a href="towns/munich.html" class="town-card new-city" data-category="de route20 route30">
+                    <div class="town-card-image" data-wiki="Marienplatz"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">🍺</div>
+                        <div class="town-name">มิวนิก</div>
+                        <div class="town-name-de">München</div>
+                        <p class="town-summary">Bavaria capital + Marienplatz + Hofbräuhaus</p>
+                        <div class="town-badges"><span class="town-badge country">🇩🇪</span><span class="town-badge">20 วัน</span></div>
+                    </div>
+                </a>
+
+                <a href="towns/cologne.html" class="town-card new-city" data-category="de route20 route30 unesco">
+                    <div class="town-card-image" data-wiki="Cologne Cathedral"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">⛪</div>
+                        <div class="town-name">โคโลญ</div>
+                        <div class="town-name-de">Köln</div>
+                        <p class="town-summary">มหาวิหารโกธิคที่สูงที่สุด + Kölsch beer</p>
+                        <div class="town-badges"><span class="town-badge country">🇩🇪</span><span class="town-badge">20 วัน</span><span class="town-badge unesco">UNESCO</span></div>
+                    </div>
+                </a>
+
+                <a href="towns/aachen.html" class="town-card new-city" data-category="de route20 route30 unesco">
+                    <div class="town-card-image" data-wiki="Aachen Cathedral"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">👑</div>
+                        <div class="town-name">อาเคิน</div>
+                        <div class="town-name-de">Aachen</div>
+                        <p class="town-summary">เมืองชาร์ลมาญ + UNESCO Cathedral แรกในเยอรมัน</p>
+                        <div class="town-badges"><span class="town-badge country">🇩🇪</span><span class="town-badge">20 วัน</span><span class="town-badge unesco">UNESCO</span></div>
+                    </div>
+                </a>
+
+                <a href="towns/bremen.html" class="town-card new-city" data-category="de route20 route30 unesco">
+                    <div class="town-card-image" data-wiki="Bremen Town Musicians"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">🐓</div>
+                        <div class="town-name">เบรเมน</div>
+                        <div class="town-name-de">Bremen</div>
+                        <p class="town-summary">Town Musicians (Grimm) + Rathaus UNESCO</p>
+                        <div class="town-badges"><span class="town-badge country">🇩🇪</span><span class="town-badge">20 วัน</span><span class="town-badge unesco">UNESCO</span></div>
+                    </div>
+                </a>
+
+                <a href="towns/trier.html" class="town-card new-city" data-category="de route30 unesco">
+                    <div class="town-card-image" data-wiki="Porta Nigra"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">🏛️</div>
+                        <div class="town-name">เทรียร์</div>
+                        <div class="town-name-de">Trier</div>
+                        <p class="town-summary">เมืองโรมัน Porta Nigra + บ้าน Karl Marx</p>
+                        <div class="town-badges"><span class="town-badge country">🇩🇪</span><span class="town-badge">30 วัน</span><span class="town-badge unesco">UNESCO</span></div>
+                    </div>
+                </a>
+
+                <a href="towns/hannover.html" class="town-card bonus" data-category="de bonus route20">
+                    <div class="town-card-image" data-wiki="Herrenhausen Gardens"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">🌷</div>
+                        <div class="town-name">ฮันโนเวอร์</div>
+                        <div class="town-name-de">Hannover</div>
+                        <p class="town-summary">Herrenhausen Gardens สวน Baroque ที่งดงาม</p>
+                        <div class="town-badges"><span class="town-badge country">🇩🇪</span><span class="town-badge bonus">ทางเลือก</span></div>
+                    </div>
+                </a>
+
+                <a href="towns/esslingen.html" class="town-card bonus" data-category="de bonus">
+                    <div class="town-card-image" data-wiki="Esslingen am Neckar"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">🍷</div>
+                        <div class="town-name">เอ็สลิงเงิน</div>
+                        <div class="town-name-de">Esslingen am Neckar</div>
+                        <p class="town-summary">ปราสาทบนเขา + ตลาดคริสต์มาสยุคกลางดังที่สุด</p>
+                        <div class="town-badges"><span class="town-badge country">🇩🇪</span><span class="town-badge bonus">ทางเลือก</span></div>
+                    </div>
+                </a>
+
+            </div>
         </div>
 
-        <h2 class="section-title">เมืองทางเลือก (ไม่ได้อยู่ในเส้นทางหลัก)</h2>
-        <p style="color: var(--soft-brown); margin-bottom: 1rem;">เพื่อนแม่แนะนำเมืองเหล่านี้ด้วย แต่ใน 10 วันไม่พอเที่ยวทั้งหมด — เก็บไว้ทริปหน้าหรือเปลี่ยนใส่แทนได้</p>
-        <div class="town-grid">
+        <!-- AUSTRIA -->
+        <div class="country-section">
+            <h2>🇦🇹 ออสเตรีย (Austria) — 3 เมือง</h2>
+            <p>อยู่ใต้เยอรมนี — ใช้สกุล EUR เหมือนกัน รวมในแผน 20/30 วันได้สบาย</p>
+            <div class="town-grid">
 
-            <a href="towns/hannover.html" class="town-card bonus" data-category="bonus">
-                <div class="town-card-image" data-wiki="Herrenhausen Gardens"></div>
-                <div class="town-card-body">
-                    <div class="town-emoji">🌷</div>
-                    <div class="town-name">ฮันโนเวอร์</div>
-                    <div class="town-name-de">Hannover</div>
-                    <p class="town-summary">สวนหลวง Herrenhausen — สวนบาโรกที่งดงามที่สุดของเยอรมนี + เมืองเก่าสร้างใหม่หลังสงคราม</p>
-                    <div class="town-badges">
-                        <span class="town-badge bonus">ทางเลือก</span>
+                <a href="towns/munich.html" style="display:none;"></a>
+                <a href="towns/vienna.html" class="town-card new-city" data-category="at route30">
+                    <div class="town-card-image" data-wiki="Schönbrunn Palace"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">🎻</div>
+                        <div class="town-name">เวียนนา</div>
+                        <div class="town-name-de">Wien</div>
+                        <p class="town-summary">เมืองหลวง Habsburg + Schönbrunn + Mozart/Beethoven</p>
+                        <div class="town-badges"><span class="town-badge country">🇦🇹</span><span class="town-badge">30 วัน</span><span class="town-badge unesco">UNESCO</span></div>
                     </div>
-                </div>
-            </a>
+                </a>
 
-            <a href="towns/esslingen.html" class="town-card bonus" data-category="bonus">
-                <div class="town-card-image" data-wiki="Esslingen am Neckar"></div>
-                <div class="town-card-body">
-                    <div class="town-emoji">🍷</div>
-                    <div class="town-name">เอ็สลิงเงิน</div>
-                    <div class="town-name-de">Esslingen am Neckar</div>
-                    <p class="town-summary">เมืองสวยทางใต้ใกล้ Stuttgart — ปราสาทบนเขา + ตลาดคริสต์มาสยุคกลางที่ดังที่สุด</p>
-                    <div class="town-badges">
-                        <span class="town-badge bonus">ทางเลือก</span>
+                <a href="towns/salzburg.html" class="town-card new-city" data-category="at route20 route30 unesco">
+                    <div class="town-card-image" data-wiki="Hohensalzburg Fortress"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">🎼</div>
+                        <div class="town-name">ซาลซ์บวร์ก</div>
+                        <div class="town-name-de">Salzburg</div>
+                        <p class="town-summary">บ้านเกิด Mozart + Sound of Music + ป้อม Hohensalzburg</p>
+                        <div class="town-badges"><span class="town-badge country">🇦🇹</span><span class="town-badge">20/30 วัน</span><span class="town-badge unesco">UNESCO</span></div>
                     </div>
-                </div>
-            </a>
+                </a>
 
+                <a href="towns/hallstatt.html" class="town-card new-city" data-category="at route30 unesco">
+                    <div class="town-card-image" data-wiki="Hallstatt"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">🏔️</div>
+                        <div class="town-name">ฮัลล์ชตัทท์</div>
+                        <div class="town-name-de">Hallstatt</div>
+                        <p class="town-summary">หมู่บ้านริมทะเลสาบ + เหมืองเกลือ 7,000 ปี</p>
+                        <div class="town-badges"><span class="town-badge country">🇦🇹</span><span class="town-badge">30 วัน</span><span class="town-badge unesco">UNESCO</span></div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+
+        <!-- CZECHIA -->
+        <div class="country-section">
+            <h2>🇨🇿 สาธารณรัฐเช็ก (Czechia) — 2 เมือง</h2>
+            <p>ใช้สกุล CZK ไม่ใช่ EUR (~25 CZK = 1 EUR) — ระยะใกล้กับเดรสเดน/Vienna</p>
+            <div class="town-grid">
+
+                <a href="towns/prague.html" class="town-card new-city" data-category="cz route30 unesco">
+                    <div class="town-card-image" data-wiki="Charles Bridge"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">👑</div>
+                        <div class="town-name">ปราก</div>
+                        <div class="town-name-de">Praha</div>
+                        <p class="town-summary">"City of a Hundred Spires" + ปราสาทใหญ่ที่สุดในโลก</p>
+                        <div class="town-badges"><span class="town-badge country">🇨🇿</span><span class="town-badge">30 วัน</span><span class="town-badge unesco">UNESCO</span></div>
+                    </div>
+                </a>
+
+                <a href="towns/cesky-krumlov.html" class="town-card new-city" data-category="cz route30 unesco">
+                    <div class="town-card-image" data-wiki="Český Krumlov"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">🏰</div>
+                        <div class="town-name">เชสกี้ครุมลอฟ</div>
+                        <div class="town-name-de">Český Krumlov</div>
+                        <p class="town-summary">เมืองเล็กเทพนิยาย + แม่น้ำ Vltava ไหลรอบ</p>
+                        <div class="town-badges"><span class="town-badge country">🇨🇿</span><span class="town-badge">30 วัน</span><span class="town-badge unesco">UNESCO</span></div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+
+        <!-- BENELUX -->
+        <div class="country-section">
+            <h2>🇳🇱🇧🇪🇱🇺 Benelux — 4 เมือง</h2>
+            <p>เนเธอร์แลนด์ + เบลเยียม + ลักเซมเบิร์ก — เพิ่มเสน่ห์ทางตะวันตก</p>
+            <div class="town-grid">
+
+                <a href="towns/amsterdam.html" class="town-card new-city" data-category="benelux route30 unesco">
+                    <div class="town-card-image" data-wiki="Canals of Amsterdam"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">🚲</div>
+                        <div class="town-name">อัมสเตอร์ดัม</div>
+                        <div class="town-name-de">Amsterdam</div>
+                        <p class="town-summary">คลอง 165 แห่ง + Van Gogh + Anne Frank</p>
+                        <div class="town-badges"><span class="town-badge country">🇳🇱</span><span class="town-badge">30 วัน</span><span class="town-badge unesco">UNESCO</span></div>
+                    </div>
+                </a>
+
+                <a href="towns/bruges.html" class="town-card new-city" data-category="benelux route30 unesco">
+                    <div class="town-card-image" data-wiki="Bruges"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">🍫</div>
+                        <div class="town-name">บรูซ</div>
+                        <div class="town-name-de">Brugge / Bruges</div>
+                        <p class="town-summary">"Venice of the North" + ช็อกโกแลตเบลเยี่ยม</p>
+                        <div class="town-badges"><span class="town-badge country">🇧🇪</span><span class="town-badge">30 วัน</span><span class="town-badge unesco">UNESCO</span></div>
+                    </div>
+                </a>
+
+                <a href="towns/brussels.html" class="town-card new-city" data-category="benelux route30 unesco">
+                    <div class="town-card-image" data-wiki="Grand-Place"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">🍟</div>
+                        <div class="town-name">บรัสเซลส์</div>
+                        <div class="town-name-de">Bruxelles</div>
+                        <p class="town-summary">Grand-Place + Manneken Pis + Atomium</p>
+                        <div class="town-badges"><span class="town-badge country">🇧🇪</span><span class="town-badge">30 วัน</span><span class="town-badge unesco">UNESCO</span></div>
+                    </div>
+                </a>
+
+                <a href="towns/luxembourg.html" class="town-card new-city" data-category="benelux route30 unesco">
+                    <div class="town-card-image" data-wiki="Luxembourg City"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">🏰</div>
+                        <div class="town-name">ลักเซมเบิร์ก</div>
+                        <div class="town-name-de">Luxembourg</div>
+                        <p class="town-summary">ป้อมโขดหิน + ใจกลาง EU</p>
+                        <div class="town-badges"><span class="town-badge country">🇱🇺</span><span class="town-badge">30 วัน</span><span class="town-badge unesco">UNESCO</span></div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+
+        <!-- DENMARK -->
+        <div class="country-section">
+            <h2>🇩🇰 เดนมาร์ก (Denmark) — 1 เมือง</h2>
+            <p>เหนือสุดของแผน 30 วัน — ใช้สกุล DKK</p>
+            <div class="town-grid">
+
+                <a href="towns/copenhagen.html" class="town-card new-city" data-category="dk route30">
+                    <div class="town-card-image" data-wiki="Nyhavn"></div>
+                    <div class="town-card-body">
+                        <div class="town-emoji">🧜‍♀️</div>
+                        <div class="town-name">โคเปนเฮเกน</div>
+                        <div class="town-name-de">København</div>
+                        <p class="town-summary">Nyhavn + Little Mermaid + Tivoli + hygge</p>
+                        <div class="town-badges"><span class="town-badge country">🇩🇰</span><span class="town-badge">30 วัน</span></div>
+                    </div>
+                </a>
+
+            </div>
         </div>
 
     </div>
@@ -333,7 +556,6 @@
     <footer class="site-footer">
         <p>🏰 ทริปเยอรมนีของแม่ 2026 — สร้างด้วยความรักโดยลูกชาย</p>
     </footer>
-
 
     <script src="assets/wiki-images.js"></script>
     <script>
@@ -345,6 +567,11 @@
                 if (category === 'all') card.style.display = '';
                 else if (cats.includes(category)) card.style.display = '';
                 else card.style.display = 'none';
+            });
+            // Hide empty country sections
+            document.querySelectorAll('.country-section').forEach(s => {
+                const visible = Array.from(s.querySelectorAll('.town-card')).some(c => c.style.display !== 'none');
+                s.style.display = visible ? '' : 'none';
             });
         }
     </script>

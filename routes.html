@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เส้นทางทั้งหมด — ทริปเยอรมนีของแม่ 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .route-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+            margin-bottom: 1.5rem;
+            border-top: 5px solid var(--wine-red);
+        }
+        .route-card.featured { border-top-color: var(--autumn-gold); }
+        .route-header {
+            padding: 1.5rem 2rem 1rem;
+            background: linear-gradient(135deg, var(--cream) 0%, white 100%);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .route-title {
+            font-family: 'Playfair Display', 'Sarabun', serif;
+            color: var(--wine-red-dark);
+            font-size: 1.65rem;
+        }
+        .route-subtitle {
+            color: var(--soft-brown);
+            font-size: 0.95rem;
+            margin-top: 0.2rem;
+        }
+        .route-duration {
+            background: var(--wine-red);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            white-space: nowrap;
+        }
+        .route-card.featured .route-duration {
+            background: var(--autumn-gold);
+            color: var(--wine-red-dark);
+        }
+        .route-body { padding: 1.5rem 2rem; }
+        .route-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+        .route-stat {
+            background: var(--cream);
+            padding: 0.85rem 1rem;
+            border-radius: 10px;
+        }
+        .route-stat strong {
+            display: block;
+            color: var(--wine-red-dark);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.2rem;
+        }
+        .country-pills {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            margin: 0.75rem 0;
+        }
+        .country-pill {
+            background: var(--cream);
+            color: var(--wine-red-dark);
+            padding: 4px 14px;
+            border-radius: 14px;
+            font-size: 0.88rem;
+            font-weight: 500;
+        }
+        .country-pill.de { background: var(--autumn-gold); color: var(--wine-red-dark); }
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.25rem 0;
+        }
+        .compare-table th, .compare-table td {
+            padding: 12px 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--cream-dark);
+        }
+        .compare-table th {
+            background: var(--wine-red);
+            color: white;
+            font-weight: 600;
+        }
+        .compare-table tr:hover td { background: var(--cream); }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">🏰 ทริปเยอรมนีของแม่ 2026</a>
+            <button class="menu-toggle" onclick="document.querySelector('.navbar-menu').classList.toggle('mobile-open')">☰</button>
+            <div class="navbar-menu">
+                <a href="index.html" class="navbar-item">หน้าแรก</a>
+                <a href="routes.html" class="navbar-item active">เส้นทาง</a>
+                <a href="itinerary.html" class="navbar-item">ตารางทริป</a>
+                <a href="towns.html" class="navbar-item">เมือง</a>
+                <a href="sights.html" class="navbar-item">สถานที่</a>
+                <a href="hotels.html" class="navbar-item">ที่พัก</a>
+                <a href="transport.html" class="navbar-item">การเดินทาง</a>
+                <a href="food.html" class="navbar-item">อาหาร</a>
+                <a href="tips.html" class="navbar-item">คำแนะนำ</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1>เส้นทางทั้งหมด</h1>
+        <p class="subtitle">เลือกระยะเวลาที่เหมาะกับเวลา-งบของกลุ่ม — มี 3 แบบ</p>
+    </header>
+
+    <div class="container">
+
+        <div class="callout info">
+            <div class="callout-title">📖 วิธีเลือก</div>
+            <p>เส้นทาง <strong>10 วัน</strong> คือแผนหลักของเรา — โฟกัสเยอรมนีเหนือและตะวันออก กระชับ ไม่เหนื่อย<br>
+            <strong>20 วัน</strong> = เพิ่ม Romantic Road, Munich, Frankfurt, Cologne — เห็นเยอรมนีเกือบทุกภูมิภาค<br>
+            <strong>30 วัน</strong> = Grand Tour — เพิ่มออสเตรีย, เช็ก, เนเธอร์แลนด์, เบลเยียม, ลักเซมเบิร์ก, เดนมาร์ก<br>
+            * <em>ไม่รวม ฝรั่งเศส/สวิตเซอร์แลนด์/อิตาลี ตามที่ขอ</em></p>
+        </div>
+
+        <!-- Comparison Table -->
+        <h2 class="section-title">📊 เปรียบเทียบเส้นทาง</h2>
+        <table class="compare-table">
+            <thead>
+                <tr>
+                    <th>หัวข้อ</th>
+                    <th>10 วัน</th>
+                    <th>20 วัน</th>
+                    <th>30 วัน</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>เมือง</strong></td>
+                    <td>11</td>
+                    <td>17-18</td>
+                    <td>28-30</td>
+                </tr>
+                <tr>
+                    <td><strong>ประเทศ</strong></td>
+                    <td>1 (เยอรมนี)</td>
+                    <td>1 (เยอรมนี)</td>
+                    <td>7 (DE + AT + CZ + NL + BE + LU + DK)</td>
+                </tr>
+                <tr>
+                    <td><strong>ระยะทางขับ</strong></td>
+                    <td>~2,500 km</td>
+                    <td>~4,500 km</td>
+                    <td>~7,500 km</td>
+                </tr>
+                <tr>
+                    <td><strong>UNESCO sites</strong></td>
+                    <td>4</td>
+                    <td>8-10</td>
+                    <td>15+</td>
+                </tr>
+                <tr>
+                    <td><strong>งบประมาณ/คน (โดยประมาณ)</strong></td>
+                    <td>~135,000 ฿</td>
+                    <td>~225,000 ฿</td>
+                    <td>~340,000 ฿</td>
+                </tr>
+                <tr>
+                    <td><strong>เหมาะกับ</strong></td>
+                    <td>กลุ่มแม่ + เพื่อน เน้น "ลึกแต่กระชับ"</td>
+                    <td>กลุ่มมีเวลา อยากเห็นเยอรมันครบ</td>
+                    <td>คณะที่ทำทริปยุโรปครั้งใหญ่</td>
+                </tr>
+                <tr>
+                    <td><strong>เหนื่อยมั้ย?</strong></td>
+                    <td>กลาง</td>
+                    <td>กลาง-เหนื่อย</td>
+                    <td>เหนื่อยพอควร</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 10 Day Route -->
+        <div class="route-card featured">
+            <div class="route-header">
+                <div>
+                    <div class="route-title">เส้นทางหลัก — เยอรมนีเหนือ + ตะวันออก</div>
+                    <div class="route-subtitle">แผนของแม่ปัจจุบัน — กระชับ ไม่เหนื่อย</div>
+                </div>
+                <div class="route-duration">10 วัน ⭐</div>
+            </div>
+            <div class="route-body">
+                <div class="country-pills">
+                    <span class="country-pill de">🇩🇪 เยอรมนี</span>
+                </div>
+                <div class="route-grid">
+                    <div class="route-stat"><strong>เริ่ม-จบ</strong>Frankfurt (FRA)</div>
+                    <div class="route-stat"><strong>ระยะทาง</strong>~2,500 km</div>
+                    <div class="route-stat"><strong>โรงแรม</strong>9 คืน</div>
+                    <div class="route-stat"><strong>คน</strong>7-8 ท่าน</div>
+                </div>
+                <p style="margin: 0.75rem 0;"><strong>เส้นทาง:</strong>
+                    Frankfurt → Goslar → Wernigerode → Quedlinburg → Magdeburg → Berlin (3n) → Potsdam → Dresden → Rostock → Schwerin → Lübeck → Hamburg → Frankfurt</p>
+                <a href="itinerary.html" class="btn">📖 ดูตารางวันต่อวัน</a>
+            </div>
+        </div>
+
+        <!-- 20 Day Route -->
+        <div class="route-card">
+            <div class="route-header">
+                <div>
+                    <div class="route-title">เยอรมนีครบทุกภูมิภาค — Grand Germany</div>
+                    <div class="route-subtitle">เพิ่ม Romantic Road, Bavaria, Rhine — เห็นเยอรมนีเกือบทุกมุม</div>
+                </div>
+                <div class="route-duration">20 วัน</div>
+            </div>
+            <div class="route-body">
+                <div class="country-pills">
+                    <span class="country-pill de">🇩🇪 เยอรมนี</span>
+                </div>
+                <div class="route-grid">
+                    <div class="route-stat"><strong>เริ่ม-จบ</strong>Frankfurt (FRA)</div>
+                    <div class="route-stat"><strong>ระยะทาง</strong>~4,500 km</div>
+                    <div class="route-stat"><strong>โรงแรม</strong>19 คืน</div>
+                    <div class="route-stat"><strong>เมือง</strong>17-18 แห่ง</div>
+                </div>
+                <p style="margin: 0.75rem 0;"><strong>เส้นทาง:</strong>
+                    Frankfurt → Heidelberg → Würzburg → Rothenburg → Nürnberg → Bamberg → Munich (2n) → Salzburg ⚠️ฟรี → Berlin (3n) → Potsdam → Dresden → Quedlinburg → Goslar → Wernigerode → Hannover → Hamburg → Lübeck → Bremen → Cologne → Frankfurt</p>
+                <p style="margin-top: 0.5rem; color: var(--soft-brown); font-size: 0.9rem;">
+                    ⚠️ <em>* Salzburg อยู่ออสเตรีย แต่อยู่ติดชายแดน Bavaria จึงรวมในแผน 20 วัน "เกือบทั้งหมดในเยอรมนี" ได้ — หากไม่ต้องการให้ออกประเทศ ใส่ Garmisch-Partenkirchen แทน</em>
+                </p>
+                <a href="itinerary-20day.html" class="btn">📖 ดูตารางวันต่อวัน 20 วัน</a>
+            </div>
+        </div>
+
+        <!-- 30 Day Route -->
+        <div class="route-card">
+            <div class="route-header">
+                <div>
+                    <div class="route-title">Grand Tour — เยอรมนี + เพื่อนบ้าน</div>
+                    <div class="route-subtitle">เพิ่ม Austria, Czech, Benelux, Denmark — ใหญ่ที่สุด</div>
+                </div>
+                <div class="route-duration">30 วัน</div>
+            </div>
+            <div class="route-body">
+                <div class="country-pills">
+                    <span class="country-pill de">🇩🇪 DE</span>
+                    <span class="country-pill">🇦🇹 AT</span>
+                    <span class="country-pill">🇨🇿 CZ</span>
+                    <span class="country-pill">🇳🇱 NL</span>
+                    <span class="country-pill">🇧🇪 BE</span>
+                    <span class="country-pill">🇱🇺 LU</span>
+                    <span class="country-pill">🇩🇰 DK</span>
+                </div>
+                <div class="route-grid">
+                    <div class="route-stat"><strong>เริ่ม-จบ</strong>Frankfurt (FRA)</div>
+                    <div class="route-stat"><strong>ระยะทาง</strong>~7,500 km</div>
+                    <div class="route-stat"><strong>โรงแรม</strong>29 คืน</div>
+                    <div class="route-stat"><strong>เมือง</strong>28-30 แห่ง</div>
+                </div>
+                <p style="margin: 0.75rem 0;"><strong>เส้นทาง:</strong>
+                    Frankfurt → Cologne → Aachen → Brussels → Bruges → Amsterdam → Bremen → Hamburg → Lübeck → Copenhagen → Berlin (3n) → Dresden → Prague (2n) → Český Krumlov → Vienna (2n) → Salzburg → Hallstatt → Munich (2n) → Nürnberg → Bamberg → Rothenburg → Würzburg → Heidelberg → Trier → Luxembourg → Frankfurt</p>
+                <p style="margin-top: 0.5rem;"><strong>UNESCO sites รวม:</strong> 15+ (เกือบทุกเมืองเป็น UNESCO)</p>
+                <a href="itinerary-30day.html" class="btn">📖 ดูตารางวันต่อวัน 30 วัน</a>
+            </div>
+        </div>
+
+        <!-- Excluded countries note -->
+        <div class="callout warning" style="margin-top: 2rem;">
+            <div class="callout-title">🚫 ประเทศที่ไม่รวมในแผนทั้งหมด</div>
+            <p>ตามที่ขอ — เส้นทางทั้งหมด <strong>ไม่รวม ฝรั่งเศส, สวิตเซอร์แลนด์, อิตาลี</strong>
+            หากอยากใส่ทั้ง 3 ประเทศนี้ จะต้องเพิ่มเวลาอีก 5-10 วัน และต้องวางทริปใหม่ (เน้นทางใต้-ตะวันตก)</p>
+        </div>
+
+        <!-- Recommendation by group profile -->
+        <h2 class="section-title">💡 แนะนำตามประเภทกลุ่ม</h2>
+        <div class="card">
+            <h3>👵 สำหรับกลุ่มผู้สูงอายุที่ไม่เคยไปเยอรมัน → <strong>10 วัน</strong></h3>
+            <p>ไม่เหนื่อย คุ้มเวลา เน้นเมืองสำคัญ ใส่ใจคุณภาพมากกว่าจำนวน</p>
+        </div>
+        <div class="card">
+            <h3>🧓 กลุ่มมีเวลา + อยากเห็นเยอรมันให้ครบ → <strong>20 วัน</strong></h3>
+            <p>ผ่าน Romantic Road + Bavaria + Rhine + เหนือ — ทุกภูมิภาคหลักของเยอรมัน</p>
+        </div>
+        <div class="card">
+            <h3>🎒 กลุ่มผจญภัย / ทำทริปยุโรปครั้งแรก → <strong>30 วัน</strong></h3>
+            <p>เห็น 7 ประเทศใน 1 ทริป — Grand Tour เต็มรูปแบบ คุ้มค่าตั๋วเครื่องบินจาก กทม.</p>
+        </div>
+
+    </div>
+
+    <footer class="site-footer">
+        <p>🏰 ทริปเยอรมนีของแม่ 2026 — สร้างด้วยความรักโดยลูกชาย</p>
+    </footer>
+</body>
+</html>
