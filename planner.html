@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>วางแผนทริป — ทริปเยอรมนีของแม่ 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Map */
+        #map {
+            height: 620px;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+            margin: 1rem 0;
+        }
+        @media (max-width: 600px) { #map { height: 450px; } }
+        .map-controls {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+        .map-toggle {
+            padding: 8px 18px;
+            border: 2px solid;
+            border-radius: 20px;
+            background: white;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        .map-toggle.r10 { border-color: #2e8b57; color: #2e8b57; }
+        .map-toggle.r10.on { background: #2e8b57; color: white; }
+        .map-toggle.r20 { border-color: #d97706; color: #d97706; }
+        .map-toggle.r20.on { background: #d97706; color: white; }
+        .map-toggle.r30 { border-color: #b91c1c; color: #b91c1c; }
+        .map-toggle.r30.on { background: #b91c1c; color: white; }
+        .leaflet-popup-content { font-family: 'Sarabun', sans-serif; }
+        .map-popup h3 {
+            color: var(--wine-red-dark);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 0.3rem;
+        }
+        .map-popup .popup-meta { font-size: 0.85rem; color: var(--soft-brown); margin-bottom: 0.4rem; }
+        .map-popup .popup-routes { display: flex; gap: 0.3rem; margin-top: 0.3rem; }
+        .map-popup .popup-route {
+            padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; font-weight: 600;
+        }
+        .map-popup .popup-route.r10 { background: #2e8b57; color: white; }
+        .map-popup .popup-route.r20 { background: #d97706; color: white; }
+        .map-popup .popup-route.r30 { background: #b91c1c; color: white; }
+        .map-popup a { color: var(--wine-red); }
+
+        /* Quiz */
+        .quiz-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.75rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+        }
+        .quiz-question { margin-bottom: 1.25rem; }
+        .quiz-question h3 { color: var(--wine-red-dark); font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .quiz-options { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .quiz-option {
+            background: var(--cream);
+            border: 2px solid transparent;
+            padding: 8px 16px;
+            border-radius: 18px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        .quiz-option:hover { background: var(--cream-dark); }
+        .quiz-option.selected {
+            background: var(--autumn-gold);
+            color: var(--wine-red-dark);
+            border-color: var(--wine-red);
+        }
+        .quiz-result {
+            margin-top: 1.5rem;
+            padding: 1.25rem;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 100%);
+            border-left: 5px solid var(--autumn-gold);
+            display: none;
+        }
+        .quiz-result.show { display: block; }
+        .quiz-result h3 {
+            color: var(--wine-red-dark);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 0.5rem;
+        }
+        .quiz-result .recommend {
+            display: inline-block;
+            background: var(--wine-red);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 1rem;
+            margin: 0.4rem 0;
+        }
+
+        /* City picker */
+        .picker-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 0.4rem;
+            margin: 1rem 0;
+        }
+        .city-check {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: var(--cream);
+            padding: 6px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            user-select: none;
+            transition: background 0.15s;
+        }
+        .city-check:hover { background: var(--cream-dark); }
+        .city-check input { cursor: pointer; }
+        .city-check.selected { background: var(--autumn-gold); color: var(--wine-red-dark); font-weight: 600; }
+        .picker-result {
+            background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 100%);
+            padding: 1rem 1.25rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+            border-left: 5px solid var(--forest-green);
+        }
+        .picker-result .summary { font-size: 1.1rem; }
+        .picker-result strong { color: var(--wine-red-dark); }
+        .picker-controls { display: flex; gap: 0.5rem; margin-top: 0.75rem; flex-wrap: wrap; }
+        .picker-controls button {
+            background: var(--wine-red);
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-family: inherit;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        /* Cost calculator */
+        .cost-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .cost-control { background: var(--cream); padding: 1rem; border-radius: 10px; }
+        .cost-control label { display: block; font-weight: 600; color: var(--wine-red-dark); margin-bottom: 0.5rem; }
+        .cost-control input[type="range"] { width: 100%; }
+        .cost-control .value { font-size: 1.4rem; font-weight: 700; color: var(--wine-red-dark); font-family: 'Playfair Display', serif; }
+        .cost-result {
+            background: linear-gradient(135deg, var(--wine-red) 0%, var(--autumn-gold) 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            text-align: center;
+        }
+        .cost-result .total { font-size: 2.2rem; font-weight: 700; font-family: 'Playfair Display', serif; }
+        .cost-result .breakdown { font-size: 0.95rem; opacity: 0.95; margin-top: 0.5rem; }
+        .cost-breakdown-table { width: 100%; margin-top: 1rem; font-size: 0.9rem; color: var(--deep-brown); }
+        .cost-breakdown-table td { padding: 4px 8px; }
+        .cost-breakdown-table tr:nth-child(even) { background: rgba(0,0,0,0.05); }
+
+        /* Section icons */
+        .section-title { display: flex; align-items: center; gap: 0.5rem; }
+
+        /* Helper anchor scroll */
+        .planner-toc {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        .planner-toc a {
+            padding: 6px 14px;
+            background: white;
+            border: 1.5px solid var(--autumn-gold);
+            border-radius: 18px;
+            text-decoration: none;
+            color: var(--wine-red);
+            font-size: 0.92rem;
+            font-weight: 600;
+        }
+        .planner-toc a:hover { background: var(--autumn-gold); color: white; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">🏰 ทริปเยอรมนีของแม่ 2026</a>
+            <button class="menu-toggle" onclick="document.querySelector('.navbar-menu').classList.toggle('mobile-open')">☰</button>
+            <div class="navbar-menu">
+                <a href="index.html" class="navbar-item">หน้าแรก</a>
+                <a href="planner.html" class="navbar-item active">วางแผน</a>
+                <a href="routes.html" class="navbar-item">เส้นทาง</a>
+                <a href="itinerary.html" class="navbar-item">ตารางทริป</a>
+                <a href="towns.html" class="navbar-item">เมือง</a>
+                <a href="sights.html" class="navbar-item">สถานที่</a>
+                <a href="hotels.html" class="navbar-item">ที่พัก</a>
+                <a href="transport.html" class="navbar-item">การเดินทาง</a>
+                <a href="food.html" class="navbar-item">อาหาร</a>
+                <a href="tips.html" class="navbar-item">คำแนะนำ</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1>🧭 วางแผนทริป</h1>
+        <p class="subtitle">เครื่องมือช่วยตัดสินใจ — แผนที่ • ควิซ • เลือกเมือง • คำนวณงบ</p>
+    </header>
+
+    <div class="container">
+
+        <div class="planner-toc">
+            <a href="#map-section">🗺️ แผนที่ 3 เส้นทาง</a>
+            <a href="#quiz-section">❓ ควิซแนะนำเส้นทาง</a>
+            <a href="#picker-section">✅ เลือกเมืองที่อยากไป</a>
+            <a href="#cost-section">💰 คำนวณงบ</a>
+        </div>
+
+        <!-- ============ MAP ============ -->
+        <h2 class="section-title" id="map-section">🗺️ แผนที่ 3 เส้นทางบนแผ่นเดียว</h2>
+        <p>เปิด-ปิดเส้นทาง 10/20/30 วัน เพื่อเปรียบเทียบ — แตะที่จุดเมืองเพื่อดูรายละเอียด</p>
+
+        <div class="map-controls">
+            <button class="map-toggle r10 on" data-route="10">🟢 10 วัน (11 เมือง)</button>
+            <button class="map-toggle r20" data-route="20">🟠 20 วัน (~18 เมือง)</button>
+            <button class="map-toggle r30" data-route="30">🔴 25 วัน (~24 เมือง, ตัด Benelux)</button>
+        </div>
+
+        <div id="map"></div>
+
+        <div class="callout info">
+            <div class="callout-title">💡 วิธีอ่านแผนที่</div>
+            <ul style="margin-top: 0.4rem; padding-left: 1.4rem;">
+                <li><strong>สีจุด</strong> = สีของเส้นทางที่ผ่านเมืองนั้น (มีหลายสีถ้าผ่านหลายเส้นทาง)</li>
+                <li><strong>กดที่จุด</strong> = ดูชื่อเมือง คะแนน และลิงก์ไปคู่มือ</li>
+                <li><strong>ลูกศร</strong> = ทิศทางการเดินทาง</li>
+            </ul>
+        </div>
+
+        <!-- ============ QUIZ ============ -->
+        <h2 class="section-title" id="quiz-section">❓ ควิซแนะนำเส้นทาง</h2>
+        <p>ตอบ 5 คำถาม → เราแนะนำเส้นทางที่เหมาะกับกลุ่ม</p>
+
+        <div class="quiz-card">
+            <div class="quiz-question">
+                <h3>1. กลุ่มเคยมาเยอรมัน/ยุโรปมาก่อนไหม?</h3>
+                <div class="quiz-options" data-q="experience">
+                    <button class="quiz-option" data-v="first">ครั้งแรก</button>
+                    <button class="quiz-option" data-v="some">เคยมาบ้าง</button>
+                    <button class="quiz-option" data-v="lots">มาบ่อย</button>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h3>2. พลังการเดินทาง?</h3>
+                <div class="quiz-options" data-q="energy">
+                    <button class="quiz-option" data-v="relaxed">สบาย ๆ ไม่ชอบเหนื่อย</button>
+                    <button class="quiz-option" data-v="medium">ปานกลาง</button>
+                    <button class="quiz-option" data-v="high">มี energy สูง</button>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h3>3. มีเวลาเท่าไหร่ที่ใช้ได้ทั้งทริป?</h3>
+                <div class="quiz-options" data-q="time">
+                    <button class="quiz-option" data-v="2w">~2 สัปดาห์</button>
+                    <button class="quiz-option" data-v="3w">~3 สัปดาห์</button>
+                    <button class="quiz-option" data-v="month">~1 เดือนหรือกว่า</button>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h3>4. ตลาดคริสต์มาส + ออสเตรีย/เช็ก สำคัญแค่ไหน?</h3>
+                <div class="quiz-options" data-q="xmas">
+                    <button class="quiz-option" data-v="no">ไม่สำคัญ — เน้นเยอรมัน</button>
+                    <button class="quiz-option" data-v="maybe">ลองได้</button>
+                    <button class="quiz-option" data-v="yes">อยากเห็นออสเตรีย/เช็ก/เดนมาร์กด้วย</button>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h3>5. งบประมาณต่อคน (บาท)?</h3>
+                <div class="quiz-options" data-q="budget">
+                    <button class="quiz-option" data-v="low">~150,000</button>
+                    <button class="quiz-option" data-v="mid">~250,000</button>
+                    <button class="quiz-option" data-v="high">300,000+</button>
+                </div>
+            </div>
+
+            <div class="quiz-result" id="quiz-result">
+                <h3>เราแนะนำ:</h3>
+                <div class="recommend" id="quiz-recommend">—</div>
+                <p id="quiz-explain"></p>
+                <a id="quiz-link" href="#" class="btn" style="margin-top: 0.75rem;">📖 ดูตารางวันต่อวัน</a>
+            </div>
+        </div>
+
+        <!-- ============ CITY PICKER ============ -->
+        <h2 class="section-title" id="picker-section">✅ เลือกเมืองที่อยากไป</h2>
+        <p>ติ๊กเมืองที่อยากเห็น → เราคำนวณวันที่ต้องใช้และเส้นทางที่เหมาะ</p>
+
+        <div class="quiz-card">
+            <div class="picker-grid" id="picker-grid"></div>
+            <div class="picker-controls">
+                <button onclick="pickerClear()">ล้างทั้งหมด</button>
+                <button onclick="pickerSelect('r10')">เลือกตามเส้นทาง 10 วัน</button>
+                <button onclick="pickerSelect('r20')">เลือกตามเส้นทาง 20 วัน</button>
+                <button onclick="pickerSelect('r30')">เลือกตามเส้นทาง 30 วัน</button>
+            </div>
+            <div class="picker-result" id="picker-result">
+                <p class="summary">เลือก <strong>0 เมือง</strong> — ต้องใช้ <strong>0 วัน</strong> โดยประมาณ</p>
+                <p style="font-size:0.9rem; color:var(--soft-brown); margin-top:0.4rem;" id="picker-suggest"></p>
+            </div>
+        </div>
+
+        <!-- ============ COST CALCULATOR ============ -->
+        <h2 class="section-title" id="cost-section">💰 คำนวณงบ</h2>
+        <p>ปรับจำนวนคน + จำนวนวัน + ระดับโรงแรม → คำนวณงบรวมและต่อคน</p>
+
+        <div class="quiz-card">
+            <div class="cost-controls">
+                <div class="cost-control">
+                    <label>👥 จำนวนคน <span class="value" id="cost-pax">8</span></label>
+                    <input type="range" id="r-pax" min="2" max="12" value="8" oninput="recalcCost()">
+                </div>
+                <div class="cost-control">
+                    <label>📅 จำนวนวัน <span class="value" id="cost-days">10</span></label>
+                    <input type="range" id="r-days" min="7" max="30" value="10" oninput="recalcCost()">
+                </div>
+                <div class="cost-control">
+                    <label>🏨 ระดับโรงแรม <span class="value" id="cost-hotel">3-4★</span></label>
+                    <input type="range" id="r-hotel" min="1" max="3" value="2" oninput="recalcCost()">
+                </div>
+                <div class="cost-control">
+                    <label>✈️ คลาสบิน <span class="value" id="cost-class">Economy</span></label>
+                    <input type="range" id="r-class" min="1" max="3" value="1" oninput="recalcCost()">
+                </div>
+            </div>
+            <div class="cost-result">
+                <div style="font-size:0.95rem; opacity:0.9;">งบประมาณรวมทั้งกลุ่ม (โดยประมาณ)</div>
+                <div class="total" id="cost-total">฿—</div>
+                <div class="breakdown" id="cost-per-person">— ต่อคน</div>
+            </div>
+            <table class="cost-breakdown-table">
+                <tr><td>✈️ ตั๋วเครื่องบิน</td><td style="text-align:right;" id="cb-flight">—</td></tr>
+                <tr><td>🏨 ที่พัก</td><td style="text-align:right;" id="cb-hotel">—</td></tr>
+                <tr><td>🚐 รถตู้ + คนขับ</td><td style="text-align:right;" id="cb-van">—</td></tr>
+                <tr><td>🍴 อาหาร</td><td style="text-align:right;" id="cb-food">—</td></tr>
+                <tr><td>🎫 ค่าเข้าชม + ของฝาก</td><td style="text-align:right;" id="cb-sights">—</td></tr>
+                <tr><td>📋 วีซ่า + ประกัน</td><td style="text-align:right;" id="cb-visa">—</td></tr>
+            </table>
+        </div>
+
+    </div>
+
+    <footer class="site-footer">
+        <p>🏰 ทริปเยอรมนีของแม่ 2026 — สร้างด้วยความรักโดยลูกชาย</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script src="assets/wiki-images.js"></script>
+    <script src="assets/ratings.js"></script>
+    <script>
+        // ============ City database ============
+        const CITIES = {
+            'frankfurt':     { thai:'แฟรงก์เฟิร์ต', en:'Frankfurt', lat:50.1109, lon:8.6821, country:'🇩🇪', r10:'start', r20:'start', r30:'start' },
+            'goslar':        { thai:'กอสลาร์', en:'Goslar', lat:51.9067, lon:10.4292, country:'🇩🇪', r10:1, r20:1, r30:0 },
+            'wernigerode':   { thai:'แวร์นิเกอโรเดอ', en:'Wernigerode', lat:51.8369, lon:10.7833, country:'🇩🇪', r10:1, r20:1, r30:0 },
+            'quedlinburg':   { thai:'เควดลินบวร์ก', en:'Quedlinburg', lat:51.7867, lon:11.1453, country:'🇩🇪', r10:1, r20:1, r30:0 },
+            'magdeburg':     { thai:'มักเดบวร์ก', en:'Magdeburg', lat:52.1314, lon:11.6399, country:'🇩🇪', r10:1, r20:0, r30:0 },
+            'berlin':        { thai:'แบร์ลิน', en:'Berlin', lat:52.5200, lon:13.4050, country:'🇩🇪', r10:3, r20:3, r30:3 },
+            'potsdam':       { thai:'พ็อทซ์ดัม', en:'Potsdam', lat:52.4009, lon:13.0591, country:'🇩🇪', r10:1, r20:1, r30:1 },
+            'dresden':       { thai:'เดรสเดน', en:'Dresden', lat:51.0504, lon:13.7373, country:'🇩🇪', r10:1, r20:1, r30:1 },
+            'rostock':       { thai:'รอสต็อค', en:'Rostock', lat:54.0887, lon:12.1400, country:'🇩🇪', r10:1, r20:1, r30:1 },
+            'schwerin':      { thai:'ชเวริน', en:'Schwerin', lat:53.6355, lon:11.4012, country:'🇩🇪', r10:1, r20:1, r30:1 },
+            'luebeck':       { thai:'ลือเบค', en:'Lübeck', lat:53.8655, lon:10.6866, country:'🇩🇪', r10:1, r20:1, r30:1 },
+            'hamburg':       { thai:'ฮัมบวร์ก', en:'Hamburg', lat:53.5511, lon:9.9937, country:'🇩🇪', r10:1, r20:2, r30:2 },
+            'hannover':      { thai:'ฮันโนเวอร์', en:'Hannover', lat:52.3759, lon:9.7320, country:'🇩🇪', r10:0, r20:1, r30:0 },
+            'heidelberg':    { thai:'ไฮเดลแบร์ก', en:'Heidelberg', lat:49.4093, lon:8.6940, country:'🇩🇪', r10:0, r20:1, r30:1 },
+            'wuerzburg':     { thai:'เวือร์ซบวร์ก', en:'Würzburg', lat:49.7913, lon:9.9534, country:'🇩🇪', r10:0, r20:1, r30:1 },
+            'rothenburg':    { thai:'โรเทินบวร์ก', en:'Rothenburg', lat:49.3786, lon:10.1796, country:'🇩🇪', r10:0, r20:1, r30:1 },
+            'nuremberg':     { thai:'นูเรมแบร์ก', en:'Nürnberg', lat:49.4521, lon:11.0767, country:'🇩🇪', r10:0, r20:1, r30:1 },
+            'bamberg':       { thai:'บัมแบร์ก', en:'Bamberg', lat:49.8917, lon:10.8917, country:'🇩🇪', r10:0, r20:1, r30:1 },
+            'munich':        { thai:'มิวนิก', en:'München', lat:48.1351, lon:11.5820, country:'🇩🇪', r10:0, r20:2, r30:2 },
+            'cologne':       { thai:'โคโลญ', en:'Köln', lat:50.9375, lon:6.9603, country:'🇩🇪', r10:0, r20:1, r30:1 },
+            'aachen':        { thai:'อาเคิน', en:'Aachen', lat:50.7753, lon:6.0839, country:'🇩🇪', r10:0, r20:1, r30:1 },
+            'trier':         { thai:'เทรียร์', en:'Trier', lat:49.7567, lon:6.6414, country:'🇩🇪', r10:0, r20:0, r30:1 },
+            'bremen':        { thai:'เบรเมน', en:'Bremen', lat:53.0793, lon:8.8017, country:'🇩🇪', r10:0, r20:1, r30:1 },
+            'salzburg':      { thai:'ซาลซ์บวร์ก', en:'Salzburg', lat:47.8095, lon:13.0550, country:'🇦🇹', r10:0, r20:0, r30:1 },
+            'hallstatt':     { thai:'ฮัลล์ชตัทท์', en:'Hallstatt', lat:47.5622, lon:13.6493, country:'🇦🇹', r10:0, r20:0, r30:1 },
+            'vienna':        { thai:'เวียนนา', en:'Wien', lat:48.2082, lon:16.3738, country:'🇦🇹', r10:0, r20:0, r30:2 },
+            'prague':        { thai:'ปราก', en:'Praha', lat:50.0755, lon:14.4378, country:'🇨🇿', r10:0, r20:0, r30:2 },
+            'cesky-krumlov': { thai:'เชสกี้ครุมลอฟ', en:'Č. Krumlov', lat:48.8127, lon:14.3175, country:'🇨🇿', r10:0, r20:0, r30:1 },
+            'amsterdam':     { thai:'อัมสเตอร์ดัม (ข้าม)', en:'Amsterdam (skipped)', lat:52.3676, lon:4.9041, country:'🇳🇱', r10:0, r20:0, r30:0 },
+            'bruges':        { thai:'บรูซ (ข้าม)', en:'Brugge (skipped)', lat:51.2093, lon:3.2247, country:'🇧🇪', r10:0, r20:0, r30:0 },
+            'brussels':      { thai:'บรัสเซลส์ (ข้าม)', en:'Bruxelles (skipped)', lat:50.8503, lon:4.3517, country:'🇧🇪', r10:0, r20:0, r30:0 },
+            'luxembourg':    { thai:'ลักเซมเบิร์ก (ข้าม)', en:'Luxembourg (skipped)', lat:49.6116, lon:6.1319, country:'🇱🇺', r10:0, r20:0, r30:0 },
+            'copenhagen':    { thai:'โคเปนเฮเกน', en:'København', lat:55.6761, lon:12.5683, country:'🇩🇰', r10:0, r20:0, r30:2 }
+        };
+
+        // ============ Route orders (in travel sequence) ============
+        const ROUTE_10 = ['frankfurt','goslar','wernigerode','quedlinburg','magdeburg','berlin','potsdam','dresden','rostock','schwerin','luebeck','hamburg','frankfurt'];
+        const ROUTE_20 = ['frankfurt','heidelberg','wuerzburg','rothenburg','nuremberg','bamberg','munich','berlin','potsdam','dresden','quedlinburg','goslar','wernigerode','hannover','bremen','hamburg','luebeck','schwerin','rostock','magdeburg','cologne','aachen','frankfurt'];
+        const ROUTE_30 = ['frankfurt','cologne','aachen','bremen','hamburg','luebeck','copenhagen','schwerin','rostock','berlin','potsdam','dresden','prague','cesky-krumlov','vienna','salzburg','hallstatt','munich','nuremberg','bamberg','wuerzburg','rothenburg','heidelberg','trier','frankfurt'];
+
+        const ROUTE_COLORS = { 10: '#2e8b57', 20: '#d97706', 30: '#b91c1c' };
+
+        // ============ MAP ============
+        const map = L.map('map', { center: [50.8, 10.5], zoom: 5, scrollWheelZoom: false });
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap', maxZoom: 18
+        }).addTo(map);
+
+        const routeLayers = { 10: L.layerGroup(), 20: L.layerGroup(), 30: L.layerGroup() };
+
+        function buildRouteLayer(route, color, lg) {
+            const coords = route.map(s => [CITIES[s].lat, CITIES[s].lon]);
+            L.polyline(coords, { color: color, weight: 4, opacity: 0.7 }).addTo(lg);
+            route.forEach((s, i) => {
+                if (s === 'frankfurt' && i > 0 && i < route.length - 1) return; // skip middle Frankfurt
+            });
+        }
+        buildRouteLayer(ROUTE_10, ROUTE_COLORS[10], routeLayers[10]);
+        buildRouteLayer(ROUTE_20, ROUTE_COLORS[20], routeLayers[20]);
+        buildRouteLayer(ROUTE_30, ROUTE_COLORS[30], routeLayers[30]);
+
+        // Markers for every city
+        const markers = {};
+        Object.entries(CITIES).forEach(([slug, c]) => {
+            const inRoutes = [];
+            if (c.r10) inRoutes.push(10);
+            if (c.r20) inRoutes.push(20);
+            if (c.r30) inRoutes.push(30);
+            const isStart = (c.r10 === 'start' || c.r20 === 'start' || c.r30 === 'start');
+            const pinColor = inRoutes.length === 0 ? '#888' :
+                            (inRoutes.length === 3 ? '#7d2828' :
+                            ROUTE_COLORS[inRoutes[0]]);
+            const icon = L.divIcon({
+                className: 'city-pin',
+                html: `<div style="background:${pinColor};border:2px solid white;border-radius:50%;width:${isStart?18:14}px;height:${isStart?18:14}px;box-shadow:0 0 0 1px rgba(0,0,0,0.3);"></div>`,
+                iconSize: [16, 16], iconAnchor: [8, 8]
+            });
+            const m = L.marker([c.lat, c.lon], { icon });
+            const routesHtml = inRoutes.map(r =>
+                `<span class="popup-route r${r}">${r} วัน${c['r' + r] === 'start' ? ' (เริ่ม-จบ)' : (typeof c['r' + r] === 'number' && c['r' + r] > 1 ? ' (' + c['r' + r] + ' คืน)' : '')}</span>`
+            ).join('');
+            const townLink = ['amsterdam','bruges','brussels','luxembourg','copenhagen','prague','cesky-krumlov','vienna','salzburg','hallstatt'].includes(slug) || true
+                ? `towns/${slug}.html` : '';
+            m.bindPopup(`<div class="map-popup">
+                <h3>${c.country} ${c.thai}</h3>
+                <div class="popup-meta">${c.en}</div>
+                <div class="popup-routes">${routesHtml || '<em style="color:#888;font-size:0.85rem;">ไม่อยู่ในเส้นทางหลัก</em>'}</div>
+                <a href="${townLink}" style="display:block;margin-top:0.5rem;color:var(--wine-red);font-weight:600;">→ ดูคู่มือเมือง</a>
+            </div>`);
+            markers[slug] = m;
+            // Add to first route layer it's in (so toggling works)
+            inRoutes.forEach(r => routeLayers[r].addLayer(L.marker([c.lat, c.lon], { icon })));
+        });
+
+        // Default: show only route 10
+        map.addLayer(routeLayers[10]);
+
+        document.querySelectorAll('.map-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const r = +btn.dataset.route;
+                btn.classList.toggle('on');
+                if (btn.classList.contains('on')) {
+                    map.addLayer(routeLayers[r]);
+                } else {
+                    map.removeLayer(routeLayers[r]);
+                }
+            });
+        });
+
+        // ============ QUIZ ============
+        const quizState = {};
+        document.querySelectorAll('.quiz-options').forEach(box => {
+            const q = box.dataset.q;
+            box.querySelectorAll('.quiz-option').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    box.querySelectorAll('.quiz-option').forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    quizState[q] = btn.dataset.v;
+                    if (Object.keys(quizState).length === 5) computeQuiz();
+                });
+            });
+        });
+
+        function computeQuiz() {
+            let scores = { 10: 0, 20: 0, 30: 0 };
+            // Experience
+            if (quizState.experience === 'first') scores[10] += 2;
+            if (quizState.experience === 'some') scores[20] += 2;
+            if (quizState.experience === 'lots') scores[30] += 2;
+            // Energy
+            if (quizState.energy === 'relaxed') scores[10] += 3;
+            if (quizState.energy === 'medium') scores[20] += 2;
+            if (quizState.energy === 'high') scores[30] += 2;
+            // Time
+            if (quizState.time === '2w') scores[10] += 3;
+            if (quizState.time === '3w') scores[20] += 3;
+            if (quizState.time === 'month') scores[30] += 3;
+            // Christmas markets / Austria
+            if (quizState.xmas === 'no') scores[10] += 2;
+            if (quizState.xmas === 'maybe') scores[20] += 1;
+            if (quizState.xmas === 'yes') scores[30] += 3;
+            // Budget
+            if (quizState.budget === 'low') scores[10] += 2;
+            if (quizState.budget === 'mid') scores[20] += 2;
+            if (quizState.budget === 'high') scores[30] += 2;
+
+            const best = Object.entries(scores).sort((a,b) => b[1] - a[1])[0][0];
+            const explain = {
+                '10': 'เส้นทางกระชับ ไม่เหนื่อย — เหมาะกับครั้งแรกในเยอรมัน + เน้นคุณภาพมากกว่าจำนวน',
+                '20': 'เห็นเยอรมันครบทุกภูมิภาค — Romantic Road + Bavaria + Rhine + เหนือ-ตะวันออก',
+                '30': 'Grand Tour 4 ประเทศ — DE + AT + CZ + DK (ตัด Benelux ที่เคยไปแล้ว) ~25 วัน'
+            };
+            const links = { '10': 'itinerary.html', '20': 'itinerary-20day.html', '30': 'itinerary-30day.html' };
+
+            const dayLabel = { '10': '10', '20': '20', '30': '25' };
+            document.getElementById('quiz-recommend').textContent = `เส้นทาง ${dayLabel[best]} วัน`;
+            document.getElementById('quiz-explain').textContent = explain[best];
+            document.getElementById('quiz-link').href = links[best];
+            document.getElementById('quiz-result').classList.add('show');
+            document.getElementById('quiz-result').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // ============ CITY PICKER ============
+        const pickerGrid = document.getElementById('picker-grid');
+        const ALL_SLUGS = Object.keys(CITIES).filter(s => s !== 'frankfurt');
+        ALL_SLUGS.forEach(slug => {
+            const c = CITIES[slug];
+            const lab = document.createElement('label');
+            lab.className = 'city-check';
+            lab.dataset.slug = slug;
+            lab.innerHTML = `<input type="checkbox" value="${slug}" onchange="recalcPicker()"> ${c.country} ${c.thai}`;
+            pickerGrid.appendChild(lab);
+        });
+
+        function getCheckedSlugs() {
+            return Array.from(document.querySelectorAll('#picker-grid input:checked')).map(i => i.value);
+        }
+
+        function pickerClear() {
+            document.querySelectorAll('#picker-grid input').forEach(i => i.checked = false);
+            recalcPicker();
+        }
+        function pickerSelect(route) {
+            const map = { 'r10': 'r10', 'r20': 'r20', 'r30': 'r30' };
+            document.querySelectorAll('#picker-grid input').forEach(i => {
+                const c = CITIES[i.value];
+                i.checked = !!c[map[route]] && c[map[route]] !== 'start';
+            });
+            recalcPicker();
+        }
+
+        function recalcPicker() {
+            const slugs = getCheckedSlugs();
+            // Update visual
+            document.querySelectorAll('#picker-grid .city-check').forEach(l => {
+                l.classList.toggle('selected', l.querySelector('input').checked);
+            });
+
+            const n = slugs.length;
+            // Estimate days: avg ~1.3 days per city (some get 2-3 nights like Berlin)
+            const daysNeeded = Math.max(n === 0 ? 0 : 4, Math.round(n * 1.4) + 2); // +2 for arrival/departure
+            document.querySelector('#picker-result .summary').innerHTML =
+                `เลือก <strong>${n} เมือง</strong> — ต้องใช้ <strong>~${daysNeeded} วัน</strong> โดยประมาณ`;
+
+            // Suggest matching preset
+            let suggest = '';
+            if (n === 0) suggest = 'เริ่มเลือกเมืองด้านบนค่ะ';
+            else if (daysNeeded <= 11) suggest = '👉 ใกล้เส้นทาง <strong>10 วัน</strong> — <a href="itinerary.html" class="link-inline">ดูตาราง</a>';
+            else if (daysNeeded <= 22) suggest = '👉 ใกล้เส้นทาง <strong>20 วัน</strong> — <a href="itinerary-20day.html" class="link-inline">ดูตาราง</a>';
+            else if (daysNeeded <= 32) suggest = '👉 ใกล้เส้นทาง <strong>30 วัน</strong> — <a href="itinerary-30day.html" class="link-inline">ดูตาราง</a>';
+            else suggest = '⚠️ คุณเลือกเมืองเยอะมาก! ต้องใช้เวลาเกิน 30 วัน — พิจารณาแบ่งเป็น 2 ทริปค่ะ';
+            document.getElementById('picker-suggest').innerHTML = suggest;
+        }
+        recalcPicker();
+
+        // ============ COST CALCULATOR ============
+        function recalcCost() {
+            const pax = +document.getElementById('r-pax').value;
+            const days = +document.getElementById('r-days').value;
+            const hotelTier = +document.getElementById('r-hotel').value;
+            const classTier = +document.getElementById('r-class').value;
+
+            const hotelLabels = ['3★ ประหยัด', '3-4★', '4-5★ หรู'];
+            const classLabels = ['Economy', 'Premium Eco', 'Business'];
+            document.getElementById('cost-pax').textContent = pax;
+            document.getElementById('cost-days').textContent = days;
+            document.getElementById('cost-hotel').textContent = hotelLabels[hotelTier - 1];
+            document.getElementById('cost-class').textContent = classLabels[classTier - 1];
+
+            // EUR to THB approx 38
+            const EUR = 38;
+            const flightPerPax = [40000, 60000, 150000][classTier - 1];
+            const hotelPerRoomPerNight = [90, 140, 220][hotelTier - 1]; // EUR
+            const rooms = Math.ceil(pax / 2);
+            const hotelTotal = rooms * (days - 1) * hotelPerRoomPerNight * EUR;
+            const vanTotal = (days * 500) * EUR; // €500/day fixed
+            const foodTotal = pax * days * 60 * EUR;
+            const sightsTotal = pax * days * 25 * EUR; // ค่าเข้า+ของฝาก
+            const visa = pax * 5000;
+            const flightTotal = pax * flightPerPax;
+
+            const total = flightTotal + hotelTotal + vanTotal + foodTotal + sightsTotal + visa;
+            const perPerson = total / pax;
+
+            const fmt = n => '฿' + Math.round(n).toLocaleString();
+            document.getElementById('cost-total').textContent = fmt(total);
+            document.getElementById('cost-per-person').textContent = `${fmt(perPerson)} ต่อคน`;
+            document.getElementById('cb-flight').textContent = fmt(flightTotal);
+            document.getElementById('cb-hotel').textContent = fmt(hotelTotal);
+            document.getElementById('cb-van').textContent = fmt(vanTotal);
+            document.getElementById('cb-food').textContent = fmt(foodTotal);
+            document.getElementById('cb-sights').textContent = fmt(sightsTotal);
+            document.getElementById('cb-visa').textContent = fmt(visa);
+        }
+        recalcCost();
+    </script>
+</body>
+</html>

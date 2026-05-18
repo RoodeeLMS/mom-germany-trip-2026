@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ตารางทริป 30 วัน Grand Tour — ทริปเยอรมนีของแม่ 2026</title>
+    <title>ตารางทริป 25 วัน Grand Tour — ทริปเยอรมนีของแม่ 2026</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
@@ -27,6 +27,7 @@
             <button class="menu-toggle" onclick="document.querySelector('.navbar-menu').classList.toggle('mobile-open')">☰</button>
             <div class="navbar-menu">
                 <a href="index.html" class="navbar-item">หน้าแรก</a>
+                <a href="planner.html" class="navbar-item">วางแผน</a>
                 <a href="routes.html" class="navbar-item">เส้นทาง</a>
                 <a href="itinerary.html" class="navbar-item">ตารางทริป</a>
                 <a href="towns.html" class="navbar-item">เมือง</a>
@@ -40,29 +41,29 @@
     </nav>
 
     <header class="page-header">
-        <h1>Grand Tour — 30 วัน</h1>
-        <p class="subtitle">7 ประเทศ • 28+ เมือง • UNESCO 15+ แห่ง • ทริปยุโรปครั้งใหญ่</p>
+        <h1>Grand Tour — 25 วัน</h1>
+        <p class="subtitle">4 ประเทศ (DE + AT + CZ + DK) • ~24 เมือง • UNESCO 12+ แห่ง • ตัด Benelux ที่เคยไปแล้ว</p>
     </header>
 
     <div class="container">
 
         <div class="callout info">
             <div class="callout-title">🗺️ ภาพรวม</div>
-            <p>เส้นทาง <strong>วงรอบเยอรมนี + เพื่อนบ้าน 6 ประเทศ</strong> (ออสเตรีย, เช็ก, เนเธอร์แลนด์, เบลเยียม, ลักเซมเบิร์ก, เดนมาร์ก)<br>
-            เริ่ม-จบที่ <strong>Frankfurt (FRA)</strong> เดินทางตามเข็มนาฬิกา: ตะวันตก → เหนือ → ตะวันออก → ใต้ → กลับ<br>
-            ใช้รถตู้+คนขับเหมือนแผน 10/20 วัน — <strong>คนขับต้องมีใบขับขี่ EU + ผ่านชายแดน</strong> (Schengen ไม่ตรวจชายแดน)</p>
+            <p>เส้นทาง <strong>วงรอบเยอรมนี + ออสเตรีย + เช็ก + เดนมาร์ก</strong> (4 ประเทศ)<br>
+            เริ่ม-จบที่ <strong>Frankfurt (FRA)</strong> ตามเข็มนาฬิกา: ตะวันตก → เหนือ → เดนมาร์ก → ตะวันออก → ใต้ → กลับ<br>
+            <strong>ตัด Benelux</strong> (เนเธอร์แลนด์/เบลเยียม/ลักเซมเบิร์ก) เพราะคุณแม่เคยไปแล้ว</p>
         </div>
 
-        <div class="accordion-controls">
+        <div class="accordion-controls" style="display:flex; gap:0.75rem; justify-content:center; margin:1.5rem 0; flex-wrap:wrap;">
             <button class="btn btn-secondary" onclick="toggleAll(true)">📖 เปิดดูทุกวัน</button>
             <button class="btn btn-secondary" onclick="toggleAll(false)">📕 ปิดทั้งหมด</button>
             <a href="routes.html" class="btn">🗺️ เปรียบเทียบเส้นทาง</a>
         </div>
 
-        <!-- STAGE 1: West (Days 1-7) -->
+        <!-- STAGE 1: West (Days 1-4) -->
         <div class="stage-card">
-            <h2>🗺️ Stage 1 — ตะวันตก (วัน 1-7)</h2>
-            <p>Frankfurt → Cologne → Aachen → Luxembourg → Brussels → Bruges → Amsterdam</p>
+            <h2>🗺️ Stage 1 — ตะวันตก (วัน 1-4)</h2>
+            <p>Frankfurt → Cologne → Aachen → Bremen</p>
         </div>
 
         <div class="day-card" id="day1">
@@ -72,7 +73,7 @@
             </div>
             <div class="day-body">
                 <div class="driving-info">🚐 0 km</div>
-                <ul><li>ลง FRA เช้า (TG920) → เช็คอินโรงแรม Frankfurt → พัก</li><li>บ่าย: Römerberg + Kaiserdom</li></ul>
+                <ul><li>ลง FRA เช้า (TG920) → เช็คอินโรงแรม Frankfurt → พัก</li><li>บ่าย: Römerberg + Kaiserdom</li><li>เย็น: Apfelwein ใน Sachsenhausen</li></ul>
                 <span class="hotel-tag">🏨 Frankfurt → <a href="towns/frankfurt.html" class="link-inline">คู่มือ</a></span>
             </div>
         </div>
@@ -91,133 +92,87 @@
 
         <div class="day-card" id="day3">
             <div class="day-header" onclick="toggleDay(this)">
-                <div class="day-title"><span class="day-number">3</span><div><div class="day-route">Cologne → Aachen → Luxembourg</div></div></div>
+                <div class="day-title"><span class="day-number">3</span><div><div class="day-route">Cologne → Aachen → Bremen</div></div></div>
                 <div class="day-toggle">+</div>
             </div>
             <div class="day-body">
-                <div class="driving-info">🚐 Cologne → Aachen 70 km → Luxembourg 200 km</div>
-                <ul><li>เช้า: Aachen Cathedral UNESCO (โลงชาร์ลมาญ)</li><li>บ่าย: → Luxembourg City (~2.5 ชม.)</li><li>เย็น: Bock Casemates, Chemin de la Corniche</li></ul>
-                <span class="hotel-tag">🏨 Luxembourg → <a href="towns/aachen.html" class="link-inline">Aachen</a> | <a href="towns/luxembourg.html" class="link-inline">Luxembourg</a></span>
+                <div class="driving-info">🚐 Cologne → Aachen 70 km → Bremen 360 km (~4 ชม.) — วันขับยาว</div>
+                <ul><li>เช้า: Aachen Cathedral UNESCO (โลงชาร์ลมาญ) ~2 ชม.</li><li>เที่ยง: ทาน Aachener Printen</li><li>บ่าย: → Bremen (~4 ชม.) แวะพักทาง</li><li>เย็น: ถึง Bremen — เดินเล่นเมืองเก่า</li></ul>
+                <span class="hotel-tag">🏨 Bremen → <a href="towns/aachen.html" class="link-inline">Aachen</a> | <a href="towns/bremen.html" class="link-inline">Bremen</a></span>
             </div>
         </div>
 
         <div class="day-card" id="day4">
             <div class="day-header" onclick="toggleDay(this)">
-                <div class="day-title"><span class="day-number">4</span><div><div class="day-route">Luxembourg → Brussels</div></div></div>
+                <div class="day-title"><span class="day-number">4</span><div><div class="day-route">Bremen → Hamburg</div></div></div>
                 <div class="day-toggle">+</div>
             </div>
             <div class="day-body">
-                <div class="driving-info">🚐 220 km / ~2.5 ชม. 🇧🇪 เข้าเบลเยียม</div>
-                <ul><li>Luxembourg เช้า: Grand Ducal Palace</li><li>บ่าย: → Brussels</li><li>Grand-Place, Manneken Pis, Atomium</li><li>เย็น: Frites + เบียร์เบลเยียม</li></ul>
-                <span class="hotel-tag">🏨 Brussels (1 คืน) → <a href="towns/brussels.html" class="link-inline">คู่มือ</a></span>
+                <div class="driving-info">🚐 125 km / ~1.5 ชม.</div>
+                <ul><li>เช้า: Bremen — Town Musicians, Rathaus UNESCO, Schnoor</li><li>บ่าย: → Hamburg เช็คอิน</li><li>เย็น: Speicherstadt + Elbphilharmonie</li></ul>
+                <span class="hotel-tag">🏨 Hamburg (2 คืน) → <a href="towns/hamburg.html" class="link-inline">Hamburg</a></span>
             </div>
+        </div>
+
+        <!-- STAGE 2: North + Denmark (Days 5-8) -->
+        <div class="stage-card">
+            <h2>🗺️ Stage 2 — เหนือ + เดนมาร์ก (วัน 5-8)</h2>
+            <p>Hamburg → Lübeck → Copenhagen → Schwerin → Rostock</p>
         </div>
 
         <div class="day-card" id="day5">
             <div class="day-header" onclick="toggleDay(this)">
-                <div class="day-title"><span class="day-number">5</span><div><div class="day-route">Brussels → Bruges</div></div></div>
+                <div class="day-title"><span class="day-number">5</span><div><div class="day-route">Hamburg (เต็มวัน)</div></div></div>
                 <div class="day-toggle">+</div>
             </div>
             <div class="day-body">
-                <div class="driving-info">🚐 100 km / ~1.5 ชม.</div>
-                <ul><li>เช้า: → Bruges "Venice of the North"</li><li>Belfry, Markt, ล่องเรือคลอง</li><li>ช็อกโกแลต Dumon + Chocolatier Sukerbuyc</li><li>Minnewater Lake</li></ul>
-                <span class="hotel-tag">🏨 Bruges (1 คืน) → <a href="towns/bruges.html" class="link-inline">คู่มือ</a></span>
+                <ul><li>Miniatur Wunderland (จองล่วงหน้า, 3-4 ชม.)</li><li>Rathausmarkt + Alster Lake</li><li>Landungsbrücken — Fischbrötchen</li></ul>
             </div>
         </div>
 
         <div class="day-card" id="day6">
             <div class="day-header" onclick="toggleDay(this)">
-                <div class="day-title"><span class="day-number">6</span><div><div class="day-route">Bruges → Amsterdam</div></div></div>
+                <div class="day-title"><span class="day-number">6</span><div><div class="day-route">Hamburg → Lübeck → Copenhagen</div></div></div>
                 <div class="day-toggle">+</div>
             </div>
             <div class="day-body">
-                <div class="driving-info">🚐 270 km / ~3 ชม. 🇳🇱 เข้าเนเธอร์แลนด์</div>
-                <ul><li>Anne Frank House (จองล่วงหน้านานมาก)</li><li>Dam Square + Royal Palace</li><li>ล่องเรือคลอง</li></ul>
-                <span class="hotel-tag">🏨 Amsterdam (2 คืน) → <a href="towns/amsterdam.html" class="link-inline">คู่มือ</a></span>
+                <div class="driving-info">🚐 Hamburg → Lübeck 65 km → Copenhagen 350 km (รวมเฟอร์รี Puttgarden-Rødby หรือสะพาน Fehmarn) 🇩🇰</div>
+                <ul><li>เช้า: Lübeck — Holstentor, Niederegger, Marienkirche</li><li>บ่าย: ขึ้นเหนือเข้าเดนมาร์ก (เฟอร์รี/สะพาน)</li><li>เย็น: ถึง Copenhagen — เดิน Nyhavn</li></ul>
+                <span class="hotel-tag">🏨 Copenhagen (2 คืน) → <a href="towns/luebeck.html" class="link-inline">Lübeck</a> | <a href="towns/copenhagen.html" class="link-inline">Copenhagen</a></span>
             </div>
         </div>
 
         <div class="day-card" id="day7">
             <div class="day-header" onclick="toggleDay(this)">
-                <div class="day-title"><span class="day-number">7</span><div><div class="day-route">Amsterdam (เต็มวัน)</div></div></div>
+                <div class="day-title"><span class="day-number">7</span><div><div class="day-route">Copenhagen (เต็มวัน)</div></div></div>
                 <div class="day-toggle">+</div>
             </div>
             <div class="day-body">
-                <ul><li>Rijksmuseum (Rembrandt's Night Watch)</li><li>Van Gogh Museum</li><li>Vondelpark, Jordaan</li><li>Bloemenmarkt</li></ul>
+                <ul><li>Nyhavn, Little Mermaid</li><li>Tivoli Gardens "Christmas at Tivoli" (เปิด 15 พ.ย.)</li><li>Amalienborg + Rosenborg Castle</li><li>Strøget shopping street</li></ul>
             </div>
-        </div>
-
-        <!-- STAGE 2: North (Days 8-12) -->
-        <div class="stage-card">
-            <h2>🗺️ Stage 2 — เหนือ (วัน 8-12)</h2>
-            <p>Amsterdam → Bremen → Hamburg → Lübeck → Copenhagen</p>
         </div>
 
         <div class="day-card" id="day8">
             <div class="day-header" onclick="toggleDay(this)">
-                <div class="day-title"><span class="day-number">8</span><div><div class="day-route">Amsterdam → Bremen → Hamburg</div></div></div>
+                <div class="day-title"><span class="day-number">8</span><div><div class="day-route">Copenhagen → Schwerin → Rostock</div></div></div>
                 <div class="day-toggle">+</div>
             </div>
             <div class="day-body">
-                <div class="driving-info">🚐 Amsterdam → Bremen 300 km → Hamburg 125 km 🇩🇪 กลับเยอรมัน</div>
-                <ul><li>แวะ Bremen — Town Musicians, Rathaus UNESCO, Schnoor</li><li>เย็น: ถึง Hamburg</li></ul>
-                <span class="hotel-tag">🏨 Hamburg (2 คืน) → <a href="towns/bremen.html" class="link-inline">Bremen</a> | <a href="towns/hamburg.html" class="link-inline">Hamburg</a></span>
-            </div>
-        </div>
-
-        <div class="day-card" id="day9">
-            <div class="day-header" onclick="toggleDay(this)">
-                <div class="day-title"><span class="day-number">9</span><div><div class="day-route">Hamburg (เต็มวัน)</div></div></div>
-                <div class="day-toggle">+</div>
-            </div>
-            <div class="day-body">
-                <ul><li>Miniatur Wunderland (จองล่วงหน้า)</li><li>Speicherstadt + Elbphilharmonie</li><li>Rathausmarkt + Alster</li><li>Landungsbrücken — Fischbrötchen</li></ul>
-            </div>
-        </div>
-
-        <div class="day-card" id="day10">
-            <div class="day-header" onclick="toggleDay(this)">
-                <div class="day-title"><span class="day-number">10</span><div><div class="day-route">Hamburg → Lübeck → Copenhagen</div></div></div>
-                <div class="day-toggle">+</div>
-            </div>
-            <div class="day-body">
-                <div class="driving-info">🚐 Hamburg → Lübeck 65 km → Copenhagen 350 km (รวม ferry Puttgarden-Rødby หรือสะพาน Fehmarn) 🇩🇰</div>
-                <ul><li>เช้า: Lübeck — Holstentor, Niederegger, Marienkirche</li><li>บ่าย: ขึ้นเหนือเข้าเดนมาร์ก (ferry หรือสะพาน)</li><li>เย็น: ถึง Copenhagen — เดิน Nyhavn</li></ul>
-                <span class="hotel-tag">🏨 Copenhagen (2 คืน) → <a href="towns/luebeck.html" class="link-inline">Lübeck</a> | <a href="towns/copenhagen.html" class="link-inline">Copenhagen</a></span>
-            </div>
-        </div>
-
-        <div class="day-card" id="day11">
-            <div class="day-header" onclick="toggleDay(this)">
-                <div class="day-title"><span class="day-number">11</span><div><div class="day-route">Copenhagen (เต็มวัน)</div></div></div>
-                <div class="day-toggle">+</div>
-            </div>
-            <div class="day-body">
-                <ul><li>Nyhavn, Little Mermaid</li><li>Tivoli Gardens (เก่าแก่ที่สุดในโลก)</li><li>Amalienborg, Rosenborg Castle</li><li>Strøget shopping street</li></ul>
-            </div>
-        </div>
-
-        <div class="day-card" id="day12">
-            <div class="day-header" onclick="toggleDay(this)">
-                <div class="day-title"><span class="day-number">12</span><div><div class="day-route">Copenhagen → Schwerin → Rostock</div></div></div>
-                <div class="day-toggle">+</div>
-            </div>
-            <div class="day-body">
-                <div class="driving-info">🚐 ferry/สะพานกลับเยอรมัน → Schwerin ~250 km → Rostock 100 km</div>
-                <ul><li>กลับเข้าเยอรมัน 🇩🇪</li><li>Schwerin Palace</li><li>เย็น: Rostock + Warnemünde</li></ul>
+                <div class="driving-info">🚐 เฟอร์รี/สะพานกลับเยอรมัน → Schwerin ~250 km → Rostock 100 km</div>
+                <ul><li>กลับเยอรมัน 🇩🇪</li><li>Schwerin Palace ที่งดงาม</li><li>เย็น: Rostock + Warnemünde</li></ul>
                 <span class="hotel-tag">🏨 Rostock → <a href="towns/schwerin.html" class="link-inline">Schwerin</a> | <a href="towns/rostock.html" class="link-inline">Rostock</a></span>
             </div>
         </div>
 
-        <!-- STAGE 3: East (Days 13-19) -->
+        <!-- STAGE 3: East (Days 9-15) -->
         <div class="stage-card">
-            <h2>🗺️ Stage 3 — ตะวันออก (วัน 13-19)</h2>
+            <h2>🗺️ Stage 3 — ตะวันออก (วัน 9-15)</h2>
             <p>Rostock → Berlin → Dresden → Prague → Český Krumlov → Vienna</p>
         </div>
 
-        <div class="day-card" id="day13">
+        <div class="day-card" id="day9">
             <div class="day-header" onclick="toggleDay(this)">
-                <div class="day-title"><span class="day-number">13</span><div><div class="day-route">Rostock → Berlin</div></div></div>
+                <div class="day-title"><span class="day-number">9</span><div><div class="day-route">Rostock → Berlin</div></div></div>
                 <div class="day-toggle">+</div>
             </div>
             <div class="day-body">
@@ -227,9 +182,9 @@
             </div>
         </div>
 
-        <div class="day-card" id="day14">
+        <div class="day-card" id="day10">
             <div class="day-header" onclick="toggleDay(this)">
-                <div class="day-title"><span class="day-number">14</span><div><div class="day-route">Berlin (เต็มวัน)</div></div></div>
+                <div class="day-title"><span class="day-number">10</span><div><div class="day-route">Berlin (เต็มวัน)</div></div></div>
                 <div class="day-toggle">+</div>
             </div>
             <div class="day-body">
@@ -237,9 +192,9 @@
             </div>
         </div>
 
-        <div class="day-card" id="day15">
+        <div class="day-card" id="day11">
             <div class="day-header" onclick="toggleDay(this)">
-                <div class="day-title"><span class="day-number">15</span><div><div class="day-route">Berlin → Potsdam (day trip)</div></div></div>
+                <div class="day-title"><span class="day-number">11</span><div><div class="day-route">Berlin → Potsdam (day trip)</div></div></div>
                 <div class="day-toggle">+</div>
             </div>
             <div class="day-body">
@@ -249,9 +204,9 @@
             </div>
         </div>
 
-        <div class="day-card" id="day16">
+        <div class="day-card" id="day12">
             <div class="day-header" onclick="toggleDay(this)">
-                <div class="day-title"><span class="day-number">16</span><div><div class="day-route">Berlin → Dresden → Prague</div></div></div>
+                <div class="day-title"><span class="day-number">12</span><div><div class="day-route">Berlin → Dresden → Prague</div></div></div>
                 <div class="day-toggle">+</div>
             </div>
             <div class="day-body">
@@ -261,9 +216,9 @@
             </div>
         </div>
 
-        <div class="day-card" id="day17">
+        <div class="day-card" id="day13">
             <div class="day-header" onclick="toggleDay(this)">
-                <div class="day-title"><span class="day-number">17</span><div><div class="day-route">Prague (เต็มวัน)</div></div></div>
+                <div class="day-title"><span class="day-number">13</span><div><div class="day-route">Prague (เต็มวัน)</div></div></div>
                 <div class="day-toggle">+</div>
             </div>
             <div class="day-body">
@@ -271,9 +226,9 @@
             </div>
         </div>
 
-        <div class="day-card" id="day18">
+        <div class="day-card" id="day14">
             <div class="day-header" onclick="toggleDay(this)">
-                <div class="day-title"><span class="day-number">18</span><div><div class="day-route">Prague → Český Krumlov → Vienna</div></div></div>
+                <div class="day-title"><span class="day-number">14</span><div><div class="day-route">Prague → Český Krumlov → Vienna</div></div></div>
                 <div class="day-toggle">+</div>
             </div>
             <div class="day-body">
@@ -283,9 +238,9 @@
             </div>
         </div>
 
-        <div class="day-card" id="day19">
+        <div class="day-card" id="day15">
             <div class="day-header" onclick="toggleDay(this)">
-                <div class="day-title"><span class="day-number">19</span><div><div class="day-route">Vienna (เต็มวัน)</div></div></div>
+                <div class="day-title"><span class="day-number">15</span><div><div class="day-route">Vienna (เต็มวัน)</div></div></div>
                 <div class="day-toggle">+</div>
             </div>
             <div class="day-body">
@@ -293,15 +248,15 @@
             </div>
         </div>
 
-        <!-- STAGE 4: Alps + Bavaria (Days 20-25) -->
+        <!-- STAGE 4: Alps + Bavaria (Days 16-21) -->
         <div class="stage-card">
-            <h2>🗺️ Stage 4 — Alps + Bavaria (วัน 20-25)</h2>
+            <h2>🗺️ Stage 4 — Alps + Bavaria (วัน 16-21)</h2>
             <p>Vienna → Salzburg → Hallstatt → Munich → Nürnberg → Bamberg</p>
         </div>
 
-        <div class="day-card" id="day20">
+        <div class="day-card" id="day16">
             <div class="day-header" onclick="toggleDay(this)">
-                <div class="day-title"><span class="day-number">20</span><div><div class="day-route">Vienna → Salzburg</div></div></div>
+                <div class="day-title"><span class="day-number">16</span><div><div class="day-route">Vienna → Salzburg</div></div></div>
                 <div class="day-toggle">+</div>
             </div>
             <div class="day-body">
@@ -311,21 +266,21 @@
             </div>
         </div>
 
-        <div class="day-card" id="day21">
+        <div class="day-card" id="day17">
             <div class="day-header" onclick="toggleDay(this)">
-                <div class="day-title"><span class="day-number">21</span><div><div class="day-route">Salzburg → Hallstatt → Munich</div></div></div>
+                <div class="day-title"><span class="day-number">17</span><div><div class="day-route">Salzburg → Hallstatt → Munich</div></div></div>
                 <div class="day-toggle">+</div>
             </div>
             <div class="day-body">
                 <div class="driving-info">🚐 Salzburg → Hallstatt 75 km → Munich 230 km 🇩🇪 กลับเยอรมัน</div>
-                <ul><li>เช้า: Hallstatt — หมู่บ้านริมทะเลสาบ + Skywalk</li><li>กลางวัน: เหมืองเกลือ Salzwelten (ถ้าเปิด)</li><li>บ่าย: → Munich</li></ul>
+                <ul><li>เช้า: Hallstatt — หมู่บ้านริมทะเลสาบ + Skywalk</li><li>กลางวัน: เหมืองเกลือ (ถ้าเปิด — พ.ย. อาจปิด)</li><li>บ่าย: → Munich</li></ul>
                 <span class="hotel-tag">🏨 Munich (2 คืน) → <a href="towns/hallstatt.html" class="link-inline">Hallstatt</a> | <a href="towns/munich.html" class="link-inline">Munich</a></span>
             </div>
         </div>
 
-        <div class="day-card" id="day22">
+        <div class="day-card" id="day18">
             <div class="day-header" onclick="toggleDay(this)">
-                <div class="day-title"><span class="day-number">22</span><div><div class="day-route">Munich (เต็มวัน)</div></div></div>
+                <div class="day-title"><span class="day-number">18</span><div><div class="day-route">Munich (เต็มวัน)</div></div></div>
                 <div class="day-toggle">+</div>
             </div>
             <div class="day-body">
@@ -333,9 +288,9 @@
             </div>
         </div>
 
-        <div class="day-card" id="day23">
+        <div class="day-card" id="day19">
             <div class="day-header" onclick="toggleDay(this)">
-                <div class="day-title"><span class="day-number">23</span><div><div class="day-route">Munich → Nürnberg</div></div></div>
+                <div class="day-title"><span class="day-number">19</span><div><div class="day-route">Munich → Nürnberg</div></div></div>
                 <div class="day-toggle">+</div>
             </div>
             <div class="day-body">
@@ -345,9 +300,9 @@
             </div>
         </div>
 
-        <div class="day-card" id="day24">
+        <div class="day-card" id="day20">
             <div class="day-header" onclick="toggleDay(this)">
-                <div class="day-title"><span class="day-number">24</span><div><div class="day-route">Nürnberg → Bamberg → Würzburg</div></div></div>
+                <div class="day-title"><span class="day-number">20</span><div><div class="day-route">Nürnberg → Bamberg → Würzburg</div></div></div>
                 <div class="day-toggle">+</div>
             </div>
             <div class="day-body">
@@ -357,9 +312,9 @@
             </div>
         </div>
 
-        <div class="day-card" id="day25">
+        <div class="day-card" id="day21">
             <div class="day-header" onclick="toggleDay(this)">
-                <div class="day-title"><span class="day-number">25</span><div><div class="day-route">Würzburg → Rothenburg</div></div></div>
+                <div class="day-title"><span class="day-number">21</span><div><div class="day-route">Würzburg → Rothenburg</div></div></div>
                 <div class="day-toggle">+</div>
             </div>
             <div class="day-body">
@@ -369,15 +324,15 @@
             </div>
         </div>
 
-        <!-- STAGE 5: Harz + Return (Days 26-30) -->
+        <!-- STAGE 5: Return (Days 22-25) -->
         <div class="stage-card">
-            <h2>🗺️ Stage 5 — Harz + กลับ (วัน 26-30)</h2>
+            <h2>🗺️ Stage 5 — กลับ (วัน 22-25)</h2>
             <p>Rothenburg → Heidelberg → Trier → Frankfurt</p>
         </div>
 
-        <div class="day-card" id="day26">
+        <div class="day-card" id="day22">
             <div class="day-header" onclick="toggleDay(this)">
-                <div class="day-title"><span class="day-number">26</span><div><div class="day-route">Rothenburg → Heidelberg</div></div></div>
+                <div class="day-title"><span class="day-number">22</span><div><div class="day-route">Rothenburg → Heidelberg</div></div></div>
                 <div class="day-toggle">+</div>
             </div>
             <div class="day-body">
@@ -387,9 +342,9 @@
             </div>
         </div>
 
-        <div class="day-card" id="day27">
+        <div class="day-card" id="day23">
             <div class="day-header" onclick="toggleDay(this)">
-                <div class="day-title"><span class="day-number">27</span><div><div class="day-route">Heidelberg → Trier</div></div></div>
+                <div class="day-title"><span class="day-number">23</span><div><div class="day-route">Heidelberg → Trier</div></div></div>
                 <div class="day-toggle">+</div>
             </div>
             <div class="day-body">
@@ -399,35 +354,25 @@
             </div>
         </div>
 
-        <div class="day-card" id="day28">
+        <div class="day-card" id="day24">
             <div class="day-header" onclick="toggleDay(this)">
-                <div class="day-title"><span class="day-number">28</span><div><div class="day-route">Trier → Frankfurt</div></div></div>
+                <div class="day-title"><span class="day-number">24</span><div><div class="day-route">Trier → Frankfurt</div></div></div>
                 <div class="day-toggle">+</div>
             </div>
             <div class="day-body">
                 <div class="driving-info">🚐 200 km / ~2 ชม. (เลือกขับผ่านหุบเขา Moselle/Rhine)</div>
-                <ul><li>ขับผ่านหุบเขา Rhine — Loreley, ปราสาทตามเขา</li><li>ถึง Frankfurt บ่าย</li><li>เช็คอินโรงแรม</li></ul>
-                <span class="hotel-tag">🏨 Frankfurt (2 คืน)</span>
+                <ul><li>ขับผ่านหุบเขา Rhine — Loreley, ปราสาทตามเขา</li><li>ถึง Frankfurt บ่าย</li><li>เย็น: Apfelwein Sachsenhausen — มื้อสุดท้าย!</li></ul>
+                <span class="hotel-tag">🏨 Frankfurt</span>
             </div>
         </div>
 
-        <div class="day-card" id="day29">
+        <div class="day-card" id="day25">
             <div class="day-header" onclick="toggleDay(this)">
-                <div class="day-title"><span class="day-number">29</span><div><div class="day-route">Frankfurt (เต็มวัน)</div></div></div>
+                <div class="day-title"><span class="day-number">25</span><div><div class="day-route">→ FRA → BKK</div></div></div>
                 <div class="day-toggle">+</div>
             </div>
             <div class="day-body">
-                <ul><li>Römerberg + Kaiserdom + Main Tower</li><li>Museumsufer (เลือก 1-2)</li><li>Goethe House</li><li>เย็น: Apfelwein Sachsenhausen — มื้อสุดท้าย!</li></ul>
-            </div>
-        </div>
-
-        <div class="day-card" id="day30">
-            <div class="day-header" onclick="toggleDay(this)">
-                <div class="day-title"><span class="day-number">30</span><div><div class="day-route">→ FRA → BKK</div></div></div>
-                <div class="day-toggle">+</div>
-            </div>
-            <div class="day-body">
-                <ul><li>ของฝาก + เก็บกระเป๋า</li><li>บ่าย: → FRA</li><li>TG921 ออก 21:50 → BKK</li></ul>
+                <ul><li>เช้า: Römerberg + Main Tower ดูวิวสุดท้าย</li><li>ของฝาก + เก็บกระเป๋า</li><li>บ่าย: → FRA</li><li>TG921 ออก 21:50 → BKK</li></ul>
             </div>
         </div>
 
@@ -436,23 +381,23 @@
             <thead><tr><th>หมวด</th><th>บาท/คน</th></tr></thead>
             <tbody>
                 <tr><td>ตั๋วเครื่องบิน Economy</td><td>~40,000</td></tr>
-                <tr><td>ที่พัก 29 คืน × 4 ห้อง × ~€140</td><td>~90,000</td></tr>
-                <tr><td>รถตู้ + คนขับ 30 วัน + ferry</td><td>~80,000</td></tr>
-                <tr><td>อาหาร 30 วัน × €60</td><td>~72,000</td></tr>
-                <tr><td>ค่าเข้า + ของฝาก</td><td>~50,000</td></tr>
-                <tr><td>วีซ่า + ประกัน</td><td>~8,000</td></tr>
-                <tr><td><strong>รวม</strong></td><td><strong>~340,000</strong></td></tr>
+                <tr><td>ที่พัก 24 คืน × 4 ห้อง × ~€140</td><td>~75,000</td></tr>
+                <tr><td>รถตู้ + คนขับ 25 วัน + ferry</td><td>~65,000</td></tr>
+                <tr><td>อาหาร 25 วัน × €60</td><td>~60,000</td></tr>
+                <tr><td>ค่าเข้า + ของฝาก</td><td>~38,000</td></tr>
+                <tr><td>วีซ่า + ประกัน</td><td>~7,000</td></tr>
+                <tr><td><strong>รวม</strong></td><td><strong>~285,000</strong></td></tr>
             </tbody>
         </table>
 
         <div class="callout warning">
-            <div class="callout-title">⚠️ ข้อควรระวังสำหรับแผน 30 วัน</div>
+            <div class="callout-title">⚠️ ข้อควรระวังสำหรับแผน 25 วัน</div>
             <ul>
-                <li><strong>คนขับ</strong> ต้องผ่านชายแดน 6 ครั้ง — Schengen ไม่ตรวจ แต่ต้องมีใบขับขี่+ประกันที่ครอบคลุม</li>
-                <li><strong>สกุลเงิน</strong> — เยอรมัน/ออสเตรีย/เนเธอร์แลนด์/เบลเยียม/ลักเซมเบิร์ก = EUR / เช็ก = CZK / เดนมาร์ก = DKK</li>
-                <li><strong>เหนื่อยมาก</strong> — แผนนี้เหมาะกับกลุ่มอายุ &lt;60 ปีที่แข็งแรง</li>
-                <li>ทริปยาวขนาดนี้ <strong>ควรแยกคนขับเป็น 2 คน</strong> (สลับขับเพื่อพักล้า)</li>
-                <li>หลายเมืองให้แค่ 1 คืน — ไม่ลึกพอ ใส่ใจกับการเลือกเมืองที่อยากลึก</li>
+                <li><strong>คนขับ</strong> ต้องผ่านชายแดน 4 ครั้ง (DE-DK, DE-CZ, CZ-AT, AT-DE) — Schengen ไม่ตรวจ แต่ต้องมีใบขับขี่+ประกันที่ครอบคลุม</li>
+                <li><strong>สกุลเงิน</strong> — DE/AT = EUR / เช็ก = CZK / เดนมาร์ก = DKK</li>
+                <li><strong>เฟอร์รี Puttgarden-Rødby</strong> หรือสะพาน Fehmarn — เลือกสะพาน (เร็วกว่า ไม่กลัวคลื่น)</li>
+                <li>วัน 3 ขับยาว 4 ชม. (Cologne → Aachen → Bremen) — เผื่อพักทาง</li>
+                <li>เหมาะกับกลุ่ม &lt; 65 ปีที่แข็งแรง</li>
             </ul>
         </div>
 
@@ -471,7 +416,7 @@
             });
         }
     </script>
+    <script src="assets/wiki-images.js"></script>
     <script src="assets/ratings.js"></script>
-
 </body>
 </html>
