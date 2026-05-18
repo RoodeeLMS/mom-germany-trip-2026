@@ -511,6 +511,24 @@ body {
     body { background: white; font-size: 12pt; }
 }
 
+/* ============ Language Toggle ============ */
+.navbar-item.lang-toggle {
+    background: linear-gradient(135deg, var(--autumn-gold) 0%, var(--autumn-gold-light) 100%);
+    color: var(--wine-red-dark) !important;
+    font-weight: 700;
+    border: 2px solid rgba(255,255,255,0.4);
+    margin-left: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+.navbar-item.lang-toggle:hover {
+    background: white;
+    color: var(--wine-red-dark) !important;
+}
+
+/* Suppress Google Translate UI flicker on hover */
+.goog-tooltip, .goog-tooltip:hover { display: none !important; }
+.goog-text-highlight { background-color: transparent !important; box-shadow: none !important; }
+
 /* ============ Iconic/Unmissable Rating ============ */
 .rating-badge {
     display: inline-flex;
