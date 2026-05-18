@@ -54,6 +54,13 @@
             box-shadow: 0 12px 25px rgba(125,40,40,0.15);
         }
         .town-card.bonus { border-top-color: var(--soft-brown); opacity: 0.85; }
+        .town-card-image {
+            height: 160px;
+            background-size: cover;
+            background-position: center;
+            background-color: var(--cream-dark);
+            background-image: linear-gradient(135deg, var(--cream-dark) 0%, var(--cream) 100%);
+        }
         .town-card-body {
             padding: 1.4rem;
             flex: 1;
@@ -140,6 +147,7 @@
         <div class="town-grid">
 
             <a href="towns/goslar.html" class="town-card" data-category="route unesco">
+                <div class="town-card-image" data-wiki="Goslar"></div>
                 <div class="town-card-body">
                     <div class="town-emoji">⛪</div>
                     <div class="town-name">กอสลาร์</div>
@@ -153,6 +161,7 @@
             </a>
 
             <a href="towns/wernigerode.html" class="town-card" data-category="route">
+                <div class="town-card-image" data-wiki="Wernigerode Castle"></div>
                 <div class="town-card-body">
                     <div class="town-emoji">🏰</div>
                     <div class="town-name">แวร์นิเกอโรเดอ</div>
@@ -165,6 +174,7 @@
             </a>
 
             <a href="towns/quedlinburg.html" class="town-card" data-category="route unesco">
+                <div class="town-card-image" data-wiki="Quedlinburg"></div>
                 <div class="town-card-body">
                     <div class="town-emoji">🏘️</div>
                     <div class="town-name">เควดลินบวร์ก</div>
@@ -178,6 +188,7 @@
             </a>
 
             <a href="towns/magdeburg.html" class="town-card" data-category="route">
+                <div class="town-card-image" data-wiki="Magdeburg Cathedral"></div>
                 <div class="town-card-body">
                     <div class="town-emoji">🏛️</div>
                     <div class="town-name">มักเดบวร์ก</div>
@@ -190,6 +201,7 @@
             </a>
 
             <a href="towns/berlin.html" class="town-card" data-category="route">
+                <div class="town-card-image" data-wiki="Brandenburg Gate"></div>
                 <div class="town-card-body">
                     <div class="town-emoji">🐻</div>
                     <div class="town-name">แบร์ลิน</div>
@@ -202,6 +214,7 @@
             </a>
 
             <a href="towns/potsdam.html" class="town-card" data-category="route unesco">
+                <div class="town-card-image" data-wiki="Sanssouci"></div>
                 <div class="town-card-body">
                     <div class="town-emoji">👑</div>
                     <div class="town-name">พ็อทซ์ดัม</div>
@@ -215,6 +228,7 @@
             </a>
 
             <a href="towns/dresden.html" class="town-card" data-category="route">
+                <div class="town-card-image" data-wiki="Dresden Frauenkirche"></div>
                 <div class="town-card-body">
                     <div class="town-emoji">⛪</div>
                     <div class="town-name">เดรสเดน</div>
@@ -227,6 +241,7 @@
             </a>
 
             <a href="towns/rostock.html" class="town-card" data-category="route">
+                <div class="town-card-image" data-wiki="Warnemünde"></div>
                 <div class="town-card-body">
                     <div class="town-emoji">🌊</div>
                     <div class="town-name">รอสต็อค</div>
@@ -239,6 +254,7 @@
             </a>
 
             <a href="towns/schwerin.html" class="town-card" data-category="route">
+                <div class="town-card-image" data-wiki="Schwerin Palace"></div>
                 <div class="town-card-body">
                     <div class="town-emoji">🏰</div>
                     <div class="town-name">ชเวริน</div>
@@ -251,6 +267,7 @@
             </a>
 
             <a href="towns/luebeck.html" class="town-card" data-category="route unesco">
+                <div class="town-card-image" data-wiki="Holstentor"></div>
                 <div class="town-card-body">
                     <div class="town-emoji">🍬</div>
                     <div class="town-name">ลือเบค</div>
@@ -264,6 +281,7 @@
             </a>
 
             <a href="towns/hamburg.html" class="town-card" data-category="route">
+                <div class="town-card-image" data-wiki="Speicherstadt"></div>
                 <div class="town-card-body">
                     <div class="town-emoji">⚓</div>
                     <div class="town-name">ฮัมบวร์ก</div>
@@ -283,6 +301,7 @@
         <div class="town-grid">
 
             <a href="towns/hannover.html" class="town-card bonus" data-category="bonus">
+                <div class="town-card-image" data-wiki="Herrenhausen Gardens"></div>
                 <div class="town-card-body">
                     <div class="town-emoji">🌷</div>
                     <div class="town-name">ฮันโนเวอร์</div>
@@ -295,6 +314,7 @@
             </a>
 
             <a href="towns/esslingen.html" class="town-card bonus" data-category="bonus">
+                <div class="town-card-image" data-wiki="Esslingen am Neckar"></div>
                 <div class="town-card-body">
                     <div class="town-emoji">🍷</div>
                     <div class="town-name">เอ็สลิงเงิน</div>
@@ -314,6 +334,8 @@
         <p>🏰 ทริปเยอรมนีของแม่ 2026 — สร้างด้วยความรักโดยลูกชาย</p>
     </footer>
 
+
+    <script src="assets/wiki-images.js"></script>
     <script>
         function filterTowns(category, btn) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
