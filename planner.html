@@ -10,30 +10,68 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Map */
+        /* Mode toggle */
+        .mode-toggle {
+            display: inline-flex;
+            background: white;
+            border-radius: 24px;
+            padding: 4px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+            border: 2px solid var(--autumn-gold);
+            margin: 0.75rem 0;
+        }
+        .mode-btn {
+            padding: 8px 20px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            border-radius: 20px;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--soft-brown);
+            transition: all 0.2s;
+        }
+        .mode-btn.on {
+            background: var(--wine-red);
+            color: white;
+        }
+
+        /* Map layout */
+        .map-layout {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        @media (max-width: 900px) { .map-layout { grid-template-columns: 1fr; } }
+
         #map {
             height: 620px;
             border-radius: 16px;
             box-shadow: 0 6px 20px rgba(0,0,0,0.12);
-            margin: 1rem 0;
+            cursor: grab;
         }
-        @media (max-width: 600px) { #map { height: 450px; } }
+        @media (max-width: 900px) { #map { height: 480px; } }
+        @media (max-width: 600px) { #map { height: 380px; } }
+        #map.plan-mode { cursor: crosshair; }
+
         .map-controls {
             display: flex;
             gap: 0.5rem;
             justify-content: center;
             flex-wrap: wrap;
-            margin: 1rem 0;
+            margin: 0.5rem 0;
         }
-        .map-toggle {
-            padding: 8px 18px;
+        .map-toggle, .preset-btn {
+            padding: 7px 16px;
             border: 2px solid;
-            border-radius: 20px;
+            border-radius: 18px;
             background: white;
             cursor: pointer;
             font-family: inherit;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: all 0.2s;
         }
         .map-toggle.r10 { border-color: #2e8b57; color: #2e8b57; }
@@ -42,21 +80,219 @@
         .map-toggle.r20.on { background: #d97706; color: white; }
         .map-toggle.r30 { border-color: #b91c1c; color: #b91c1c; }
         .map-toggle.r30.on { background: #b91c1c; color: white; }
-        .leaflet-popup-content { font-family: 'Sarabun', sans-serif; }
+
+        .preset-btn { border-color: var(--wine-red); color: var(--wine-red); }
+        .preset-btn:hover { background: var(--wine-red); color: white; }
+
+        /* Trip panel */
+        .trip-panel {
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            height: 620px;
+            max-height: 620px;
+        }
+        @media (max-width: 900px) { .trip-panel { height: auto; max-height: 600px; } }
+
+        .trip-panel h3 {
+            color: var(--wine-red-dark);
+            font-family: 'Playfair Display', 'Sarabun', serif;
+            margin-bottom: 0.5rem;
+        }
+        .trip-panel .panel-hint { font-size: 0.85rem; color: var(--soft-brown); margin-bottom: 0.75rem; }
+        .trip-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.4rem;
+            margin: 0.5rem 0 0.75rem;
+        }
+        .trip-stat {
+            background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 100%);
+            padding: 0.5rem 0.7rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .trip-stat .v {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--wine-red-dark);
+            font-family: 'Playfair Display', serif;
+            line-height: 1;
+        }
+        .trip-stat .l { font-size: 0.75rem; color: var(--soft-brown); }
+
+        .trip-list {
+            flex: 1;
+            overflow-y: auto;
+            border: 1px solid var(--cream-dark);
+            border-radius: 10px;
+            padding: 0.4rem;
+            margin-bottom: 0.5rem;
+            min-height: 200px;
+            background: #fafaf7;
+        }
+        .trip-list .empty {
+            color: var(--soft-brown);
+            text-align: center;
+            padding: 2rem 1rem;
+            font-size: 0.9rem;
+        }
+        .trip-list .empty-icon { font-size: 2.5rem; opacity: 0.4; margin-bottom: 0.5rem; }
+        .trip-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 8px 10px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 4px;
+            border-left: 4px solid var(--autumn-gold);
+            cursor: grab;
+            user-select: none;
+            transition: all 0.15s;
+        }
+        .trip-item:hover { background: var(--cream); }
+        .trip-item.dragging { opacity: 0.5; cursor: grabbing; }
+        .trip-item .ord {
+            background: var(--wine-red);
+            color: white;
+            min-width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            font-size: 0.78rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .trip-item .nm { flex: 1; font-size: 0.92rem; }
+        .trip-item .nm small { color: var(--soft-brown); font-size: 0.75rem; }
+        .trip-item .arrows { display: flex; flex-direction: column; gap: 1px; }
+        .trip-item .arrows button {
+            background: transparent;
+            border: none;
+            color: var(--soft-brown);
+            cursor: pointer;
+            font-size: 0.65rem;
+            padding: 0 4px;
+            line-height: 1;
+        }
+        .trip-item .arrows button:hover { color: var(--wine-red); }
+        .trip-item .remove {
+            background: transparent;
+            border: none;
+            color: #c44;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 0 4px;
+        }
+        .trip-item .remove:hover { color: #900; }
+
+        .panel-actions {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+        .panel-actions button {
+            background: var(--wine-red);
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 14px;
+            font-family: inherit;
+            cursor: pointer;
+            font-size: 0.82rem;
+        }
+        .panel-actions button.alt {
+            background: white;
+            color: var(--wine-red);
+            border: 1.5px solid var(--wine-red);
+        }
+        .panel-actions button:hover { background: var(--wine-red-dark); color: white; }
+
+        /* Custom city pin styles */
+        .city-pin {
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 0 0 1px rgba(0,0,0,0.3), 0 2px 6px rgba(0,0,0,0.25);
+            transition: transform 0.15s;
+        }
+        .city-pin.start { width: 22px !important; height: 22px !important; margin-left: -11px !important; margin-top: -11px !important; background: #5a1a1a; }
+        .city-pin.selected {
+            background: #c9a227 !important;
+            border-color: #7d2828 !important;
+            transform: scale(1.4);
+            z-index: 1000;
+        }
+        .city-pin-label {
+            position: absolute;
+            top: 22px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 700;
+            color: #7d2828;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .leaflet-popup-content { font-family: 'Sarabun', sans-serif; margin: 12px 14px; }
         .map-popup h3 {
             color: var(--wine-red-dark);
             font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
             margin-bottom: 0.3rem;
         }
-        .map-popup .popup-meta { font-size: 0.85rem; color: var(--soft-brown); margin-bottom: 0.4rem; }
-        .map-popup .popup-routes { display: flex; gap: 0.3rem; margin-top: 0.3rem; }
+        .map-popup .popup-meta { font-size: 0.85rem; color: var(--soft-brown); margin-bottom: 0.5rem; }
+        .map-popup .popup-routes { display: flex; gap: 0.3rem; margin-top: 0.4rem; flex-wrap: wrap; }
         .map-popup .popup-route {
-            padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: white;
         }
-        .map-popup .popup-route.r10 { background: #2e8b57; color: white; }
-        .map-popup .popup-route.r20 { background: #d97706; color: white; }
-        .map-popup .popup-route.r30 { background: #b91c1c; color: white; }
-        .map-popup a { color: var(--wine-red); }
+        .map-popup .popup-route.r10 { background: #2e8b57; }
+        .map-popup .popup-route.r20 { background: #d97706; }
+        .map-popup .popup-route.r30 { background: #b91c1c; }
+        .map-popup .popup-route.none { background: #999; }
+        .map-popup .popup-actions {
+            display: flex;
+            gap: 0.4rem;
+            margin-top: 0.6rem;
+            flex-wrap: wrap;
+        }
+        .map-popup .popup-btn {
+            background: var(--wine-red);
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-family: 'Sarabun', sans-serif;
+            font-weight: 600;
+            font-size: 0.82rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .map-popup .popup-btn.alt {
+            background: white;
+            color: var(--wine-red);
+            border: 1.5px solid var(--wine-red);
+        }
+        .map-popup .popup-stars {
+            color: #d4a022;
+            font-size: 0.95rem;
+            letter-spacing: -1px;
+        }
 
         /* Quiz */
         .quiz-card {
@@ -110,50 +346,7 @@
             margin: 0.4rem 0;
         }
 
-        /* City picker */
-        .picker-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 0.4rem;
-            margin: 1rem 0;
-        }
-        .city-check {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            background: var(--cream);
-            padding: 6px 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            user-select: none;
-            transition: background 0.15s;
-        }
-        .city-check:hover { background: var(--cream-dark); }
-        .city-check input { cursor: pointer; }
-        .city-check.selected { background: var(--autumn-gold); color: var(--wine-red-dark); font-weight: 600; }
-        .picker-result {
-            background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 100%);
-            padding: 1rem 1.25rem;
-            border-radius: 10px;
-            margin-top: 1rem;
-            border-left: 5px solid var(--forest-green);
-        }
-        .picker-result .summary { font-size: 1.1rem; }
-        .picker-result strong { color: var(--wine-red-dark); }
-        .picker-controls { display: flex; gap: 0.5rem; margin-top: 0.75rem; flex-wrap: wrap; }
-        .picker-controls button {
-            background: var(--wine-red);
-            color: white;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 16px;
-            font-family: inherit;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-
-        /* Cost calculator */
+        /* Cost */
         .cost-controls {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -164,6 +357,12 @@
         .cost-control label { display: block; font-weight: 600; color: var(--wine-red-dark); margin-bottom: 0.5rem; }
         .cost-control input[type="range"] { width: 100%; }
         .cost-control .value { font-size: 1.4rem; font-weight: 700; color: var(--wine-red-dark); font-family: 'Playfair Display', serif; }
+        .cost-control.synced label::after {
+            content: " ↔ ทริปที่วางแผน";
+            font-size: 0.75rem;
+            color: var(--forest-green);
+            font-weight: 500;
+        }
         .cost-result {
             background: linear-gradient(135deg, var(--wine-red) 0%, var(--autumn-gold) 100%);
             color: white;
@@ -178,10 +377,6 @@
         .cost-breakdown-table td { padding: 4px 8px; }
         .cost-breakdown-table tr:nth-child(even) { background: rgba(0,0,0,0.05); }
 
-        /* Section icons */
-        .section-title { display: flex; align-items: center; gap: 0.5rem; }
-
-        /* Helper anchor scroll */
         .planner-toc {
             display: flex;
             gap: 0.5rem;
@@ -200,6 +395,28 @@
             font-weight: 600;
         }
         .planner-toc a:hover { background: var(--autumn-gold); color: white; }
+
+        .section-title { display: flex; align-items: center; gap: 0.5rem; }
+
+        .legend-mini {
+            display: flex;
+            gap: 0.75rem;
+            font-size: 0.82rem;
+            color: var(--soft-brown);
+            justify-content: center;
+            margin: 0.3rem 0;
+            flex-wrap: wrap;
+        }
+        .legend-mini .dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 3px;
+            vertical-align: middle;
+            border: 1px solid white;
+            box-shadow: 0 0 0 1px rgba(0,0,0,0.3);
+        }
     </style>
 </head>
 <body>
@@ -224,36 +441,88 @@
 
     <header class="page-header">
         <h1>🧭 วางแผนทริป</h1>
-        <p class="subtitle">เครื่องมือช่วยตัดสินใจ — แผนที่ • ควิซ • เลือกเมือง • คำนวณงบ</p>
+        <p class="subtitle">แผนที่โต้ตอบ + ผู้สร้างทริป + ควิซแนะนำ + คำนวณงบ</p>
     </header>
 
     <div class="container">
 
         <div class="planner-toc">
-            <a href="#map-section">🗺️ แผนที่ 3 เส้นทาง</a>
-            <a href="#quiz-section">❓ ควิซแนะนำเส้นทาง</a>
-            <a href="#picker-section">✅ เลือกเมืองที่อยากไป</a>
+            <a href="#map-section">🗺️ แผนที่ + ผู้สร้างทริป</a>
+            <a href="#quiz-section">❓ ควิซแนะนำ</a>
             <a href="#cost-section">💰 คำนวณงบ</a>
         </div>
 
-        <!-- ============ MAP ============ -->
-        <h2 class="section-title" id="map-section">🗺️ แผนที่ 3 เส้นทางบนแผ่นเดียว</h2>
-        <p>เปิด-ปิดเส้นทาง 10/20/30 วัน เพื่อเปรียบเทียบ — แตะที่จุดเมืองเพื่อดูรายละเอียด</p>
+        <!-- ============ MAP + TRIP PLANNER ============ -->
+        <h2 class="section-title" id="map-section">🗺️ แผนที่ + ผู้สร้างทริปเอง</h2>
+        <p>กดปุ่ม "สร้างทริปเอง" → คลิกที่จุดเมืองบนแผนที่เพื่อเพิ่ม/ลบจากทริปของคุณ — ดูระยะทางและจำนวนวันสด ๆ</p>
 
-        <div class="map-controls">
-            <button class="map-toggle r10 on" data-route="10">🟢 10 วัน (11 เมือง)</button>
-            <button class="map-toggle r20" data-route="20">🟠 20 วัน (~18 เมือง)</button>
-            <button class="map-toggle r30" data-route="30">🔴 25 วัน (~24 เมือง, ตัด Benelux)</button>
+        <div style="text-align: center;">
+            <div class="mode-toggle" role="group" aria-label="Mode">
+                <button class="mode-btn on" data-mode="view">👀 ดูเส้นทาง</button>
+                <button class="mode-btn" data-mode="plan">✏️ สร้างทริปเอง</button>
+            </div>
         </div>
 
-        <div id="map"></div>
+        <!-- View mode controls -->
+        <div class="map-controls view-controls">
+            <button class="map-toggle r10 on" data-route="10">🟢 10 วัน</button>
+            <button class="map-toggle r20" data-route="20">🟠 20 วัน</button>
+            <button class="map-toggle r30" data-route="30">🔴 25 วัน Grand Tour</button>
+        </div>
 
-        <div class="callout info">
-            <div class="callout-title">💡 วิธีอ่านแผนที่</div>
+        <!-- Plan mode controls -->
+        <div class="map-controls plan-controls" style="display:none;">
+            <button class="preset-btn" onclick="fillPreset(10)">📋 เริ่มจากแผน 10 วัน</button>
+            <button class="preset-btn" onclick="fillPreset(20)">📋 เริ่มจากแผน 20 วัน</button>
+            <button class="preset-btn" onclick="fillPreset(30)">📋 เริ่มจากแผน 25 วัน</button>
+            <button class="preset-btn" onclick="clearTrip()">🗑️ ล้างทั้งหมด</button>
+        </div>
+
+        <div class="legend-mini">
+            <span><span class="dot" style="background:#5a1a1a;"></span>Frankfurt (เริ่ม-จบ)</span>
+            <span><span class="dot" style="background:#7d2828;"></span>ใน 3 เส้นทาง</span>
+            <span><span class="dot" style="background:#2e8b57;"></span>10 วัน</span>
+            <span><span class="dot" style="background:#d97706;"></span>20 วัน</span>
+            <span><span class="dot" style="background:#b91c1c;"></span>25 วัน</span>
+            <span><span class="dot" style="background:#c9a227;border-color:#7d2828;"></span>เลือกแล้ว</span>
+        </div>
+
+        <div class="map-layout">
+            <div id="map"></div>
+
+            <div class="trip-panel">
+                <h3>✏️ ทริปของฉัน</h3>
+                <div class="panel-hint">คลิกที่จุดบนแผนที่เพื่อเพิ่ม/ลบ — หรือลากเรียงใหม่</div>
+
+                <div class="trip-stats">
+                    <div class="trip-stat"><div class="v" id="ts-cities">0</div><div class="l">เมือง</div></div>
+                    <div class="trip-stat"><div class="v" id="ts-days">0</div><div class="l">วัน (~)</div></div>
+                    <div class="trip-stat"><div class="v" id="ts-km">0</div><div class="l">กม.</div></div>
+                    <div class="trip-stat"><div class="v" id="ts-countries">0</div><div class="l">ประเทศ</div></div>
+                </div>
+
+                <div class="trip-list" id="trip-list">
+                    <div class="empty">
+                        <div class="empty-icon">📍</div>
+                        <div>ยังไม่มีเมืองในทริป<br>กด "สร้างทริปเอง" → คลิกที่จุดบนแผนที่</div>
+                    </div>
+                </div>
+
+                <div class="panel-actions">
+                    <button onclick="syncCost()">💰 คำนวณงบ</button>
+                    <button class="alt" onclick="shareTrip()">🔗 คัดลอกลิงก์</button>
+                    <button class="alt" onclick="exportTrip()">📥 ดาวน์โหลด JSON</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="callout info" style="margin-top: 1rem;">
+            <div class="callout-title">💡 วิธีใช้</div>
             <ul style="margin-top: 0.4rem; padding-left: 1.4rem;">
-                <li><strong>สีจุด</strong> = สีของเส้นทางที่ผ่านเมืองนั้น (มีหลายสีถ้าผ่านหลายเส้นทาง)</li>
-                <li><strong>กดที่จุด</strong> = ดูชื่อเมือง คะแนน และลิงก์ไปคู่มือ</li>
-                <li><strong>ลูกศร</strong> = ทิศทางการเดินทาง</li>
+                <li><strong>โหมด "ดูเส้นทาง"</strong> — คลิกที่จุดเมือง → ดูข้อมูลและเส้นทางที่ผ่าน</li>
+                <li><strong>โหมด "สร้างทริปเอง"</strong> — คลิกที่จุด → เพิ่มหรือลบจากทริปของคุณ • ลูกศร ⬆️⬇️ ในรายการเพื่อสลับลำดับ • ลูกศรขวาเป็นปุ่มลบ ❌</li>
+                <li><strong>เริ่มจากแผน Preset</strong> — กดเพื่อใส่เมืองทั้งหมดของแผน 10/20/25 วัน แล้วปรับเอง</li>
+                <li><strong>คัดลอกลิงก์</strong> — ส่งลิงก์ให้คนอื่นดูทริปของคุณ</li>
             </ul>
         </div>
 
@@ -290,7 +559,7 @@
             </div>
 
             <div class="quiz-question">
-                <h3>4. ตลาดคริสต์มาส + ออสเตรีย/เช็ก สำคัญแค่ไหน?</h3>
+                <h3>4. ตลาดคริสต์มาส + ออสเตรีย/เช็ก/เดนมาร์ก สำคัญแค่ไหน?</h3>
                 <div class="quiz-options" data-q="xmas">
                     <button class="quiz-option" data-v="no">ไม่สำคัญ — เน้นเยอรมัน</button>
                     <button class="quiz-option" data-v="maybe">ลองได้</button>
@@ -315,27 +584,9 @@
             </div>
         </div>
 
-        <!-- ============ CITY PICKER ============ -->
-        <h2 class="section-title" id="picker-section">✅ เลือกเมืองที่อยากไป</h2>
-        <p>ติ๊กเมืองที่อยากเห็น → เราคำนวณวันที่ต้องใช้และเส้นทางที่เหมาะ</p>
-
-        <div class="quiz-card">
-            <div class="picker-grid" id="picker-grid"></div>
-            <div class="picker-controls">
-                <button onclick="pickerClear()">ล้างทั้งหมด</button>
-                <button onclick="pickerSelect('r10')">เลือกตามเส้นทาง 10 วัน</button>
-                <button onclick="pickerSelect('r20')">เลือกตามเส้นทาง 20 วัน</button>
-                <button onclick="pickerSelect('r30')">เลือกตามเส้นทาง 30 วัน</button>
-            </div>
-            <div class="picker-result" id="picker-result">
-                <p class="summary">เลือก <strong>0 เมือง</strong> — ต้องใช้ <strong>0 วัน</strong> โดยประมาณ</p>
-                <p style="font-size:0.9rem; color:var(--soft-brown); margin-top:0.4rem;" id="picker-suggest"></p>
-            </div>
-        </div>
-
-        <!-- ============ COST CALCULATOR ============ -->
+        <!-- ============ COST ============ -->
         <h2 class="section-title" id="cost-section">💰 คำนวณงบ</h2>
-        <p>ปรับจำนวนคน + จำนวนวัน + ระดับโรงแรม → คำนวณงบรวมและต่อคน</p>
+        <p>ปรับจำนวนคน + วัน + ระดับโรงแรม → ดูงบรวมและต่อคนสด ๆ</p>
 
         <div class="quiz-card">
             <div class="cost-controls">
@@ -343,7 +594,7 @@
                     <label>👥 จำนวนคน <span class="value" id="cost-pax">8</span></label>
                     <input type="range" id="r-pax" min="2" max="12" value="8" oninput="recalcCost()">
                 </div>
-                <div class="cost-control">
+                <div class="cost-control" id="days-control">
                     <label>📅 จำนวนวัน <span class="value" id="cost-days">10</span></label>
                     <input type="range" id="r-days" min="7" max="30" value="10" oninput="recalcCost()">
                 </div>
@@ -383,116 +634,414 @@
     <script>
         // ============ City database ============
         const CITIES = {
-            'frankfurt':     { thai:'แฟรงก์เฟิร์ต', en:'Frankfurt', lat:50.1109, lon:8.6821, country:'🇩🇪', r10:'start', r20:'start', r30:'start' },
-            'goslar':        { thai:'กอสลาร์', en:'Goslar', lat:51.9067, lon:10.4292, country:'🇩🇪', r10:1, r20:1, r30:0 },
-            'wernigerode':   { thai:'แวร์นิเกอโรเดอ', en:'Wernigerode', lat:51.8369, lon:10.7833, country:'🇩🇪', r10:1, r20:1, r30:0 },
-            'quedlinburg':   { thai:'เควดลินบวร์ก', en:'Quedlinburg', lat:51.7867, lon:11.1453, country:'🇩🇪', r10:1, r20:1, r30:0 },
-            'magdeburg':     { thai:'มักเดบวร์ก', en:'Magdeburg', lat:52.1314, lon:11.6399, country:'🇩🇪', r10:1, r20:0, r30:0 },
-            'berlin':        { thai:'แบร์ลิน', en:'Berlin', lat:52.5200, lon:13.4050, country:'🇩🇪', r10:3, r20:3, r30:3 },
-            'potsdam':       { thai:'พ็อทซ์ดัม', en:'Potsdam', lat:52.4009, lon:13.0591, country:'🇩🇪', r10:1, r20:1, r30:1 },
-            'dresden':       { thai:'เดรสเดน', en:'Dresden', lat:51.0504, lon:13.7373, country:'🇩🇪', r10:1, r20:1, r30:1 },
-            'rostock':       { thai:'รอสต็อค', en:'Rostock', lat:54.0887, lon:12.1400, country:'🇩🇪', r10:1, r20:1, r30:1 },
-            'schwerin':      { thai:'ชเวริน', en:'Schwerin', lat:53.6355, lon:11.4012, country:'🇩🇪', r10:1, r20:1, r30:1 },
-            'luebeck':       { thai:'ลือเบค', en:'Lübeck', lat:53.8655, lon:10.6866, country:'🇩🇪', r10:1, r20:1, r30:1 },
-            'hamburg':       { thai:'ฮัมบวร์ก', en:'Hamburg', lat:53.5511, lon:9.9937, country:'🇩🇪', r10:1, r20:2, r30:2 },
-            'hannover':      { thai:'ฮันโนเวอร์', en:'Hannover', lat:52.3759, lon:9.7320, country:'🇩🇪', r10:0, r20:1, r30:0 },
-            'heidelberg':    { thai:'ไฮเดลแบร์ก', en:'Heidelberg', lat:49.4093, lon:8.6940, country:'🇩🇪', r10:0, r20:1, r30:1 },
-            'wuerzburg':     { thai:'เวือร์ซบวร์ก', en:'Würzburg', lat:49.7913, lon:9.9534, country:'🇩🇪', r10:0, r20:1, r30:1 },
-            'rothenburg':    { thai:'โรเทินบวร์ก', en:'Rothenburg', lat:49.3786, lon:10.1796, country:'🇩🇪', r10:0, r20:1, r30:1 },
-            'nuremberg':     { thai:'นูเรมแบร์ก', en:'Nürnberg', lat:49.4521, lon:11.0767, country:'🇩🇪', r10:0, r20:1, r30:1 },
-            'bamberg':       { thai:'บัมแบร์ก', en:'Bamberg', lat:49.8917, lon:10.8917, country:'🇩🇪', r10:0, r20:1, r30:1 },
-            'munich':        { thai:'มิวนิก', en:'München', lat:48.1351, lon:11.5820, country:'🇩🇪', r10:0, r20:2, r30:2 },
-            'cologne':       { thai:'โคโลญ', en:'Köln', lat:50.9375, lon:6.9603, country:'🇩🇪', r10:0, r20:1, r30:1 },
-            'aachen':        { thai:'อาเคิน', en:'Aachen', lat:50.7753, lon:6.0839, country:'🇩🇪', r10:0, r20:1, r30:1 },
-            'trier':         { thai:'เทรียร์', en:'Trier', lat:49.7567, lon:6.6414, country:'🇩🇪', r10:0, r20:0, r30:1 },
-            'bremen':        { thai:'เบรเมน', en:'Bremen', lat:53.0793, lon:8.8017, country:'🇩🇪', r10:0, r20:1, r30:1 },
-            'salzburg':      { thai:'ซาลซ์บวร์ก', en:'Salzburg', lat:47.8095, lon:13.0550, country:'🇦🇹', r10:0, r20:0, r30:1 },
-            'hallstatt':     { thai:'ฮัลล์ชตัทท์', en:'Hallstatt', lat:47.5622, lon:13.6493, country:'🇦🇹', r10:0, r20:0, r30:1 },
-            'vienna':        { thai:'เวียนนา', en:'Wien', lat:48.2082, lon:16.3738, country:'🇦🇹', r10:0, r20:0, r30:2 },
-            'prague':        { thai:'ปราก', en:'Praha', lat:50.0755, lon:14.4378, country:'🇨🇿', r10:0, r20:0, r30:2 },
-            'cesky-krumlov': { thai:'เชสกี้ครุมลอฟ', en:'Č. Krumlov', lat:48.8127, lon:14.3175, country:'🇨🇿', r10:0, r20:0, r30:1 },
-            'amsterdam':     { thai:'อัมสเตอร์ดัม (ข้าม)', en:'Amsterdam (skipped)', lat:52.3676, lon:4.9041, country:'🇳🇱', r10:0, r20:0, r30:0 },
-            'bruges':        { thai:'บรูซ (ข้าม)', en:'Brugge (skipped)', lat:51.2093, lon:3.2247, country:'🇧🇪', r10:0, r20:0, r30:0 },
-            'brussels':      { thai:'บรัสเซลส์ (ข้าม)', en:'Bruxelles (skipped)', lat:50.8503, lon:4.3517, country:'🇧🇪', r10:0, r20:0, r30:0 },
-            'luxembourg':    { thai:'ลักเซมเบิร์ก (ข้าม)', en:'Luxembourg (skipped)', lat:49.6116, lon:6.1319, country:'🇱🇺', r10:0, r20:0, r30:0 },
-            'copenhagen':    { thai:'โคเปนเฮเกน', en:'København', lat:55.6761, lon:12.5683, country:'🇩🇰', r10:0, r20:0, r30:2 }
+            'frankfurt':     { thai:'แฟรงก์เฟิร์ต', en:'Frankfurt', lat:50.1109, lon:8.6821, country:'DE', flag:'🇩🇪', r10:'start', r20:'start', r30:'start', n:0 },
+            'goslar':        { thai:'กอสลาร์', en:'Goslar', lat:51.9067, lon:10.4292, country:'DE', flag:'🇩🇪', r10:1, r20:1, r30:0, n:1 },
+            'wernigerode':   { thai:'แวร์นิเกอโรเดอ', en:'Wernigerode', lat:51.8369, lon:10.7833, country:'DE', flag:'🇩🇪', r10:1, r20:1, r30:0, n:1 },
+            'quedlinburg':   { thai:'เควดลินบวร์ก', en:'Quedlinburg', lat:51.7867, lon:11.1453, country:'DE', flag:'🇩🇪', r10:1, r20:1, r30:0, n:1 },
+            'magdeburg':     { thai:'มักเดบวร์ก', en:'Magdeburg', lat:52.1314, lon:11.6399, country:'DE', flag:'🇩🇪', r10:1, r20:0, r30:0, n:1 },
+            'berlin':        { thai:'แบร์ลิน', en:'Berlin', lat:52.5200, lon:13.4050, country:'DE', flag:'🇩🇪', r10:3, r20:3, r30:3, n:3 },
+            'potsdam':       { thai:'พ็อทซ์ดัม', en:'Potsdam', lat:52.4009, lon:13.0591, country:'DE', flag:'🇩🇪', r10:1, r20:1, r30:1, n:1 },
+            'dresden':       { thai:'เดรสเดน', en:'Dresden', lat:51.0504, lon:13.7373, country:'DE', flag:'🇩🇪', r10:1, r20:1, r30:1, n:1 },
+            'rostock':       { thai:'รอสต็อค', en:'Rostock', lat:54.0887, lon:12.1400, country:'DE', flag:'🇩🇪', r10:1, r20:1, r30:1, n:1 },
+            'schwerin':      { thai:'ชเวริน', en:'Schwerin', lat:53.6355, lon:11.4012, country:'DE', flag:'🇩🇪', r10:1, r20:1, r30:1, n:1 },
+            'luebeck':       { thai:'ลือเบค', en:'Lübeck', lat:53.8655, lon:10.6866, country:'DE', flag:'🇩🇪', r10:1, r20:1, r30:1, n:1 },
+            'hamburg':       { thai:'ฮัมบวร์ก', en:'Hamburg', lat:53.5511, lon:9.9937, country:'DE', flag:'🇩🇪', r10:1, r20:2, r30:2, n:2 },
+            'hannover':      { thai:'ฮันโนเวอร์', en:'Hannover', lat:52.3759, lon:9.7320, country:'DE', flag:'🇩🇪', r10:0, r20:1, r30:0, n:1 },
+            'heidelberg':    { thai:'ไฮเดลแบร์ก', en:'Heidelberg', lat:49.4093, lon:8.6940, country:'DE', flag:'🇩🇪', r10:0, r20:1, r30:1, n:1 },
+            'wuerzburg':     { thai:'เวือร์ซบวร์ก', en:'Würzburg', lat:49.7913, lon:9.9534, country:'DE', flag:'🇩🇪', r10:0, r20:1, r30:1, n:1 },
+            'rothenburg':    { thai:'โรเทินบวร์ก', en:'Rothenburg', lat:49.3786, lon:10.1796, country:'DE', flag:'🇩🇪', r10:0, r20:1, r30:1, n:1 },
+            'nuremberg':     { thai:'นูเรมแบร์ก', en:'Nürnberg', lat:49.4521, lon:11.0767, country:'DE', flag:'🇩🇪', r10:0, r20:1, r30:1, n:1 },
+            'bamberg':       { thai:'บัมแบร์ก', en:'Bamberg', lat:49.8917, lon:10.8917, country:'DE', flag:'🇩🇪', r10:0, r20:1, r30:1, n:1 },
+            'munich':        { thai:'มิวนิก', en:'München', lat:48.1351, lon:11.5820, country:'DE', flag:'🇩🇪', r10:0, r20:2, r30:2, n:2 },
+            'cologne':       { thai:'โคโลญ', en:'Köln', lat:50.9375, lon:6.9603, country:'DE', flag:'🇩🇪', r10:0, r20:1, r30:1, n:1 },
+            'aachen':        { thai:'อาเคิน', en:'Aachen', lat:50.7753, lon:6.0839, country:'DE', flag:'🇩🇪', r10:0, r20:1, r30:1, n:1 },
+            'trier':         { thai:'เทรียร์', en:'Trier', lat:49.7567, lon:6.6414, country:'DE', flag:'🇩🇪', r10:0, r20:0, r30:1, n:1 },
+            'bremen':        { thai:'เบรเมน', en:'Bremen', lat:53.0793, lon:8.8017, country:'DE', flag:'🇩🇪', r10:0, r20:1, r30:1, n:1 },
+            'salzburg':      { thai:'ซาลซ์บวร์ก', en:'Salzburg', lat:47.8095, lon:13.0550, country:'AT', flag:'🇦🇹', r10:0, r20:0, r30:1, n:1 },
+            'hallstatt':     { thai:'ฮัลล์ชตัทท์', en:'Hallstatt', lat:47.5622, lon:13.6493, country:'AT', flag:'🇦🇹', r10:0, r20:0, r30:1, n:1 },
+            'vienna':        { thai:'เวียนนา', en:'Wien', lat:48.2082, lon:16.3738, country:'AT', flag:'🇦🇹', r10:0, r20:0, r30:2, n:2 },
+            'prague':        { thai:'ปราก', en:'Praha', lat:50.0755, lon:14.4378, country:'CZ', flag:'🇨🇿', r10:0, r20:0, r30:2, n:2 },
+            'cesky-krumlov': { thai:'เชสกี้ครุมลอฟ', en:'Č. Krumlov', lat:48.8127, lon:14.3175, country:'CZ', flag:'🇨🇿', r10:0, r20:0, r30:1, n:1 },
+            'copenhagen':    { thai:'โคเปนเฮเกน', en:'København', lat:55.6761, lon:12.5683, country:'DK', flag:'🇩🇰', r10:0, r20:0, r30:2, n:2 },
+            // Visited before — kept for reference, not selectable
+            'amsterdam':     { thai:'อัมสเตอร์ดัม', en:'Amsterdam (เคยไป)', lat:52.3676, lon:4.9041, country:'NL', flag:'🇳🇱', r10:0, r20:0, r30:0, n:0, skip:true },
+            'bruges':        { thai:'บรูซ', en:'Brugge (เคยไป)', lat:51.2093, lon:3.2247, country:'BE', flag:'🇧🇪', r10:0, r20:0, r30:0, n:0, skip:true },
+            'brussels':      { thai:'บรัสเซลส์', en:'Bruxelles (เคยไป)', lat:50.8503, lon:4.3517, country:'BE', flag:'🇧🇪', r10:0, r20:0, r30:0, n:0, skip:true },
+            'luxembourg':    { thai:'ลักเซมเบิร์ก', en:'Luxembourg (เคยไป)', lat:49.6116, lon:6.1319, country:'LU', flag:'🇱🇺', r10:0, r20:0, r30:0, n:0, skip:true }
         };
 
-        // ============ Route orders (in travel sequence) ============
+        const RATINGS_LOCAL = {
+            'berlin':5,'munich':5,'vienna':5,'prague':5,'rothenburg':5,'hallstatt':5,'cesky-krumlov':5,
+            'hamburg':4,'dresden':4,'frankfurt':4,'cologne':4,'salzburg':4,'heidelberg':4,'luebeck':4,
+            'wuerzburg':4,'quedlinburg':4,'nuremberg':4,'bamberg':4,'copenhagen':4,'potsdam':4,
+            'wernigerode':3,'goslar':3,'aachen':3,'trier':3,'bremen':3,'magdeburg':3,
+            'schwerin':2,'rostock':2,'hannover':2
+        };
+
         const ROUTE_10 = ['frankfurt','goslar','wernigerode','quedlinburg','magdeburg','berlin','potsdam','dresden','rostock','schwerin','luebeck','hamburg','frankfurt'];
         const ROUTE_20 = ['frankfurt','heidelberg','wuerzburg','rothenburg','nuremberg','bamberg','munich','berlin','potsdam','dresden','quedlinburg','goslar','wernigerode','hannover','bremen','hamburg','luebeck','schwerin','rostock','magdeburg','cologne','aachen','frankfurt'];
         const ROUTE_30 = ['frankfurt','cologne','aachen','bremen','hamburg','luebeck','copenhagen','schwerin','rostock','berlin','potsdam','dresden','prague','cesky-krumlov','vienna','salzburg','hallstatt','munich','nuremberg','bamberg','wuerzburg','rothenburg','heidelberg','trier','frankfurt'];
 
         const ROUTE_COLORS = { 10: '#2e8b57', 20: '#d97706', 30: '#b91c1c' };
 
-        // ============ MAP ============
+        // ============ State ============
+        let mode = 'view';   // 'view' | 'plan'
+        let trip = [];       // array of slugs (the user's custom trip, ordered)
+        let userTouchedDays = false;
+
+        // ============ Map setup ============
         const map = L.map('map', { center: [50.8, 10.5], zoom: 5, scrollWheelZoom: false });
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap', maxZoom: 18
         }).addTo(map);
 
+        // Route polyline layers (toggleable)
         const routeLayers = { 10: L.layerGroup(), 20: L.layerGroup(), 30: L.layerGroup() };
-
-        function buildRouteLayer(route, color, lg) {
+        Object.entries({10:ROUTE_10, 20:ROUTE_20, 30:ROUTE_30}).forEach(([r, route]) => {
             const coords = route.map(s => [CITIES[s].lat, CITIES[s].lon]);
-            L.polyline(coords, { color: color, weight: 4, opacity: 0.7 }).addTo(lg);
-            route.forEach((s, i) => {
-                if (s === 'frankfurt' && i > 0 && i < route.length - 1) return; // skip middle Frankfurt
-            });
-        }
-        buildRouteLayer(ROUTE_10, ROUTE_COLORS[10], routeLayers[10]);
-        buildRouteLayer(ROUTE_20, ROUTE_COLORS[20], routeLayers[20]);
-        buildRouteLayer(ROUTE_30, ROUTE_COLORS[30], routeLayers[30]);
+            L.polyline(coords, { color: ROUTE_COLORS[+r], weight: 4, opacity: 0.65 }).addTo(routeLayers[r]);
+        });
+        map.addLayer(routeLayers[10]);  // default
 
-        // Markers for every city
-        const markers = {};
-        Object.entries(CITIES).forEach(([slug, c]) => {
+        // Custom trip polyline
+        let tripPolyline = null;
+
+        // ============ Markers ============
+        const markerMap = {};  // slug → marker
+        function getPinColor(slug) {
+            const c = CITIES[slug];
+            if (c.skip) return '#999';
             const inRoutes = [];
             if (c.r10) inRoutes.push(10);
             if (c.r20) inRoutes.push(20);
             if (c.r30) inRoutes.push(30);
+            if (inRoutes.length === 0) return '#888';
+            if (inRoutes.length === 3) return '#7d2828';
+            return ROUTE_COLORS[inRoutes[0]];
+        }
+
+        function buildMarker(slug) {
+            const c = CITIES[slug];
             const isStart = (c.r10 === 'start' || c.r20 === 'start' || c.r30 === 'start');
-            const pinColor = inRoutes.length === 0 ? '#888' :
-                            (inRoutes.length === 3 ? '#7d2828' :
-                            ROUTE_COLORS[inRoutes[0]]);
+            const pinColor = getPinColor(slug);
+            const size = isStart ? 22 : 14;
+            const html = `<div class="city-pin ${isStart?'start':''}" style="background:${pinColor};width:${size}px;height:${size}px;"></div>`;
             const icon = L.divIcon({
-                className: 'city-pin',
-                html: `<div style="background:${pinColor};border:2px solid white;border-radius:50%;width:${isStart?18:14}px;height:${isStart?18:14}px;box-shadow:0 0 0 1px rgba(0,0,0,0.3);"></div>`,
-                iconSize: [16, 16], iconAnchor: [8, 8]
+                className: '',
+                html,
+                iconSize: [size, size],
+                iconAnchor: [size/2, size/2]
             });
-            const m = L.marker([c.lat, c.lon], { icon });
-            const routesHtml = inRoutes.map(r =>
-                `<span class="popup-route r${r}">${r} วัน${c['r' + r] === 'start' ? ' (เริ่ม-จบ)' : (typeof c['r' + r] === 'number' && c['r' + r] > 1 ? ' (' + c['r' + r] + ' คืน)' : '')}</span>`
-            ).join('');
-            const townLink = ['amsterdam','bruges','brussels','luxembourg','copenhagen','prague','cesky-krumlov','vienna','salzburg','hallstatt'].includes(slug) || true
-                ? `towns/${slug}.html` : '';
-            m.bindPopup(`<div class="map-popup">
-                <h3>${c.country} ${c.thai}</h3>
-                <div class="popup-meta">${c.en}</div>
-                <div class="popup-routes">${routesHtml || '<em style="color:#888;font-size:0.85rem;">ไม่อยู่ในเส้นทางหลัก</em>'}</div>
-                <a href="${townLink}" style="display:block;margin-top:0.5rem;color:var(--wine-red);font-weight:600;">→ ดูคู่มือเมือง</a>
-            </div>`);
-            markers[slug] = m;
-            // Add to first route layer it's in (so toggling works)
-            inRoutes.forEach(r => routeLayers[r].addLayer(L.marker([c.lat, c.lon], { icon })));
+            const m = L.marker([c.lat, c.lon], { icon, title: c.thai + ' • ' + c.en });
+            m._slug = slug;
+            m.on('click', () => onMarkerClick(slug, m));
+            return m;
+        }
+
+        // Build all markers once and add to a single layer (always visible)
+        const markersLayer = L.layerGroup().addTo(map);
+        Object.keys(CITIES).forEach(slug => {
+            const m = buildMarker(slug);
+            markerMap[slug] = m;
+            m.addTo(markersLayer);
         });
 
-        // Default: show only route 10
-        map.addLayer(routeLayers[10]);
+        function onMarkerClick(slug, m) {
+            if (mode === 'plan') {
+                if (CITIES[slug].skip) return;  // can't add skipped cities
+                toggleCity(slug);
+            } else {
+                showPopup(slug, m);
+            }
+        }
 
+        function showPopup(slug, m) {
+            const c = CITIES[slug];
+            const rating = RATINGS_LOCAL[slug];
+            const stars = rating ? '<span class="popup-stars">' + '★'.repeat(rating) + '☆'.repeat(5-rating) + '</span>' : '';
+            const inRoutes = [];
+            if (c.r10) inRoutes.push(10);
+            if (c.r20) inRoutes.push(20);
+            if (c.r30) inRoutes.push(30);
+            const routesHtml = inRoutes.length === 0
+                ? (c.skip ? '<span class="popup-route none">เคยไปแล้ว — ตัดจากเส้นทาง</span>' : '<span class="popup-route none">ไม่อยู่ในเส้นทางหลัก</span>')
+                : inRoutes.map(r => {
+                    const label = r === 30 ? '25 วัน' : r + ' วัน';
+                    const nights = c['r' + r];
+                    let suffix = '';
+                    if (nights === 'start') suffix = ' (เริ่ม-จบ)';
+                    else if (typeof nights === 'number' && nights > 1) suffix = ' (' + nights + ' คืน)';
+                    return `<span class="popup-route r${r}">${label}${suffix}</span>`;
+                  }).join('');
+            const isSel = trip.includes(slug);
+            const planBtn = c.skip
+                ? ''
+                : (isSel
+                    ? `<button class="popup-btn alt" onclick="toggleCity('${slug}');map.closePopup();">➖ เอาออกจากทริป</button>`
+                    : `<button class="popup-btn" onclick="toggleCity('${slug}');map.closePopup();">➕ เพิ่มเข้าทริป</button>`);
+            const townLink = `<a href="towns/${slug}.html" class="popup-btn alt" target="_blank">📖 ดูคู่มือ</a>`;
+            const popup = `<div class="map-popup">
+                <h3>${c.flag} ${c.thai}</h3>
+                <div class="popup-meta">${c.en} ${stars}</div>
+                <div class="popup-routes">${routesHtml}</div>
+                <div class="popup-actions">${planBtn} ${townLink}</div>
+            </div>`;
+            m.bindPopup(popup, { maxWidth: 280, autoClose: true }).openPopup();
+        }
+
+        // ============ Mode switching ============
+        function setMode(newMode) {
+            mode = newMode;
+            document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('on', b.dataset.mode === newMode));
+            document.querySelector('.view-controls').style.display = (newMode === 'view') ? 'flex' : 'none';
+            document.querySelector('.plan-controls').style.display = (newMode === 'plan') ? 'flex' : 'none';
+            document.getElementById('map').classList.toggle('plan-mode', newMode === 'plan');
+            map.closePopup();
+        }
+        document.querySelectorAll('.mode-btn').forEach(b => {
+            b.addEventListener('click', () => setMode(b.dataset.mode));
+        });
+
+        // ============ Route toggles (view mode) ============
         document.querySelectorAll('.map-toggle').forEach(btn => {
             btn.addEventListener('click', () => {
                 const r = +btn.dataset.route;
                 btn.classList.toggle('on');
-                if (btn.classList.contains('on')) {
-                    map.addLayer(routeLayers[r]);
-                } else {
-                    map.removeLayer(routeLayers[r]);
-                }
+                if (btn.classList.contains('on')) map.addLayer(routeLayers[r]);
+                else map.removeLayer(routeLayers[r]);
             });
         });
 
-        // ============ QUIZ ============
+        // ============ Trip planner ============
+        function toggleCity(slug) {
+            const idx = trip.indexOf(slug);
+            if (idx >= 0) trip.splice(idx, 1);
+            else trip.push(slug);
+            redrawTrip();
+            saveTripToHash();
+        }
+
+        function moveCity(slug, dir) {
+            const idx = trip.indexOf(slug);
+            if (idx < 0) return;
+            const ni = idx + dir;
+            if (ni < 0 || ni >= trip.length) return;
+            [trip[idx], trip[ni]] = [trip[ni], trip[idx]];
+            redrawTrip();
+            saveTripToHash();
+        }
+
+        function clearTrip() {
+            trip = [];
+            redrawTrip();
+            saveTripToHash();
+        }
+
+        function fillPreset(r) {
+            const presetMap = { 10: ROUTE_10, 20: ROUTE_20, 30: ROUTE_30 };
+            const arr = presetMap[r];
+            if (!arr) return;
+            // Drop first/last frankfurt duplicates so user can see Frankfurt at start
+            trip = arr.slice(0, -1).filter(s => !CITIES[s].skip);
+            redrawTrip();
+            saveTripToHash();
+        }
+
+        function redrawTrip() {
+            // Polyline
+            if (tripPolyline) map.removeLayer(tripPolyline);
+            if (trip.length >= 2) {
+                const coords = trip.map(s => [CITIES[s].lat, CITIES[s].lon]);
+                tripPolyline = L.polyline(coords, {
+                    color: '#c9a227',
+                    weight: 5,
+                    opacity: 0.9,
+                    dashArray: null
+                }).addTo(map);
+            }
+            // Marker pins
+            Object.entries(markerMap).forEach(([slug, m]) => {
+                const el = m.getElement();
+                if (!el) return;
+                const pin = el.querySelector('.city-pin');
+                if (!pin) return;
+                const order = trip.indexOf(slug);
+                pin.classList.toggle('selected', order >= 0);
+                // Remove old label
+                const oldLbl = pin.querySelector('.city-pin-label');
+                if (oldLbl) oldLbl.remove();
+                if (order >= 0) {
+                    const lbl = document.createElement('div');
+                    lbl.className = 'city-pin-label';
+                    lbl.textContent = (order + 1);
+                    pin.appendChild(lbl);
+                }
+            });
+            // Stats
+            updateStats();
+            // Side panel
+            renderTripList();
+        }
+
+        function updateStats() {
+            const cities = trip.length;
+            const days = estimateDays();
+            const km = Math.round(estimateDistance());
+            const countries = new Set(trip.map(s => CITIES[s].country)).size;
+            document.getElementById('ts-cities').textContent = cities;
+            document.getElementById('ts-days').textContent = days;
+            document.getElementById('ts-km').textContent = km.toLocaleString();
+            document.getElementById('ts-countries').textContent = countries;
+            // Auto-sync cost days
+            if (!userTouchedDays && days > 0) {
+                const r = document.getElementById('r-days');
+                r.value = Math.min(30, Math.max(7, days));
+                document.getElementById('cost-days').textContent = r.value;
+                document.getElementById('days-control').classList.add('synced');
+                recalcCost();
+            }
+        }
+
+        function estimateDays() {
+            if (trip.length === 0) return 0;
+            // sum of suggested nights + 1 (last day flying out)
+            const nights = trip.reduce((acc, s) => acc + (CITIES[s].n || 1), 0);
+            return nights + 1;
+        }
+
+        function haversine(a, b) {
+            const R = 6371;
+            const dLat = (b.lat - a.lat) * Math.PI / 180;
+            const dLon = (b.lon - a.lon) * Math.PI / 180;
+            const la1 = a.lat * Math.PI / 180;
+            const la2 = b.lat * Math.PI / 180;
+            const h = Math.sin(dLat/2)**2 + Math.cos(la1)*Math.cos(la2)*Math.sin(dLon/2)**2;
+            return 2 * R * Math.asin(Math.sqrt(h));
+        }
+
+        function estimateDistance() {
+            if (trip.length < 2) return 0;
+            let km = 0;
+            for (let i = 1; i < trip.length; i++) {
+                km += haversine(CITIES[trip[i-1]], CITIES[trip[i]]);
+            }
+            // Multiply by ~1.3 to account for road vs straight-line
+            return km * 1.3;
+        }
+
+        function renderTripList() {
+            const list = document.getElementById('trip-list');
+            if (trip.length === 0) {
+                list.innerHTML = '<div class="empty"><div class="empty-icon">📍</div><div>ยังไม่มีเมืองในทริป<br>กด "สร้างทริปเอง" → คลิกที่จุดบนแผนที่</div></div>';
+                return;
+            }
+            list.innerHTML = trip.map((slug, i) => {
+                const c = CITIES[slug];
+                const rating = RATINGS_LOCAL[slug];
+                const stars = rating ? '★'.repeat(rating) : '';
+                return `<div class="trip-item" draggable="true" data-slug="${slug}">
+                    <span class="ord">${i+1}</span>
+                    <div class="nm"><strong>${c.flag} ${c.thai}</strong><br><small>${c.n} คืน • ${stars}</small></div>
+                    <div class="arrows">
+                        <button onclick="moveCity('${slug}',-1)" title="ย้ายขึ้น">▲</button>
+                        <button onclick="moveCity('${slug}',1)" title="ย้ายลง">▼</button>
+                    </div>
+                    <button class="remove" onclick="toggleCity('${slug}')" title="เอาออก">×</button>
+                </div>`;
+            }).join('');
+
+            // Drag-and-drop
+            let dragging = null;
+            list.querySelectorAll('.trip-item').forEach(el => {
+                el.addEventListener('dragstart', (e) => {
+                    dragging = el.dataset.slug;
+                    el.classList.add('dragging');
+                });
+                el.addEventListener('dragend', () => {
+                    el.classList.remove('dragging');
+                });
+                el.addEventListener('dragover', e => e.preventDefault());
+                el.addEventListener('drop', e => {
+                    e.preventDefault();
+                    if (!dragging || dragging === el.dataset.slug) return;
+                    const fromIdx = trip.indexOf(dragging);
+                    const toIdx = trip.indexOf(el.dataset.slug);
+                    trip.splice(fromIdx, 1);
+                    trip.splice(toIdx, 0, dragging);
+                    redrawTrip();
+                    saveTripToHash();
+                });
+            });
+        }
+
+        // ============ Share / Export ============
+        function saveTripToHash() {
+            if (trip.length === 0) {
+                if (location.hash) history.replaceState(null, '', location.pathname);
+                return;
+            }
+            history.replaceState(null, '', '#trip=' + trip.join(','));
+        }
+        function loadTripFromHash() {
+            const m = location.hash.match(/trip=([a-z0-9,-]+)/i);
+            if (!m) return;
+            const slugs = m[1].split(',').filter(s => CITIES[s]);
+            if (slugs.length > 0) {
+                trip = slugs;
+                setMode('plan');
+                redrawTrip();
+            }
+        }
+        function shareTrip() {
+            if (trip.length === 0) { alert('ยังไม่มีเมืองในทริป'); return; }
+            saveTripToHash();
+            navigator.clipboard.writeText(location.href).then(() => {
+                alert('คัดลอกลิงก์เรียบร้อย! แชร์ให้คนอื่นได้เลย');
+            }).catch(() => {
+                prompt('คัดลอกลิงก์นี้:', location.href);
+            });
+        }
+        function exportTrip() {
+            const data = {
+                trip: trip.map(s => ({
+                    slug: s,
+                    name: CITIES[s].thai,
+                    en: CITIES[s].en,
+                    country: CITIES[s].country,
+                    nights: CITIES[s].n
+                })),
+                stats: {
+                    cities: trip.length,
+                    days: estimateDays(),
+                    km: Math.round(estimateDistance()),
+                    countries: new Set(trip.map(s => CITIES[s].country)).size
+                }
+            };
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'my-germany-trip.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        function syncCost() {
+            userTouchedDays = false;
+            updateStats();
+            document.getElementById('cost-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Mark cost-days as user-touched once they move it
+        document.getElementById('r-days').addEventListener('input', () => {
+            userTouchedDays = true;
+            document.getElementById('days-control').classList.remove('synced');
+        });
+
+        // Init from hash if present
+        loadTripFromHash();
+        redrawTrip();
+
+        // ============ Quiz ============
         const quizState = {};
         document.querySelectorAll('.quiz-options').forEach(box => {
             const q = box.dataset.q;
@@ -505,30 +1054,23 @@
                 });
             });
         });
-
         function computeQuiz() {
             let scores = { 10: 0, 20: 0, 30: 0 };
-            // Experience
             if (quizState.experience === 'first') scores[10] += 2;
             if (quizState.experience === 'some') scores[20] += 2;
             if (quizState.experience === 'lots') scores[30] += 2;
-            // Energy
             if (quizState.energy === 'relaxed') scores[10] += 3;
             if (quizState.energy === 'medium') scores[20] += 2;
             if (quizState.energy === 'high') scores[30] += 2;
-            // Time
             if (quizState.time === '2w') scores[10] += 3;
             if (quizState.time === '3w') scores[20] += 3;
             if (quizState.time === 'month') scores[30] += 3;
-            // Christmas markets / Austria
             if (quizState.xmas === 'no') scores[10] += 2;
             if (quizState.xmas === 'maybe') scores[20] += 1;
             if (quizState.xmas === 'yes') scores[30] += 3;
-            // Budget
             if (quizState.budget === 'low') scores[10] += 2;
             if (quizState.budget === 'mid') scores[20] += 2;
             if (quizState.budget === 'high') scores[30] += 2;
-
             const best = Object.entries(scores).sort((a,b) => b[1] - a[1])[0][0];
             const explain = {
                 '10': 'เส้นทางกระชับ ไม่เหนื่อย — เหมาะกับครั้งแรกในเยอรมัน + เน้นคุณภาพมากกว่าจำนวน',
@@ -536,7 +1078,6 @@
                 '30': 'Grand Tour 4 ประเทศ — DE + AT + CZ + DK (ตัด Benelux ที่เคยไปแล้ว) ~25 วัน'
             };
             const links = { '10': 'itinerary.html', '20': 'itinerary-20day.html', '30': 'itinerary-30day.html' };
-
             const dayLabel = { '10': '10', '20': '20', '30': '25' };
             document.getElementById('quiz-recommend').textContent = `เส้นทาง ${dayLabel[best]} วัน`;
             document.getElementById('quiz-explain').textContent = explain[best];
@@ -545,88 +1086,30 @@
             document.getElementById('quiz-result').scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
-        // ============ CITY PICKER ============
-        const pickerGrid = document.getElementById('picker-grid');
-        const ALL_SLUGS = Object.keys(CITIES).filter(s => s !== 'frankfurt');
-        ALL_SLUGS.forEach(slug => {
-            const c = CITIES[slug];
-            const lab = document.createElement('label');
-            lab.className = 'city-check';
-            lab.dataset.slug = slug;
-            lab.innerHTML = `<input type="checkbox" value="${slug}" onchange="recalcPicker()"> ${c.country} ${c.thai}`;
-            pickerGrid.appendChild(lab);
-        });
-
-        function getCheckedSlugs() {
-            return Array.from(document.querySelectorAll('#picker-grid input:checked')).map(i => i.value);
-        }
-
-        function pickerClear() {
-            document.querySelectorAll('#picker-grid input').forEach(i => i.checked = false);
-            recalcPicker();
-        }
-        function pickerSelect(route) {
-            const map = { 'r10': 'r10', 'r20': 'r20', 'r30': 'r30' };
-            document.querySelectorAll('#picker-grid input').forEach(i => {
-                const c = CITIES[i.value];
-                i.checked = !!c[map[route]] && c[map[route]] !== 'start';
-            });
-            recalcPicker();
-        }
-
-        function recalcPicker() {
-            const slugs = getCheckedSlugs();
-            // Update visual
-            document.querySelectorAll('#picker-grid .city-check').forEach(l => {
-                l.classList.toggle('selected', l.querySelector('input').checked);
-            });
-
-            const n = slugs.length;
-            // Estimate days: avg ~1.3 days per city (some get 2-3 nights like Berlin)
-            const daysNeeded = Math.max(n === 0 ? 0 : 4, Math.round(n * 1.4) + 2); // +2 for arrival/departure
-            document.querySelector('#picker-result .summary').innerHTML =
-                `เลือก <strong>${n} เมือง</strong> — ต้องใช้ <strong>~${daysNeeded} วัน</strong> โดยประมาณ`;
-
-            // Suggest matching preset
-            let suggest = '';
-            if (n === 0) suggest = 'เริ่มเลือกเมืองด้านบนค่ะ';
-            else if (daysNeeded <= 11) suggest = '👉 ใกล้เส้นทาง <strong>10 วัน</strong> — <a href="itinerary.html" class="link-inline">ดูตาราง</a>';
-            else if (daysNeeded <= 22) suggest = '👉 ใกล้เส้นทาง <strong>20 วัน</strong> — <a href="itinerary-20day.html" class="link-inline">ดูตาราง</a>';
-            else if (daysNeeded <= 32) suggest = '👉 ใกล้เส้นทาง <strong>30 วัน</strong> — <a href="itinerary-30day.html" class="link-inline">ดูตาราง</a>';
-            else suggest = '⚠️ คุณเลือกเมืองเยอะมาก! ต้องใช้เวลาเกิน 30 วัน — พิจารณาแบ่งเป็น 2 ทริปค่ะ';
-            document.getElementById('picker-suggest').innerHTML = suggest;
-        }
-        recalcPicker();
-
-        // ============ COST CALCULATOR ============
+        // ============ Cost ============
         function recalcCost() {
             const pax = +document.getElementById('r-pax').value;
             const days = +document.getElementById('r-days').value;
             const hotelTier = +document.getElementById('r-hotel').value;
             const classTier = +document.getElementById('r-class').value;
-
             const hotelLabels = ['3★ ประหยัด', '3-4★', '4-5★ หรู'];
             const classLabels = ['Economy', 'Premium Eco', 'Business'];
             document.getElementById('cost-pax').textContent = pax;
             document.getElementById('cost-days').textContent = days;
             document.getElementById('cost-hotel').textContent = hotelLabels[hotelTier - 1];
             document.getElementById('cost-class').textContent = classLabels[classTier - 1];
-
-            // EUR to THB approx 38
             const EUR = 38;
             const flightPerPax = [40000, 60000, 150000][classTier - 1];
-            const hotelPerRoomPerNight = [90, 140, 220][hotelTier - 1]; // EUR
+            const hotelPerRoomPerNight = [90, 140, 220][hotelTier - 1];
             const rooms = Math.ceil(pax / 2);
-            const hotelTotal = rooms * (days - 1) * hotelPerRoomPerNight * EUR;
-            const vanTotal = (days * 500) * EUR; // €500/day fixed
+            const hotelTotal = rooms * Math.max(1, days - 1) * hotelPerRoomPerNight * EUR;
+            const vanTotal = (days * 500) * EUR;
             const foodTotal = pax * days * 60 * EUR;
-            const sightsTotal = pax * days * 25 * EUR; // ค่าเข้า+ของฝาก
+            const sightsTotal = pax * days * 25 * EUR;
             const visa = pax * 5000;
             const flightTotal = pax * flightPerPax;
-
             const total = flightTotal + hotelTotal + vanTotal + foodTotal + sightsTotal + visa;
             const perPerson = total / pax;
-
             const fmt = n => '฿' + Math.round(n).toLocaleString();
             document.getElementById('cost-total').textContent = fmt(total);
             document.getElementById('cost-per-person').textContent = `${fmt(perPerson)} ต่อคน`;
