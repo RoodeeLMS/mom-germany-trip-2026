@@ -511,6 +511,87 @@ body {
     body { background: white; font-size: 12pt; }
 }
 
+/* ============ Iconic/Unmissable Rating ============ */
+.rating-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 3px 10px;
+    border-radius: 14px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    background: linear-gradient(135deg, #fff8e6 0%, #ffeec2 100%);
+    color: var(--wine-red-dark);
+    border: 1px solid var(--autumn-gold);
+}
+.rating-badge.rating-5 {
+    background: linear-gradient(135deg, var(--autumn-gold) 0%, #e8c455 100%);
+    color: var(--wine-red-dark);
+    border-color: var(--wine-red);
+    box-shadow: 0 2px 6px rgba(201, 162, 39, 0.35);
+}
+.rating-badge.rating-4 {
+    background: linear-gradient(135deg, #fef4d6 0%, #fbe5a1 100%);
+    color: var(--wine-red-dark);
+}
+.rating-badge.rating-3 {
+    background: var(--cream);
+    color: var(--soft-brown);
+    border-color: var(--cream-dark);
+}
+.rating-badge.rating-2,
+.rating-badge.rating-1 {
+    background: white;
+    color: var(--soft-brown);
+    border-color: var(--cream-dark);
+    opacity: 0.85;
+}
+.rating-badge .stars-filled {
+    color: #d4a022;
+    letter-spacing: -1px;
+    font-size: 0.95em;
+}
+.rating-badge .stars-empty {
+    color: rgba(0,0,0,0.18);
+    letter-spacing: -1px;
+    font-size: 0.95em;
+}
+.rating-badge .rating-label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.rating-badge.inline.hero-badge {
+    background: rgba(255,255,255,0.92);
+    color: var(--wine-red-dark);
+    border: 1px solid rgba(255,255,255,0.6);
+    padding: 4px 14px;
+}
+.rating-badge.inline.rating-5.hero-badge {
+    background: linear-gradient(135deg, var(--autumn-gold) 0%, #e8c455 100%);
+    color: var(--wine-red-dark);
+    border: 1px solid var(--wine-red);
+}
+.rating-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: center;
+    margin: 0.5rem 0 1rem;
+    font-size: 0.85rem;
+    color: var(--soft-brown);
+}
+.rating-legend .lg-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+.rating-legend .lg-stars {
+    color: #d4a022;
+    letter-spacing: -1px;
+}
+
 /* ============ Wikipedia Images ============ */
 .town-hero-image {
     width: 100%;

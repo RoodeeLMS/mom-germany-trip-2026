@@ -115,6 +115,13 @@
             <p>แต่ละเมืองมีหน้าของตัวเอง พร้อมประวัติ จุดต้องดู เส้นทางเดินครึ่งวัน
             ร้านอาหารแนะนำ จุดถ่ายรูป และเกร็ดความรู้ — กดที่การ์ดเพื่อดูรายละเอียด
             <br>กดดู <a href="routes.html" class="link-inline">เส้นทาง 10/20/30 วัน</a> เพื่อเห็นภาพรวม</p>
+            <div class="rating-legend" style="justify-content: flex-start; margin-top: 0.75rem;">
+                <strong style="color: var(--wine-red-dark);">⭐ คะแนนความ "ห้ามพลาด":</strong>
+                <span class="lg-item"><span class="lg-stars">★★★★★</span> ห้ามพลาด</span>
+                <span class="lg-item"><span class="lg-stars">★★★★</span>☆ แนะนำมาก</span>
+                <span class="lg-item"><span class="lg-stars">★★★</span>☆☆ น่าแวะ</span>
+                <span class="lg-item"><span class="lg-stars">★★</span>☆☆☆ ถ้ามีเวลา</span>
+            </div>
         </div>
 
         <div class="filter-bar">
@@ -558,6 +565,7 @@
     </footer>
 
     <script src="assets/wiki-images.js"></script>
+    <script src="assets/ratings.js"></script>
     <script>
         function filterTowns(category, btn) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));

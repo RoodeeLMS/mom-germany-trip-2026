@@ -140,6 +140,12 @@
             <div class="callout-title">📖 วิธีใช้</div>
             <p>คลิกการ์ดเพื่อดูรายละเอียดแต่ละสถานที่ — ประวัติ ราคา เวลาทำการ จุดถ่ายรูป
             และข้อมูลการเข้าชม กรองตามประเทศหรือสถานะ UNESCO ได้ด้วยปุ่มด้านล่าง</p>
+            <div class="rating-legend" style="justify-content: flex-start; margin-top: 0.75rem;">
+                <strong style="color: var(--wine-red-dark);">⭐ คะแนนความ "ห้ามพลาด":</strong>
+                <span class="lg-item"><span class="lg-stars">★★★★★</span> ห้ามพลาด</span>
+                <span class="lg-item"><span class="lg-stars">★★★★</span>☆ แนะนำมาก</span>
+                <span class="lg-item"><span class="lg-stars">★★★</span>☆☆ น่าแวะ</span>
+            </div>
         </div>
 
         <div class="filter-bar">
@@ -500,6 +506,7 @@
     </footer>
 
     <script src="assets/wiki-images.js"></script>
+    <script src="assets/ratings.js"></script>
     <script>
         function filterSights(category, btn) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
