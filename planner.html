@@ -924,25 +924,62 @@
             saveTripToHash();
         }
 
-        // Nearest-neighbour ordering anchored at Frankfurt (start = end)
+        // Total road distance of an order; closed=true adds the return-to-start leg
+        // (the trip flies in & out of Frankfurt, so it's really a loop).
+        function tourLength(order, closed) {
+            if (order.length < 2) return 0;
+            let km = 0;
+            for (let i = 1; i < order.length; i++) km += roadKm(CITIES[order[i-1]], CITIES[order[i]]);
+            if (closed) km += roadKm(CITIES[order[order.length-1]], CITIES[order[0]]);
+            return km;
+        }
+
+        // Optimize order: nearest-neighbour seed → 2-opt refine.
+        // Anchors at Frankfurt as a closed loop. Never accepts a worse route.
         function optimizeOrder() {
-            if (trip.length < 3) return;
-            const start = trip.includes('frankfurt') ? 'frankfurt' : trip[0];
-            const remaining = trip.filter(s => s !== start);
-            const ordered = [start];
-            let cur = start;
-            while (remaining.length) {
-                let best = 0, bestD = Infinity;
-                for (let i = 0; i < remaining.length; i++) {
-                    const d = haversine(CITIES[cur], CITIES[remaining[i]]);
-                    if (d < bestD) { bestD = d; best = i; }
+            if (trip.length < 4) { alert('ต้องมีอย่างน้อย 4 เมืองก่อนจัดเรียง'); return; }
+            const hasFra = trip.includes('frankfurt');
+            const start = hasFra ? 'frankfurt' : trip[0];
+            const closed = hasFra;  // loop back to FRA only if Frankfurt is in the trip
+
+            // Nearest-neighbour seed
+            let rest = trip.filter(s => s !== start);
+            let nn = [start], cur = start;
+            while (rest.length) {
+                let bi = 0, bd = Infinity;
+                for (let i = 0; i < rest.length; i++) {
+                    const d = haversine(CITIES[cur], CITIES[rest[i]]);
+                    if (d < bd) { bd = d; bi = i; }
                 }
-                cur = remaining.splice(best, 1)[0];
-                ordered.push(cur);
+                cur = rest.splice(bi, 1)[0];
+                nn.push(cur);
             }
-            trip = ordered;
-            redrawTrip();
-            saveTripToHash();
+
+            // 2-opt refine (keep index 0 = start fixed)
+            let best = nn.slice(), improved = true;
+            while (improved) {
+                improved = false;
+                for (let i = 1; i < best.length - 1; i++) {
+                    for (let k = i + 1; k < best.length; k++) {
+                        const cand = best.slice(0, i)
+                            .concat(best.slice(i, k + 1).reverse(), best.slice(k + 1));
+                        if (tourLength(cand, closed) < tourLength(best, closed) - 0.01) {
+                            best = cand; improved = true;
+                        }
+                    }
+                }
+            }
+
+            // Only adopt if strictly better than the user's current order
+            if (tourLength(best, closed) < tourLength(trip, closed) - 1) {
+                const saved = Math.round((tourLength(trip, closed) - tourLength(best, closed)));
+                trip = best;
+                redrawTrip();
+                saveTripToHash();
+                alert('จัดเรียงใหม่แล้ว — ลดระยะขับลง ~' + saved.toLocaleString() + ' กม. 🎉');
+            } else {
+                alert('เส้นทางปัจจุบันสั้นอยู่แล้ว ✓ (จัดเรียงแล้วไม่สั้นลง)');
+            }
         }
 
         function redrawTrip() {
