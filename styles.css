@@ -513,11 +513,17 @@ body {
 
 /* ============ Language Toggle ============ */
 .navbar-item.lang-toggle {
+    display: inline-flex;
+    align-items: center;
     background: linear-gradient(135deg, var(--autumn-gold) 0%, var(--autumn-gold-light) 100%);
     color: var(--wine-red-dark) !important;
     font-weight: 700;
     border: 2px solid rgba(255,255,255,0.4);
     margin-left: 8px;
+    padding: 6px 14px;
+    border-radius: 16px;
+    min-height: 34px;
+    white-space: nowrap;
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 .navbar-item.lang-toggle:hover {
@@ -797,4 +803,25 @@ body {
     .day-header { padding: 1rem 1.1rem; flex-wrap: wrap; }
     .day-route { font-size: 1rem; }
     .section-title { font-size: 1.5rem; }
+    /* Wide tables: contain horizontal scroll to the table, not the whole page */
+    .info-table { display: block; width: max-content; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
 }
+
+/* ============ Town → Hotels deep-link button ============ */
+.town-hotel-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--forest-green);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.7rem 1.3rem;
+    border-radius: 24px;
+    margin: 0 0 1.25rem;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+    transition: transform 0.15s, background 0.15s;
+}
+.town-hotel-btn:hover { background: var(--wine-red); transform: translateY(-1px); }
+.town-hotel-btn:active { transform: translateY(0); }

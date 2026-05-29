@@ -193,7 +193,7 @@
         var note = c.note ? '<div class="hcity-note">'+c.note+'</div>' : '';
         var opts = sortHotels(c.hotels, c).map(function(h){ return optHTML(h,c); }).join('');
         return ''
-          + '<div class="hcity">'
+          + '<div class="hcity" id="city-'+c.slug+'">'
           +   '<div class="hcity-head"><span class="hcity-name">'+c.thai+'</span><span class="hcity-en">'+c.en+'</span></div>'
           +   '<div class="hcity-chips">'+chips+'</div>'
           +   note + opts
@@ -239,6 +239,12 @@
       });
 
       render();
+
+      // If arriving from a town page (e.g. #city-munich), scroll that city into view.
+      if (location.hash) {
+        var tgt = document.getElementById(location.hash.slice(1));
+        if (tgt) { tgt.scrollIntoView(); tgt.style.outline = "3px solid var(--autumn-gold)"; }
+      }
     })();
     </script>
     <script src="assets/ratings.js"></script>

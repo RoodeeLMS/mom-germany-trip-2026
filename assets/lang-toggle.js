@@ -53,9 +53,12 @@
     }
 
     function inject() {
-        const navMenu = document.querySelector('.navbar-menu');
-        if (!navMenu || document.getElementById('lang-toggle')) return;
-        navMenu.appendChild(buildButton());
+        // Inject into the navbar CONTAINER (always visible) rather than the
+        // collapsible menu — otherwise the toggle is hidden behind the ☰
+        // hamburger on phones, where family most need the English switch.
+        const container = document.querySelector('.navbar-container');
+        if (!container || document.getElementById('lang-toggle')) return;
+        container.appendChild(buildButton());
     }
 
     if (document.readyState === 'loading') {
