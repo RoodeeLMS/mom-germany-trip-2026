@@ -737,6 +737,14 @@
 
         const ROUTE_COLORS = { 10: '#2e8b57', 20: '#d97706', 30: '#b91c1c' };
 
+        // Real overnight pattern of each official route (0 = แวะ/pass-through, no overnight).
+        // Sum of nights + 1 departure day = official day count (10 / 20 / 25).
+        const PRESET_NIGHTS = {
+            10: { frankfurt:0, goslar:1, wernigerode:0, quedlinburg:1, magdeburg:0, berlin:3, potsdam:0, dresden:1, rostock:1, schwerin:0, luebeck:1, hamburg:1 },
+            20: { frankfurt:3, heidelberg:1, wuerzburg:0, rothenburg:1, bamberg:0, nuremberg:1, munich:2, berlin:3, potsdam:0, dresden:1, quedlinburg:0, goslar:1, wernigerode:0, hannover:1, bremen:0, hamburg:2, luebeck:0, schwerin:0, rostock:1, magdeburg:1, cologne:1, aachen:0 },
+            30: { frankfurt:2, cologne:1, aachen:0, bremen:1, hamburg:2, luebeck:0, copenhagen:2, schwerin:0, rostock:1, berlin:3, potsdam:0, dresden:0, prague:2, 'cesky-krumlov':0, vienna:2, salzburg:1, hallstatt:0, munich:2, nuremberg:1, bamberg:0, wuerzburg:1, rothenburg:1, heidelberg:1, trier:1 }
+        };
+
         // ============ State ============
         let mode = 'view';   // 'view' | 'plan'
         let trip = [];       // array of slugs (the user's custom trip, ordered)
@@ -880,8 +888,8 @@
         }
 
         function setNights(slug, delta) {
-            const cur = tripNights[slug] || defaultNights(slug);
-            tripNights[slug] = Math.min(14, Math.max(1, cur + delta));
+            const cur = (tripNights[slug] == null) ? defaultNights(slug) : tripNights[slug];
+            tripNights[slug] = Math.min(14, Math.max(0, cur + delta));  // 0 = แวะ (pass-through)
             redrawTrip();
             saveTripToHash();
         }
@@ -909,8 +917,9 @@
             if (!arr) return;
             // Drop trailing frankfurt duplicate so user sees Frankfurt once at start
             trip = arr.slice(0, -1).filter(s => !CITIES[s].skip);
+            const nightsMap = PRESET_NIGHTS[r] || {};
             tripNights = {};
-            trip.forEach(s => tripNights[s] = defaultNights(s));
+            trip.forEach(s => tripNights[s] = (nightsMap[s] != null ? nightsMap[s] : defaultNights(s)));
             redrawTrip();
             saveTripToHash();
         }
@@ -972,8 +981,11 @@
             renderTripList();
         }
 
+        function nightsOf(slug) {
+            return (tripNights[slug] == null) ? defaultNights(slug) : tripNights[slug];
+        }
         function totalNights() {
-            return trip.reduce((acc, s) => acc + (tripNights[s] || defaultNights(s)), 0);
+            return trip.reduce((acc, s) => acc + nightsOf(s), 0);
         }
 
         function updateStats() {
@@ -1045,13 +1057,14 @@
                 const c = CITIES[slug];
                 const rating = RATINGS_LOCAL[slug];
                 const stars = rating ? '★'.repeat(rating) : '';
-                const nights = tripNights[slug] || defaultNights(slug);
+                const nights = nightsOf(slug);
+                const nLabel = nights === 0 ? 'แวะ (ไม่ค้าง)' : nights + ' คืน';
                 html += `<div class="trip-item" draggable="true" data-slug="${slug}">
                     <span class="ord">${i+1}</span>
                     <div class="nm"><strong>${c.flag} ${c.thai}</strong> <span style="color:#d4a022;font-size:0.75rem;">${stars}</span>
                         <div class="nights-step">
                             <button onclick="setNights('${slug}',-1)" title="ลดคืน">−</button>
-                            <span class="nval">${nights} คืน</span>
+                            <span class="nval">${nLabel}</span>
                             <button onclick="setNights('${slug}',1)" title="เพิ่มคืน">+</button>
                         </div>
                     </div>
@@ -1107,7 +1120,7 @@
                 return;
             }
             // encode as slug*nights so shared links keep night choices
-            const enc = trip.map(s => `${s}*${tripNights[s] || defaultNights(s)}`).join(',');
+            const enc = trip.map(s => `${s}*${nightsOf(s)}`).join(',');
             history.replaceState(null, '', '#trip=' + enc);
         }
         function loadTripFromHash() {
@@ -1120,7 +1133,7 @@
                 const [slug, n] = p.split('*');
                 if (CITIES[slug]) {
                     newTrip.push(slug);
-                    newNights[slug] = n ? Math.min(14, Math.max(1, parseInt(n))) : defaultNights(slug);
+                    newNights[slug] = (n != null && n !== '') ? Math.min(14, Math.max(0, parseInt(n))) : defaultNights(slug);
                 }
             });
             if (newTrip.length > 0) {
@@ -1146,7 +1159,7 @@
                     name: CITIES[s].thai,
                     en: CITIES[s].en,
                     country: CITIES[s].country,
-                    nights: tripNights[s] || defaultNights(s)
+                    nights: nightsOf(s)
                 })),
                 stats: {
                     cities: trip.length,
