@@ -123,6 +123,55 @@
             line-height: 1;
         }
         .trip-stat .l { font-size: 0.75rem; color: var(--soft-brown); }
+        .trip-substats {
+            text-align: center;
+            font-size: 0.82rem;
+            color: var(--soft-brown);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Nights stepper */
+        .nights-step {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+            margin-top: 2px;
+        }
+        .nights-step button {
+            width: 18px; height: 18px;
+            border: 1px solid var(--cream-dark);
+            background: var(--cream);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            line-height: 1;
+            color: var(--wine-red);
+            padding: 0;
+        }
+        .nights-step button:hover { background: var(--autumn-gold); color: white; }
+        .nights-step .nval { min-width: 34px; text-align: center; font-size: 0.72rem; color: var(--soft-brown); }
+
+        /* Per-leg distance rows between cities */
+        .trip-leg {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.72rem;
+            color: var(--soft-brown);
+            padding: 1px 0 1px 30px;
+            margin-bottom: 2px;
+        }
+        .trip-leg .leg-line { color: var(--cream-dark); }
+        .trip-leg.long {
+            color: #a85b1f;
+            font-weight: 600;
+        }
+        .trip-leg .leg-warn {
+            background: #fff4e6;
+            border: 1px solid #f0c080;
+            border-radius: 8px;
+            padding: 0 6px;
+        }
 
         .trip-list {
             flex: 1;
@@ -475,6 +524,7 @@
             <button class="preset-btn" onclick="fillPreset(10)">📋 เริ่มจากแผน 10 วัน</button>
             <button class="preset-btn" onclick="fillPreset(20)">📋 เริ่มจากแผน 20 วัน</button>
             <button class="preset-btn" onclick="fillPreset(30)">📋 เริ่มจากแผน 25 วัน</button>
+            <button class="preset-btn" onclick="optimizeOrder()">🔀 จัดเรียงให้ขับสั้นสุด</button>
             <button class="preset-btn" onclick="clearTrip()">🗑️ ล้างทั้งหมด</button>
         </div>
 
@@ -492,14 +542,15 @@
 
             <div class="trip-panel">
                 <h3>✏️ ทริปของฉัน</h3>
-                <div class="panel-hint">คลิกที่จุดบนแผนที่เพื่อเพิ่ม/ลบ — หรือลากเรียงใหม่</div>
+                <div class="panel-hint">คลิกที่จุดบนแผนที่เพื่อเพิ่ม/ลบ • ปรับจำนวนคืน − / + • ลากเรียงใหม่</div>
 
                 <div class="trip-stats">
                     <div class="trip-stat"><div class="v" id="ts-cities">0</div><div class="l">เมือง</div></div>
-                    <div class="trip-stat"><div class="v" id="ts-days">0</div><div class="l">วัน (~)</div></div>
-                    <div class="trip-stat"><div class="v" id="ts-km">0</div><div class="l">กม.</div></div>
-                    <div class="trip-stat"><div class="v" id="ts-countries">0</div><div class="l">ประเทศ</div></div>
+                    <div class="trip-stat"><div class="v" id="ts-days">0</div><div class="l">วัน</div></div>
+                    <div class="trip-stat"><div class="v" id="ts-km">0</div><div class="l">กม. ขับ</div></div>
+                    <div class="trip-stat"><div class="v" id="ts-hours">0</div><div class="l">ชม. ขับ</div></div>
                 </div>
+                <div class="trip-substats" id="trip-substats">🌍 0 ประเทศ • 🛏️ 0 คืน</div>
 
                 <div class="trip-list" id="trip-list">
                     <div class="empty">
@@ -520,9 +571,10 @@
             <div class="callout-title">💡 วิธีใช้</div>
             <ul style="margin-top: 0.4rem; padding-left: 1.4rem;">
                 <li><strong>โหมด "ดูเส้นทาง"</strong> — คลิกที่จุดเมือง → ดูข้อมูลและเส้นทางที่ผ่าน</li>
-                <li><strong>โหมด "สร้างทริปเอง"</strong> — คลิกที่จุด → เพิ่มหรือลบจากทริปของคุณ • ลูกศร ⬆️⬇️ ในรายการเพื่อสลับลำดับ • ลูกศรขวาเป็นปุ่มลบ ❌</li>
-                <li><strong>เริ่มจากแผน Preset</strong> — กดเพื่อใส่เมืองทั้งหมดของแผน 10/20/25 วัน แล้วปรับเอง</li>
-                <li><strong>คัดลอกลิงก์</strong> — ส่งลิงก์ให้คนอื่นดูทริปของคุณ</li>
+                <li><strong>โหมด "สร้างทริปเอง"</strong> — คลิกที่จุด → เพิ่ม/ลบ • ปรับ <strong>จำนวนคืน − / +</strong> ในแต่ละเมือง (จำนวนวันคำนวณให้อัตโนมัติ)</li>
+                <li><strong>🔀 จัดเรียงให้ขับสั้นสุด</strong> — กดให้ระบบเรียงลำดับเมืองใหม่เพื่อลดระยะขับ (เริ่ม-จบที่ Frankfurt)</li>
+                <li><strong>⚠️ เตือนวันขับยาว</strong> — ช่วงที่ขับเกิน ~3.5 ชม. จะมีป้ายเตือนสีส้มในรายการ</li>
+                <li><strong>เริ่มจากแผน Preset</strong> — ใส่เมืองทั้งหมดของแผน 10/20/25 วัน แล้วปรับเอง • <strong>คัดลอกลิงก์</strong> แชร์ทริปได้</li>
             </ul>
         </div>
 
@@ -688,6 +740,7 @@
         // ============ State ============
         let mode = 'view';   // 'view' | 'plan'
         let trip = [];       // array of slugs (the user's custom trip, ordered)
+        let tripNights = {}; // slug -> nights the user wants to stay
         let userTouchedDays = false;
 
         // ============ Map setup ============
@@ -814,10 +867,21 @@
         });
 
         // ============ Trip planner ============
+        function defaultNights(slug) {
+            return Math.max(1, CITIES[slug].n || 1);
+        }
+
         function toggleCity(slug) {
             const idx = trip.indexOf(slug);
-            if (idx >= 0) trip.splice(idx, 1);
-            else trip.push(slug);
+            if (idx >= 0) { trip.splice(idx, 1); delete tripNights[slug]; }
+            else { trip.push(slug); tripNights[slug] = defaultNights(slug); }
+            redrawTrip();
+            saveTripToHash();
+        }
+
+        function setNights(slug, delta) {
+            const cur = tripNights[slug] || defaultNights(slug);
+            tripNights[slug] = Math.min(14, Math.max(1, cur + delta));
             redrawTrip();
             saveTripToHash();
         }
@@ -834,6 +898,7 @@
 
         function clearTrip() {
             trip = [];
+            tripNights = {};
             redrawTrip();
             saveTripToHash();
         }
@@ -842,8 +907,31 @@
             const presetMap = { 10: ROUTE_10, 20: ROUTE_20, 30: ROUTE_30 };
             const arr = presetMap[r];
             if (!arr) return;
-            // Drop first/last frankfurt duplicates so user can see Frankfurt at start
+            // Drop trailing frankfurt duplicate so user sees Frankfurt once at start
             trip = arr.slice(0, -1).filter(s => !CITIES[s].skip);
+            tripNights = {};
+            trip.forEach(s => tripNights[s] = defaultNights(s));
+            redrawTrip();
+            saveTripToHash();
+        }
+
+        // Nearest-neighbour ordering anchored at Frankfurt (start = end)
+        function optimizeOrder() {
+            if (trip.length < 3) return;
+            const start = trip.includes('frankfurt') ? 'frankfurt' : trip[0];
+            const remaining = trip.filter(s => s !== start);
+            const ordered = [start];
+            let cur = start;
+            while (remaining.length) {
+                let best = 0, bestD = Infinity;
+                for (let i = 0; i < remaining.length; i++) {
+                    const d = haversine(CITIES[cur], CITIES[remaining[i]]);
+                    if (d < bestD) { bestD = d; best = i; }
+                }
+                cur = remaining.splice(best, 1)[0];
+                ordered.push(cur);
+            }
+            trip = ordered;
             redrawTrip();
             saveTripToHash();
         }
@@ -884,15 +972,23 @@
             renderTripList();
         }
 
+        function totalNights() {
+            return trip.reduce((acc, s) => acc + (tripNights[s] || defaultNights(s)), 0);
+        }
+
         function updateStats() {
             const cities = trip.length;
+            const nights = totalNights();
             const days = estimateDays();
             const km = Math.round(estimateDistance());
+            const hours = totalDriveHours();
             const countries = new Set(trip.map(s => CITIES[s].country)).size;
             document.getElementById('ts-cities').textContent = cities;
             document.getElementById('ts-days').textContent = days;
             document.getElementById('ts-km').textContent = km.toLocaleString();
-            document.getElementById('ts-countries').textContent = countries;
+            document.getElementById('ts-hours').textContent = hours ? '~' + hours : '0';
+            document.getElementById('trip-substats').textContent =
+                `🌍 ${countries} ประเทศ • 🛏️ ${nights} คืน`;
             // Auto-sync cost days
             if (!userTouchedDays && days > 0) {
                 const r = document.getElementById('r-days');
@@ -905,9 +1001,17 @@
 
         function estimateDays() {
             if (trip.length === 0) return 0;
-            // sum of suggested nights + 1 (last day flying out)
-            const nights = trip.reduce((acc, s) => acc + (CITIES[s].n || 1), 0);
-            return nights + 1;
+            // days = total nights you sleep + 1 final departure day
+            return totalNights() + 1;
+        }
+
+        function roadKm(a, b) { return haversine(a, b) * 1.3; }      // straight-line → road
+        function legHours(km) { return km / 80; }                    // ~80 km/h effective
+        function totalDriveHours() {
+            if (trip.length < 2) return 0;
+            let km = 0;
+            for (let i = 1; i < trip.length; i++) km += roadKm(CITIES[trip[i-1]], CITIES[trip[i]]);
+            return Math.round(legHours(km));
         }
 
         function haversine(a, b) {
@@ -936,20 +1040,41 @@
                 list.innerHTML = '<div class="empty"><div class="empty-icon">📍</div><div>ยังไม่มีเมืองในทริป<br>กด "สร้างทริปเอง" → คลิกที่จุดบนแผนที่</div></div>';
                 return;
             }
-            list.innerHTML = trip.map((slug, i) => {
+            let html = '';
+            trip.forEach((slug, i) => {
                 const c = CITIES[slug];
                 const rating = RATINGS_LOCAL[slug];
                 const stars = rating ? '★'.repeat(rating) : '';
-                return `<div class="trip-item" draggable="true" data-slug="${slug}">
+                const nights = tripNights[slug] || defaultNights(slug);
+                html += `<div class="trip-item" draggable="true" data-slug="${slug}">
                     <span class="ord">${i+1}</span>
-                    <div class="nm"><strong>${c.flag} ${c.thai}</strong><br><small>${c.n} คืน • ${stars}</small></div>
+                    <div class="nm"><strong>${c.flag} ${c.thai}</strong> <span style="color:#d4a022;font-size:0.75rem;">${stars}</span>
+                        <div class="nights-step">
+                            <button onclick="setNights('${slug}',-1)" title="ลดคืน">−</button>
+                            <span class="nval">${nights} คืน</span>
+                            <button onclick="setNights('${slug}',1)" title="เพิ่มคืน">+</button>
+                        </div>
+                    </div>
                     <div class="arrows">
                         <button onclick="moveCity('${slug}',-1)" title="ย้ายขึ้น">▲</button>
                         <button onclick="moveCity('${slug}',1)" title="ย้ายลง">▼</button>
                     </div>
                     <button class="remove" onclick="toggleCity('${slug}')" title="เอาออก">×</button>
                 </div>`;
-            }).join('');
+                // Leg to next city
+                if (i < trip.length - 1) {
+                    const km = Math.round(roadKm(c, CITIES[trip[i+1]]));
+                    const h = legHours(km);
+                    const hLabel = h >= 1 ? `~${h.toFixed(1)} ชม.` : `~${Math.round(h*60)} นาที`;
+                    const long = km > 280; // ~3.5h+
+                    html += `<div class="trip-leg${long ? ' long' : ''}">
+                        <span class="leg-line">↓</span>
+                        <span>${km} กม. • ${hLabel}</span>
+                        ${long ? '<span class="leg-warn">⚠️ ขับยาว</span>' : ''}
+                    </div>`;
+                }
+            });
+            list.innerHTML = html;
 
             // Drag-and-drop
             let dragging = null;
@@ -981,14 +1106,26 @@
                 if (location.hash) history.replaceState(null, '', location.pathname);
                 return;
             }
-            history.replaceState(null, '', '#trip=' + trip.join(','));
+            // encode as slug*nights so shared links keep night choices
+            const enc = trip.map(s => `${s}*${tripNights[s] || defaultNights(s)}`).join(',');
+            history.replaceState(null, '', '#trip=' + enc);
         }
         function loadTripFromHash() {
-            const m = location.hash.match(/trip=([a-z0-9,-]+)/i);
+            const m = location.hash.match(/trip=([a-z0-9,*-]+)/i);
             if (!m) return;
-            const slugs = m[1].split(',').filter(s => CITIES[s]);
-            if (slugs.length > 0) {
-                trip = slugs;
+            const parts = m[1].split(',');
+            const newTrip = [];
+            const newNights = {};
+            parts.forEach(p => {
+                const [slug, n] = p.split('*');
+                if (CITIES[slug]) {
+                    newTrip.push(slug);
+                    newNights[slug] = n ? Math.min(14, Math.max(1, parseInt(n))) : defaultNights(slug);
+                }
+            });
+            if (newTrip.length > 0) {
+                trip = newTrip;
+                tripNights = newNights;
                 setMode('plan');
                 redrawTrip();
             }
@@ -1009,12 +1146,14 @@
                     name: CITIES[s].thai,
                     en: CITIES[s].en,
                     country: CITIES[s].country,
-                    nights: CITIES[s].n
+                    nights: tripNights[s] || defaultNights(s)
                 })),
                 stats: {
                     cities: trip.length,
                     days: estimateDays(),
+                    nights: totalNights(),
                     km: Math.round(estimateDistance()),
+                    driveHours: totalDriveHours(),
                     countries: new Set(trip.map(s => CITIES[s].country)).size
                 }
             };
